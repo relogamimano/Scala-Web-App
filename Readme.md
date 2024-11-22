@@ -51,7 +51,7 @@ Roméo will work on the serialization and deserialization process (Wire.scala).
 
 ### Mock-ups
 
-![](mockups/app.png)
+![Mockup](Project_proposal_figures/Mockups.png)
 
 
 ## Team members
