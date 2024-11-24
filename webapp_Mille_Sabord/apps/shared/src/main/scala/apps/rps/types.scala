@@ -22,9 +22,10 @@ object Dice:
   val Sword = "🔪"
   val Monkey = "🐵" //"🐒"
   val Parrot = "🐦"
+  val Empty = "❓"
 
 extension (dice: Dice)
-  def randomDice(self: Dice): Dice=
+  def randomDice(): Dice=
     //Get a random number between the interval [1,7[
     val randomDiceIdx = Random.between(1, 7)
     randomDiceIdx match 
@@ -58,7 +59,7 @@ case class View(
 
 enum StateView:
   /** The game is ongoing. */
-  case Playing(phase: PhaseView, currentPlayer: UserId, dice: Vector[DiceView], button: Vector[ButtonView])
+  case Playing(phase: PhaseView, currentPlayer: UserId, diceView: Vector[DiceView], buttonView: Vector[ButtonView])
 
   /** The game is over (only one winner of the game possible) */
   case Finished(winnerId: UserId)
@@ -97,7 +98,8 @@ enum ButtonView:
   case NonClickable(button: Button)
 
   /** Selected buttons have a small animation when selected*/
-  case Selected(button: Button)
+  //case Selected(button: Button) //Remove so we don't have to store it in the State (could be added later if time)
+  // -> Actually we need to know which button are selected to trigger the SavingEnd
 
 enum Event:
   /** A player has selected a dice. */
@@ -116,7 +118,7 @@ enum Phase:
 case class State (  
   players: Vector[UserId],
   phase: Phase,
-  dice : Vector[Dice],
+  dices : Vector[Dice],
   selectedDice : Set[DiceId],
   score: Map[UserId, Int]
 )

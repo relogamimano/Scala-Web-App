@@ -13,39 +13,25 @@ class Logic extends StateMachine[Event, State, View]:
 
   val appInfo: AppInfo = AppInfo(
     id = "rps",
-    name = "Rock-Paper-Scissors",
-    description = "Rock-Paper-Scissors is a hand game where Rock " +
-      "crushes Scissors, Scissors cuts Paper, and Paper covers Rock.",
+    name = "Mille Sabords",
+    description = "Mille Sabords is a pirate theme dice game " +
+      "where you gain points by getting the same symbols on your dice.",
     year = 2024
   )
 
   override val wire = rps.Wire
   // Feel free to tweak this value!
-  private val VIEW_HANDS_PAUSE_MS = 2500
+  private val VIEW_DICE_PAUSE_MS = 2500
 
   /** Creates a new application state. */
   override def init(clients: Seq[UserId]): State =
     State(
       players = clients.toVector,
-      phase = Phase.SelectingHand,
-      versusHands = Map.empty,
+      phase = Phase.SelectingDice,
+      dices = List.fill(8)(Dice.Empty).toVector,
+      selectedDice = Set(),
       score = clients.map(_ -> 0).toMap, 
-      round = 0
     )
-
-  def fight(players: Vector[UserId], versusHands: Map[UserId, Hand]): Map[UserId,Int] =    
-    val final_score = 
-        for 
-            player <- players
-            opponents = players.filter(_ != player)
-            score = 
-                for 
-                    opponent <- opponents
-                    res = versusHands(player).scoreAgainst(versusHands(opponent))
-                yield(res)
-        yield (player -> score.toList.foldLeft(0)(_+_))
-    final_score.map((str,int) => (str -> int)).toMap
-
 
     //How does the state changes upon action
   override def transition(state: State)(userId: UserId, event: Event): Try[Seq[Action[State]]] = Try : 
@@ -99,28 +85,47 @@ class Logic extends StateMachine[Event, State, View]:
           Seq(Action.Render(newVsHandsState))
         
 
-
-
-  // How does the game should act with the current action
+  /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
-    val State(players,phase,versusHands,score, round) = state 
+    val State(players,phase,dices,selectedDice,score) = state 
 
-    val stateView :PhaseView = 
+    val stateView :StateView = 
       phase match 
-        case Phase.SelectingHand => 
-          //The player has already played and is viewing his hand
-          if versusHands.contains(userId) then 
-            //If the player has already played he is seeing the selection view but without the ability to chose one hand
-            val selectedHand = players.map(id => (id -> versusHands.contains(id))).toMap
-            PhaseView.SelectingHand(selectedHand)
-          //The player hasn't chosen a hand and should select his hand
-          else 
-            val selectedHand = players.map(id => (id -> versusHands.contains(id))).toMap
-            PhaseView.SelectingHand(selectedHand)
-        case Phase.ViewingHands => 
-            PhaseView.ViewingHands(versusHands)
+        /** A player is selecting dice, the other are waiting*/
+        case Phase.SelectingDice =>
+            val phaseView =  
+              if userId == players.head then PhaseView.SelectingDice else PhaseView.Waiting
+            /** Is the player starting her turn ? */
+            if(dices.contains(Dice.Empty)) then 
+              val diceView = dices.map(dice => DiceView.Unselected(dice) ).toVector
+              val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
+            else
+              //TODO: should make visible selected dices
+              val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+              val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
+            StateView.Playing(phaseView,userId,diceView,buttonView)
+
+        /**Players are viewing results of rerolled dices*/
+        case Phase.ViewingDice => 
+            /** Players has 3 skulls and loss her turn --> SkullEnd*/
+            if dices.foldLeft(0)((prev,next) => next + (if dice == Dice.Skull then 1 else 0)) == 3 then 
+              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
+              val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
+              StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
+            else 
+              val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+              val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
+              StateView.Playing(PhaseView.Waiting,userId,diceView,buttonView)
+
+              //TODO: How to trigger the SavingEnd ? Should I store the button selected ? 
+
+        /** The game is done and we show who win*/
         case Phase.Done => 
-            PhaseView.ViewingHands(versusHands)
+            val winnerId = score.maxBy(_._2)._2
+            StateView.Finished(winnerId)
+
+        
+    
     View(stateView,score)
 
 
