@@ -5,6 +5,7 @@ val howManyHoursISpentOnThisLab: Double =
 /**
 Océane:
  - types.scala: 2h 
- - logic.scala: 1h
+ - logic.scala: 2h30
+
 
 */

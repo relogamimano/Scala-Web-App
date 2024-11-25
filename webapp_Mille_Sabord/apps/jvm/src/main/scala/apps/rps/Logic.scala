@@ -27,7 +27,7 @@ class Logic extends StateMachine[Event, State, View]:
   override def init(clients: Seq[UserId]): State =
     State(
       players = clients.toVector,
-      phase = Phase.SelectingDice,
+      phase = Phase.SartingTurn,
       dices = List.fill(8)(Dice.Empty).toVector,
       selectedDice = Set(),
       score = clients.map(_ -> 0).toMap, 
@@ -78,53 +78,80 @@ class Logic extends StateMachine[Event, State, View]:
               Action.Render(finalState)  
             )
 
-         
         //We should wait for the other player to choose its hand
         else 
           val newVsHandsState = state.copy(versusHands = newVersusHands)
           Seq(Action.Render(newVsHandsState))
         
 
+
+
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
     val State(players,phase,dices,selectedDice,score) = state 
 
     val stateView :StateView = 
-      phase match 
-        /** A player is selecting dice, the other are waiting*/
-        case Phase.SelectingDice =>
-            val phaseView =  
-              if userId == players.head then PhaseView.SelectingDice else PhaseView.Waiting
-            /** Is the player starting her turn ? */
-            if(dices.contains(Dice.Empty)) then 
-              val diceView = dices.map(dice => DiceView.Unselected(dice) ).toVector
-              val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
-            else
-              //TODO: should make visible selected dices
-              val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
-              val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
-            StateView.Playing(phaseView,userId,diceView,buttonView)
+      /** The game is done and we show who win*/
+      if phase == Phase.EndingGame then 
+        val winnerId = score.maxBy(_._2)._2
+        StateView.Finished(winnerId)
+      else 
+        /** It's not the player turn and she should wait*/
+        if userId != players.head then
+          val phaseView = PhaseView.Waiting
+          //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+          val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+          val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
+          StateView.Playing(phaseView,userId,diceView,buttonView)
+        else
+        phase match 
+          /** The active player is starting her turn, the other are waiting*/
+          case Phase.SartingTurn => 
+            //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+            val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+            val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
+            StateView.Playing(PhaseView.Starting,userId,diceView,buttonView)
 
-        /**Players are viewing results of rerolled dices*/
-        case Phase.ViewingDice => 
-            /** Players has 3 skulls and loss her turn --> SkullEnd*/
+          /** A player is selecting dice, the other are waiting*/
+          case Phase.SelectingDice =>
+              val phaseView =  
+                val diceView = dices.zipWithIndex.map((dice, id) => 
+                  if selectedDice.contains(id) then DiceView.Selected(dice) 
+                  else if dice != Dice.Skull then DiceView.Unselected(dice)
+                  else DiceView.Skull)
+                val buttonView = 
+                  //The player can reroll the dices only if she has at least selected one dice
+                  if selectedDice.isEmpty then 
+                    Vector(ButtonView.NonClickable(Button.Roll), ButtonView.Clickable(Button.End))
+                  else 
+                    Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
+                  
+              StateView.Playing(PhaseView.SelectingDice,userId,diceView,buttonView)
+
+          /**Players are viewing results of rerolled dices*/
+          case Phase.ViewingDice => 
+            val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+            val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
+            StateView.Playing(PhaseView.ViewingDice,userId,diceView,buttonView)
+
+          /** The player's turn is over and we have to count the points marked if any*/
+          case Phase.EndingTurn => 
+            /** Player has 3 skulls and loss her turn --> SkullEnd*/
             if dices.foldLeft(0)((prev,next) => next + (if dice == Dice.Skull then 1 else 0)) == 3 then 
               val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
-            else 
-              val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+            /** Player chose to end her turn and save her score --> SavingEnd*/
+            else  
+              //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
-              StateView.Playing(PhaseView.Waiting,userId,diceView,buttonView)
+              StateView.Playing(PhaseView.SavingEnd,userId,diceView,buttonView)
 
-              //TODO: How to trigger the SavingEnd ? Should I store the button selected ? 
-
-        /** The game is done and we show who win*/
-        case Phase.Done => 
-            val winnerId = score.maxBy(_._2)._2
-            StateView.Finished(winnerId)
-
-        
+          /** This condition should have been verified and reached before if true*/
+          case Phase.EndingGame => 
+            throw AssertionError("Unreachable")
+              
     
     View(stateView,score)
 

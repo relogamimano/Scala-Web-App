@@ -47,3 +47,13 @@ val dices = List.fill(8)(Dice.Empty.randomDice()).toVector
 
 val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
 diceView
+
+val selectedDice = Set(3,5)
+
+dices.zipWithIndex.map((dice, id) => 
+  if selectedDice.contains(id) then DiceView.Selected(dice) 
+  else if dice != Dice.Skull then DiceView.Unselected(dice)
+  else DiceView.Skull)
+
+val select = Set()
+select.isEmpty

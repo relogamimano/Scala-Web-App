@@ -65,17 +65,23 @@ enum StateView:
   case Finished(winnerId: UserId)
 
 enum PhaseView:
-  /** It's our turn to select dice to rethrown. */
+  /** It's the start of your turn, roll the dice for the first time. */
+  case Starting
+
+  /** It's your turn to select dice to rethrown. */
   case SelectingDice
 
-  /** It's another player's turn: we're waiting for them rethrow dice or stop. */
-  case Waiting
+  /** It's your turn and you can view the result of your reroll. */
+  case ViewingDice
 
   /** Your turn came to an end because you get 3 skulls */
   case SkullEnd
 
   /** Your turn came to an end because you chose to stop it and save your score*/
   case SavingEnd
+
+  /** It's another player's turn: we're waiting for them rethrow dice or stop. */
+  case Waiting
 
 type ScoresView = Map[UserId, Int]
 
@@ -88,6 +94,7 @@ enum DiceView:
   case Unselected(dice: Dice)
 
   /** Skull dice have a gray square around them and a lower opacity*/
+  /** This is also used to indicate that dices can't be selected */ 
   case Skull(dice: Dice)
 
 
@@ -97,9 +104,7 @@ enum ButtonView:
   /** NonClickable button can't be selected and have a lower opacity*/
   case NonClickable(button: Button)
 
-  /** Selected buttons have a small animation when selected*/
-  //case Selected(button: Button) //Remove so we don't have to store it in the State (could be added later if time)
-  // -> Actually we need to know which button are selected to trigger the SavingEnd
+  //case Selected(button: Button) //Can implemented if we have to do animation for clicking on button
 
 enum Event:
   /** A player has selected a dice. */
@@ -110,10 +115,13 @@ enum Event:
 
 
 enum Phase:
+  case StartingTurn
   case SelectingDice
   /** View when the player is rolling dice. */
   case ViewingDice 
-  case Done
+  /** View when the player is ending her turn -> triggered by SkullEnd or SavingEnd */
+  case EndingTurn 
+  case EndingGame
 
 case class State (  
   players: Vector[UserId],
