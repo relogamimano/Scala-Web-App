@@ -7,5 +7,4 @@ Océane:
  - types.scala: 2h 
  - logic.scala: 2h30
 
-
 */
