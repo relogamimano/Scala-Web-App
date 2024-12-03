@@ -11,9 +11,12 @@ type UserId = String
 type Dice = String
 type DiceId = Int
 
+
 /** Button are the string with the indication text of the button */
 type Button = String
-type ButtonId = Int
+enum ButtonId: 
+  case Roll
+  case End
 
 object Dice:
   val Skull = "💀"
