@@ -1,8 +1,8 @@
 package apps.rps
 
 //import cs214.webapp.UserId
-import Dice.*
-import Button.*
+// import Dice.*
+// import Button.*
 import scala.util.Random
 
 type UserId = String
@@ -41,6 +41,7 @@ object Button:
   val Roll = "Roll the dice"
   val End = "End my turn"
 
+
 /** A view of Mille Sabord's state for a specific client.
   *
   * The UI alternates between two views: 
@@ -52,6 +53,7 @@ object Button:
   * @param scoresView
   *   The score of each player.
   */
+//??
 case class View(
     stateView: StateView,
     scoresView: ScoresView
@@ -64,6 +66,7 @@ enum StateView:
   /** The game is over (only one winner of the game possible) */
   case Finished(winnerId: UserId)
 
+//??
 enum PhaseView:
   /** It's the start of your turn, roll the dice for the first time. */
   case Starting
