@@ -3,7 +3,7 @@ import scala.util.Random
 val randomDiceIdx = Random.between(1, 7)
 2+2
 type Dice = String
-
+//test de commentaires pour git 
 object Dice:
   val Skull = "💀"
   val Diamond = "💎"
