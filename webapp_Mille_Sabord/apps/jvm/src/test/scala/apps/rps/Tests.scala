@@ -3,59 +3,88 @@ package apps.rps
 import cs214.webapp.*
 import cs214.webapp.Action
 import cs214.webapp.utils.WebappSuite
+import os.truncate
 
 class Tests extends WebappSuite[Event, State, View]:
   val sm = Logic()
 
-  /** Projects a given state for each given player and extract the [[phaseView]]
+  def dicesSize(state: State): Int =
+    sm.project(state)(UID0).state.assertInstanceOf[StateView.Playing].dices.size
+
+
+  /** Projects a given state for each given player and extract the [[state]]
     * field of the result.
-    */
-  def projectSelectingHandViews(userIds: Seq[UserId])(state: State) =
+    */ 
+    // -------> Done
+  def projectPlayingViews(userIds: Seq[UserId])(state: State) =
     USER_IDS
       .map(sm.project(state))
-      .map(_.phaseView.assertInstanceOf[PhaseView.SelectingHand])
+      .map(_.state.assertInstanceOf[StateView.Playing])
+
 
   /** Projects a given state for each given player and extracts the
     * [[scoreView]].
     */
+    // -----> Done
   def projectScoresViews(userIds: Seq[UserId])(state: State) =
     userIds
       .map(sm.project(state))
       .map(_.scoresView)
 
-  case class RoundResult(actions: Seq[Action[State]]):
-    def viewingHandsState =
-      assert(actions.nonEmpty)
-      actions.head.assertInstanceOf[Action.Render[State]].st
+    case class TurnResult(actions: Seq[Action[State]]):
+      def viewingDicesState = 
+        assert(actions.nonEmpty)
+        actions.head.assertInstanceOf[Action.Render[State]].st
 
-    def nextRoundStartState =
-      assert(actions.nonEmpty)
+      def nextRoundStartState = assert(actions.nonEmpty)
       actions.last.assertInstanceOf[Action.Render[State]].st
 
-    def allStates =
-      Seq(viewingHandsState, nextRoundStartState)
+    def allStates = Seq(viewingHandsState, nextRoundStartState)
 
 /// # Unit tests
 
 /// ## Initial state
 
   lazy val initState = sm.init(USER_IDS)
+  
+  test("MS: Initial state has all dices empty"):
+    val views = projectPlayingViews(USER_IDS)(initState)
 
-  test("RPS: Initial state has all players not ready (2pts)"):
-    val views = projectSelectingHandViews(USER_IDS)(initState)
     for view <- views do
-      view.ready.forall(!_._2)
+      assertEquals(view.dices.size, 8)
+      for dice <- view.diceView do
+        assertEquals(dice, DiceView.NonClickable(Dice.Empty))
+  
+  test("MS: Initial state has non-clickable"):
+    val views = projectPlayingViews(USER_IDS)(initState)
+    for view <- views do
+      view.diceView.forall(
+        dice match 
+          case DiceView.Selectable(d) => false
+          case DiceView.Unselected(d) => false
+          case DiceView.NonClickable(d) => true
+        )
 
-  test("RPS: Initial state has all players at score 0 (2pts)"):
+  test("MS: Initial state has all players at score 0"):
     val scoresForEachPlayer = projectScoresViews(USER_IDS)(initState)
     for score <- scoresForEachPlayer do
       score.forall(_._2 == 0)
+
+/// ##Rerolling dice state
+  test("MS: Clicking on the roll button should randomize all the dice"):
+    val newState = assertSingleRender:
+      sm.transition(initState)(UID0, Event.ButtonClicked(ButtonType.Roll))
+
+    for view <- projectPlayingViews(USER_IDS)(newState) do
+      for dice <- view.diceView do 
+        assert(dice )
+
 
 /// ## Selecting hands state
 
   test("RPS: Selecting hands state should let the player select a hand and mark them as ready (4pts)"):
     val newState = assertSingleRender:
-      sm.transition(initState)(UID0, Event.HandSelected(Hand.Rock))
+      sm.transition(initState)(UID0, Event.DiceClicked(1))
 
     for view <- projectSelectingHandViews(USER_IDS)(newState) do
       assert(view.ready(UID0))
@@ -139,40 +168,46 @@ class Tests extends WebappSuite[Event, State, View]:
 
 /// ## Additional tests
 
-  test("RPS: The game should work with different subsets of players (1pt)"):
+  test("RPS: The game should work with different subsets of players"):
     for
       n <- 1 to USER_IDS.length
       c <- USER_IDS.combinations(n)
     do
       playOneRound(sm.init(c), c)
 
-  test("RPS: Hands are cyclic (none is better) (1pt)"):
-    assertEquals(
-      (for
-        hand1 <- Hand.allHands
-        hand2 <- Hand.allHands
-      yield hand1.scoreAgainst(hand2))
-        .sum,
-      0
-    )
+  test("MS: The number of dices should not change from round to round") {
+    val nDices = dicesSize(initState)
+    for s <- playOneRound(initState) do
+      assertEquals(dicesSize(s), nCards)
+      assertEquals(dicesSize(s), nCards)
+  }
 
 /// ## Encoding and decoding
-
-  test("RPS: Different views are not equal (0pt)"):
-    val v1 = View(PhaseView.SelectingHand(Map(UID0 -> false)), Map())
-    val v2 = View(PhaseView.SelectingHand(Map(UID0 -> true)), Map())
+  
+  test("MS: Different views are not equal"):
+    val v1 = View(StateView.Finished(UID0), Map())
+    val v2 = View(StateView.Finished(UID1), Map())
     assertNotEquals(v1, v2)
-
-  test("RPS: Different events are not equal (0pt)"):
-    val e1 = Event.HandSelected(Hand.Rock)
-    val e2 = Event.HandSelected(Hand.Paper)
+  
+  test("MS: Different events of dice clicked are not equal"):
+    val e1 = Event.DiceClicked(1)
+    val e2 = Event.DiceClicked(2)
     assertNotEquals(e1, e2)
-
-  test("RPS: Event wire (2pt)"):
-    for hand <- Hand.allHands do
-      Event.HandSelected(hand).testEventWire
-
-  test("RPS: View wire (8pts)"):
+  
+  test("MS: Different events of dice clicked are not equal"):
+    val e1 = Event.ButtonClicked(ButtonId.Roll)
+    val e2 = Event.ButtonClicked(ButtonId.End)
+    assertNotEquals(e1, e2)
+  
+  test("MS: Dice event wire"):
+    for diceId <- 0 to 8 do 
+      Event.DiceClicked(diceId).testEventWire
+  
+  test("MS: Button event wire"):
+    Event.ButtonClicked(ButtonId.Roll).testEventWire
+    Event.ButtonClicked(ButtonId.End).testEventWire
+  
+  test("MS: View wire"):
     for
       n <- 1 to USER_IDS.length
       userIds = USER_IDS.take(n)

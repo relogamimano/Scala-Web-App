@@ -99,16 +99,16 @@ class Logic extends StateMachine[Event, State, View]:
         /** It's not the player turn and she should wait*/
         if userId != players.head then
           val phaseView = PhaseView.Waiting
-          //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-          val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+          //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+          val diceView = dices.map(dice => DiceView.NonClickable(dice) ).toVector
           val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
           StateView.Playing(phaseView,userId,diceView,buttonView)
         else
         phase match 
           /** The active player is starting her turn, the other are waiting*/
           case Phase.SartingTurn => 
-            //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-            val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+            //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+            val diceView = dices.map(dice => DiceView.NonClickable(dice) ).toVector
             val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
             StateView.Playing(PhaseView.Starting,userId,diceView,buttonView)
 
@@ -118,7 +118,7 @@ class Logic extends StateMachine[Event, State, View]:
                 val diceView = dices.zipWithIndex.map((dice, id) => 
                   if selectedDice.contains(id) then DiceView.Selected(dice) 
                   else if dice != Dice.Skull then DiceView.Unselected(dice)
-                  else DiceView.Skull)
+                  else DiceView.NonClickable(dice))
                 val buttonView = 
                   //The player can reroll the dices only if she has at least selected one dice
                   if selectedDice.isEmpty then 
@@ -130,7 +130,7 @@ class Logic extends StateMachine[Event, State, View]:
 
           /**Players are viewing results of rerolled dices*/
           case Phase.ViewingDice => 
-            val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+            val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.NonClickable(dice) else DiceView.Unselected(dice)).toVector
             val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
             StateView.Playing(PhaseView.ViewingDice,userId,diceView,buttonView)
 
@@ -138,13 +138,13 @@ class Logic extends StateMachine[Event, State, View]:
           case Phase.EndingTurn => 
             /** Player has 3 skulls and loss her turn --> SkullEnd*/
             if dices.foldLeft(0)((prev,next) => next + (if dice == Dice.Skull then 1 else 0)) == 3 then 
-              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
+              val diceView = dices.map(dice => DiceView.NonClickable(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
             /** Player chose to end her turn and save her score --> SavingEnd*/
             else  
-              //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
+              //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+              val diceView = dices.map(dice => DiceView.NonClickable(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SavingEnd,userId,diceView,buttonView)
 

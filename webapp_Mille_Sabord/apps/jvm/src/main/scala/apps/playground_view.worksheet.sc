@@ -1,8 +1,3 @@
-package apps.rps
-
-//import cs214.webapp.UserId
-import Dice.*
-import Button.*
 import scala.util.Random
 
 type UserId = String
@@ -14,7 +9,7 @@ type DiceId = Int
 
 /** Button are the string with the indication text of the button */
 type Button = String
-enum ButtonType: 
+enum ButtonId: 
   case Roll
   case End
 
@@ -65,7 +60,7 @@ enum StateView:
   case Playing(phase: PhaseView, currentPlayer: UserId, diceView: Vector[DiceView], buttonView: Vector[ButtonView])
 
   /** The game is over (only one winner of the game possible) */
-  case Finished(winnerId: UserId) //This isn't a Set of UserId as, in this game, it can only be one winner
+  case Finished(winnerId: UserId)
 
 enum PhaseView:
   /** It's the start of your turn, roll the dice for the first time. */
@@ -98,7 +93,7 @@ enum DiceView:
 
   /** Skull dice have a gray square around them and a lower opacity*/
   /** This is also used to indicate that dices can't be selected */ 
-  case NonClickable(dice: Dice)
+  case Skull(dice: Dice)
 
 
 enum ButtonView: 
@@ -114,7 +109,7 @@ enum Event:
   case DiceClicked(diceId: DiceId)
 
   /** A player has clicked on a button. */
-  case ButtonClicked(buttonId: ButtonType)
+  case ButtonClicked(buttonId: ButtonId)
 
 
 enum Phase:
@@ -129,7 +124,40 @@ enum Phase:
 case class State (  
   players: Vector[UserId],
   phase: Phase,
-  dices : Vector[Dice], //The vector should always contains 8 dices
-  selectedDices : Set[DiceId],
+  dices : Vector[Dice],
+  selectedDice : Set[DiceId],
   score: Map[UserId, Int]
 )
+
+
+//Set up the tests
+val dices = List.fill(8)(Dice.Empty.randomDice()).toVector
+val reroll_dices = dices.map(dice => dice.randomDice())
+val selectedDice = Set(1,2)
+val viewDices = dices.zipWithIndex.map((dice, id) => 
+  if selectedDice.contains(id) then DiceView.Selected(dice) 
+  else if dice != Dice.Skull then DiceView.Unselected(dice)
+  else DiceView.Skull(dice))
+
+val buttonView = Vector(ButtonView.Clickable(Button.Roll),ButtonView.Clickable(Button.End))
+val currentPlayer: UserId = "2" 
+
+
+PhaseView.SelectingDice
+
+StateView.Playing(PhaseView.SelectingDice,currentPlayer, viewDices, buttonView)
+
+val UID0: UserId = "0"
+val UID1: UserId = "1"
+val v1 = View(StateView.Finished(UID0), Map())
+val v2 = View(StateView.Finished(UID1), Map())    
+v1 == v2
+
+val e1 = Event.ButtonClicked(ButtonId.Roll)
+val e2 = Event.ButtonClicked(ButtonId.End)
+e1 == e2
+
+for diceId <- 0 to 8 do 
+  Event.DiceClicked(diceId)
+
+ButtonId.Roll

@@ -57,3 +57,5 @@ dices.zipWithIndex.map((dice, id) =>
 
 val select = Set()
 select.isEmpty
+
+dices.map(dice => dice.randomDice())
