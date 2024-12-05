@@ -18,6 +18,15 @@ enum ButtonId:
   case Roll
   case End
 
+// enum Dice(val symbol: String):
+//   case Skull extends Dice("💀")
+//   case Diamond extends Dice("💎")
+//   case Coin extends Dice("📀")
+//   case Sword extends Dice("🔪")
+//   case Monkey extends Dice("🐵") // "🐒"
+//   case Parrot extends Dice("🐦")
+//   case Empty extends Dice("❓")
+
 object Dice:
   val Skull = "💀"
   val Diamond = "💎"
@@ -25,7 +34,6 @@ object Dice:
   val Sword = "🔪"
   val Monkey = "🐵" //"🐒"
   val Parrot = "🐦"
-  val Empty = "❓"
 
 extension (dice: Dice)
   def randomDice(): Dice=
