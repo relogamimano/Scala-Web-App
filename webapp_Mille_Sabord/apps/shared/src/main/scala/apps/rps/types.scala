@@ -38,6 +38,7 @@ extension (dice: Dice)
       case 4 => Dice.Sword
       case 5 => Dice.Monkey
       case 6 => Dice.Parrot
+  
 
 
 object Button:
@@ -136,3 +137,10 @@ case class State (
   selectedDice : Set[DiceId],
   score: Map[UserId, Int]
 )
+
+def calculateScore(state: State): Int = {
+  state.dices.foldLeft(0) {
+    case (acc, Dice.Skull) => acc + 0 // Pas de points pour les crânes
+    case (acc, _)          => acc + 100 // +100 pour tous les autres symboles
+  }
+}

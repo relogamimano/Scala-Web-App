@@ -42,7 +42,31 @@ class Logic extends StateMachine[Event, State, View]:
         throw IllegalMoveException("Wait your turn !")
       case Phase.StartingTurn =>
         event match
-          ButtonClicked(diceId) 
+          case ButtonClicked(buttonId) => 
+          buttonId match 
+            case End => 
+              throw IllegalMoveException("Roll the dice first!")
+            case Roll => 
+              val rolledDices = State.dices.map(randomDice())
+              val newState = State(state.players,SelectingDice,rolledDices,state.selectedDice,state.score)
+          case DiceClicked(diceId) => 
+            throw IllegalMoveException("Roll the dice first!")
+      case Phase.SelectingDice => 
+        val score = calculateScore(state)
+        event match 
+          case ButtonClicked(buttonId) => 
+            match buttonId
+              case End => 
+                val newState = State(state.players,state.EndingTurn,rolledDices,state.selectedDice,state.score)
+              case Roll => 
+                throw IllegalMoveException("Select Dice First!")
+          case DiceClicked(diceId)
+            var selectedDice = State.selectedDice
+            var selectedDice = selectedDice +:DiceId
+            // add the option to remove
+
+
+
         val State(players,phase,dices,score) = state 
       case Phase.SelectingDice=> 
         val State(players,phase,dices,score) = state 
