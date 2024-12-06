@@ -36,12 +36,22 @@ class Logic extends StateMachine[Event, State, View]:
     //How does the state changes upon action
   override def transition(state: State)(userId: UserId, event: Event): Try[Seq[Action[State]]] = Try : 
     state.phase match 
-      case Phase.Done => 
+      case Phase.EndingGame => 
         throw IllegalMoveException("Game is over !")
-      case Phase.ViewingHands => 
-        throw IllegalMoveException("Don't chose a hand while looking at them !")
-      case Phase.SelectingHand => 
-        val State(players,phase,versusHands,score,round) = state 
+      case Phase.EndingTurn => 
+        throw IllegalMoveException("Wait your turn !")
+      case Phase.StartingTurn =>
+        event match
+          ButtonClicked(diceId) 
+        val State(players,phase,dices,score) = state 
+      case Phase.SelectingDice=> 
+        val State(players,phase,dices,score) = state 
+        event match 
+          // case DiceClicked
+          // case ButtonClicked
+        // val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
+        //raise exeption if no dice are selected
+        // passage a viewing dice quand tu touches le bouton 
         val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
         assert(versusHands.size >= 0 && versusHands.size <= players.size)
         //if state.players.head != userId then 
