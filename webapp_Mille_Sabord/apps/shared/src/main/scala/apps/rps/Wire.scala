@@ -1,11 +1,12 @@
 package apps
 package rps
 
+import apps.rps.UserId
 import cs214.webapp.*
 import cs214.webapp.DecodingException
 
 import scala.util.{Failure, Success, Try}
-
+import apps.rps
 object Wire extends AppWire[Event, View]:
   import Event.*
   import View.*
@@ -18,10 +19,10 @@ object Wire extends AppWire[Event, View]:
         case ButtonClicked(buttonId) => Obj("type" -> "ButtonClicked", "buttonId" -> ButtonIdFormat.encode(buttonId))        
 
     override def decode(json: Value): Try[Event] = Try:
-      js("type").str match
-        case "DiceClicked" => DiceClicked(js("diceId").num.toInt)
-        case "ButtonClicked" => ButtonClicked(ButtonIdFormat.decode(js("buttonId")).get)
-        case _ => throw DecodingException(f"Invalid memory event $js")
+      json("type").str match
+        case "DiceClicked" => DiceClicked(json("diceId").num.toInt)
+        case "ButtonClicked" => ButtonClicked(ButtonIdFormat.decode(json("buttonId")).get)
+        case _ => throw DecodingException(f"Invalid memory event $json")
            
 
 //========================== VIEW ENCODING HIERACHY ===============================
@@ -39,7 +40,7 @@ object Wire extends AppWire[Event, View]:
 //
 //============================= VIEW WIRE ===================================
     override object ViewFormat extends WireFormat[View]:
-      val scoresmap = MapWire(UserId, int)
+      val scoresmap = MapWire(UserId, Int)
       override def encode(view: View): Value =
         Obj(
           "stateView" -> StateViewFormat.encode(view.stateView),
@@ -67,9 +68,9 @@ object Wire extends AppWire[Event, View]:
       override def decode(js: Value): Try[StateView] = Try:
         js("type").str match
           case "Playing" =>
-            Playing(js("phase"), js("currentPlayer"), js("dice"), js("button"))
+            StateView.Playing(js("phase"), js("currentPlayer"), js("dice"), js("button"))
           case "Finished" =>
-            Finished(js("winnerId"))
+            StateView.Finished(js("winnerId"))
 //================================ PHASE VIEW WIRE ==============================
     override object PhaseViewFormat extends WireFormat[PhaseView]:
       val readymap = MapWire(UserId, Boolean)
@@ -93,17 +94,23 @@ object Wire extends AppWire[Event, View]:
 //=============================== BUTTON VIEW WIRE ================================
     override object ButtonViewFormat extends WireFormat[ButtonView]:
       override def encode(buttonView: ButtonView): Value =
-        Obj("type" -> buttonView.value(), "button" -> buttonView.button)
-
+        buttonView match
+          case Clickable(button:Button) => 
+            Obj("type" -> "Clickable", "button" -> button)
+          case NonClickable(button:Button) =>
+            Obj("type" -> " NonClickable", "button" -> button)
+        
       override def decode(js: Value): Try[ButtonView] = Try:
-        ButtonView.valueOf(js("type").str)
+        js("type").str match
+          case "Clickable" => Clickable(js("button").str)
+          case "NonClickable" => NonClickable(js("button").str)
 
 //============================== BUTTON ID WIRE ====================================
     override object ButtonIdFormat extends WireFormat[ButtonId]:
       override def encode(button: ButtonId): Value =
         button match
-          case Button.Roll => Obj("type" -> "Roll")
-          case Button.End => Obj("type" -> "End")
+          case ButtonId.Roll => Obj("type" -> "Roll")
+          case ButtonId.End => Obj("type" -> "End")
       
       override def decode(js: Value): Try[ButtonId] = Try:
         js("type").str match
@@ -115,11 +122,11 @@ object Wire extends AppWire[Event, View]:
 
       override def encode(diceView: DiceView): Value =
         diceView match
-          case Selected(dice) =>
+          case DiceView.Selected(dice:Dice) =>
             Obj("type" -> "Selected", DiceFormat.encode(dice))
-          case Unselected(dice) =>
+          case DiceView.Unselected(dice:Dice) =>
             Obj("type" -> "Unselected", DiceFormat.encode(dice))
-          case Skull(dice) =>
+          case DiceView.Skull(dice:Dice) =>
             Obj("type" -> "Skull", DiceFormat.encode(dice))
       
       override def decode(js: Value): Try[DiceView] = Try:
