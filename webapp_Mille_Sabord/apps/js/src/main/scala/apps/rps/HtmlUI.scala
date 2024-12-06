@@ -1,7 +1,7 @@
 package apps
 package rps
 
-import PhaseView.ViewingHands
+import PhaseView.*
 import cs214.webapp.*
 import cs214.webapp.client.*
 import scalatags.JsDom.all
@@ -61,17 +61,17 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
   )
 
   def renderPhase(phase: PhaseView): Frag = phase match
-    case Starting => 
+    case PhaseView.Starting => 
       frag(p(i("Start your turn and roll the dice!")))
-    case SelectingDice => 
+    case PhaseView.SelectingDice => 
       frag(p(i("Select the dice you want to rethrow:")))
-    case ViewingDice => 
+    case PhaseView.ViewingDice => 
       frag(p(i("Here's what you got! Do you want to end your turn or try again?")))
-    case SkullEnd => 
+    case PhaseView.SkullEnd => 
       frag(p(i("Shoot! You got 3 skulls. Game over :(")))
-    case SavingEnd => 
+    case PhaseView.SavingEnd => 
       frag(p(i("Here's your score for this turn!")))
-    case Waiting =>
+    case PhaseView.Waiting =>
       frag(p(i("Let's watch your opponent play...")))
 
   def renderButtons(buttonView: Vector[ButtonView]): Frag =

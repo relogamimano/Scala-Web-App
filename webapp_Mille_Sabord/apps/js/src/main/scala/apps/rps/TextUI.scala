@@ -38,7 +38,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
   // Handle both dice selection and button actions from text input
   override def handleTextInput(view: View, text: String): Option[Event] = 
     diceNames.get(text.toLowerCase()) match {
-      case Some(dice) => Some(Event.DiceClicked(dice))  // Handle dice selection via text input
+      case Some(diceId) => Some(Event.DiceClicked(diceId))  // Handle dice selection via text input
       case None => buttonNames.get(text.toLowerCase()) match {
         case Some(buttonId) => Some(Event.ButtonClicked(buttonId))  // Handle button click via text input
         case None => None  // No valid input
@@ -51,7 +51,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     ) ++ renderView(userId, view)
 
   def renderView(userId: UserId, view: View): Vector[TextSegment] =
-    renderState(userId, view.stateView) ++ scoresView(view.scoresView)
+    renderState(userId, view.stateView) ++ renderScores(view.scoresView)
 
   def renderState(userId: UserId, stateView: StateView): Vector[TextSegment] = stateView match
     case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
