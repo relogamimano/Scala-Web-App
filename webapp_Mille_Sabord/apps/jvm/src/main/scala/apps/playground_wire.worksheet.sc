@@ -9,6 +9,7 @@ import Hand.*
 
 /** Hands are simply strings in this version of the game (use Emoji!) */
 
+
 object Hand:
   val Rock = "✊"
   val Paper = "✋"

@@ -1,8 +1,8 @@
 package apps.rps
 
 //import cs214.webapp.UserId
-import Dice.*
-import Button.*
+// import Dice.*
+// import Button.*
 import scala.util.Random
 
 type UserId = String
@@ -38,11 +38,13 @@ extension (dice: Dice)
       case 4 => Dice.Sword
       case 5 => Dice.Monkey
       case 6 => Dice.Parrot
+  
 
 
 object Button:
   val Roll = "Roll the dice"
   val End = "End my turn"
+
 
 /** A view of Mille Sabord's state for a specific client.
   *
@@ -55,6 +57,7 @@ object Button:
   * @param scoresView
   *   The score of each player.
   */
+//??
 case class View(
     stateView: StateView,
     scoresView: ScoresView
@@ -67,6 +70,7 @@ enum StateView:
   /** The game is over (only one winner of the game possible) */
   case Finished(winnerId: UserId)
 
+//??
 enum PhaseView:
   /** It's the start of your turn, roll the dice for the first time. */
   case Starting
@@ -133,3 +137,22 @@ case class State (
   selectedDice : Set[DiceId],
   score: Map[UserId, Int]
 )
+
+def calculateScore(state: State): Int = {
+  state.dices.foldLeft(0) {
+    case (acc, Dice.Skull) => acc + 0 // Pas de points pour les crânes
+    case (acc, _)          => acc + 100 // +100 pour tous les autres symboles
+  }
+}
+
+extension (dice: DiceId)
+  def randomDice(): Dice=
+    //Get a random number between the interval [1,7[
+    val randomDiceIdx = Random.between(1, 7)
+    randomDiceIdx match 
+      case 1 => Dice.Skull
+      case 2 => Dice.Diamond
+      case 3 => Dice.Coin
+      case 4 => Dice.Sword
+      case 5 => Dice.Monkey
+      case 6 => Dice.Parrot
