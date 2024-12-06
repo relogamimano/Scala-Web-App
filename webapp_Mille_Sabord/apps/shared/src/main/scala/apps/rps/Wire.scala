@@ -15,13 +15,13 @@ object Wire extends AppWire[Event, View]:
     override def encode(event: Event): Value =
       event match 
         case DiceClicked(diceId) => Obj("type" -> "DiceClicked", "diceId" -> diceId)
-        case ButtonClicked(buttonId) => Obj("type" -> "ButtonClicked", "buttonId" -> buttonId)        
+        case ButtonClicked(buttonId) => Obj("type" -> "ButtonClicked", "buttonId" -> ButtonIdFormat.encode(buttonId))        
 
     override def decode(json: Value): Try[Event] = Try:
       js("type").str match
         case "DiceClicked" => DiceClicked(js("diceId").num.toInt)
-        case "ButtonClicked" => ButtonClicked(js("buttonId").num.toInt)
-        case _ => throws DecodingException(f"Invalid memory event $js")
+        case "ButtonClicked" => ButtonClicked(ButtonIdFormat.decode(js("buttonId")).get)
+        case _ => throw DecodingException(f"Invalid memory event $js")
            
 
 //========================== VIEW ENCODING HIERACHY ===============================
@@ -34,8 +34,8 @@ object Wire extends AppWire[Event, View]:
 //                           /     |      \
 //                          /      |       \
 //              [PhaseView]   [DiceView]  [ButtonView]         
-//                                 |
-//                               [DICE]
+//                                 |            |
+//                               [DICE]         [Button]
 //
 //============================= VIEW WIRE ===================================
     override object ViewFormat extends WireFormat[View]:
@@ -97,29 +97,54 @@ object Wire extends AppWire[Event, View]:
 
       override def decode(js: Value): Try[ButtonView] = Try:
         ButtonView.valueOf(js("type").str)
+
+//============================== BUTTON ID WIRE ====================================
+    override object ButtonIdFormat extends WireFormat[ButtonId]:
+      override def encode(button: ButtonId): Value =
+        button match
+          case Button.Roll => Obj("type" -> "Roll")
+          case Button.End => Obj("type" -> "End")
+      
+      override def decode(js: Value): Try[ButtonId] = Try:
+        js("type").str match
+          case "Roll" => ButtonId.Roll
+          case "End" => ButtonId.End
+          case _ => throw DecodingException(f"Invalid button id $js")
 //============================== DICE VIEW WIRE ====================================
     override object DiceViewFormat extends WireFormat[DiceView]:
-      extension(self: Dice) // DICE ENCODING
-        def tag = 
-          self match 
-            case Dice.Skull => "Skull"
-            case Dice.Diamond => "Diamond"
-            case Dice.Coin => "Coin"
-            case Dice.Sword => "Sword"
-            case Dice.Monkey => "Monkey"
-            case Dice.Parrot => "Parrot"
 
       override def encode(diceView: DiceView): Value =
         diceView match
           case Selected(dice) =>
-            Obj("type" -> "Selected", "dice" -> dice.tag)
+            Obj("type" -> "Selected", DiceFormat.encode(dice))
           case Unselected(dice) =>
-            Obj("type" -> "Unselected", "dice" -> dice.tag)
+            Obj("type" -> "Unselected", DiceFormat.encode(dice))
           case Skull(dice) =>
-            Obj("type" -> "Skull", "dice" -> dice.tag)
+            Obj("type" -> "Skull", DiceFormat.encode(dice))
       
       override def decode(js: Value): Try[DiceView] = Try:
         js("type").str match
-          case "Selected" => Selected(js("dice"))
-          case "Unselected" => Unselected(js("dice"))
-          case "Skull" => Skull(js("dice"))    
+          case "Selected" => DiceView.Selected(DiceFormat.decode(js("dice")).get)
+          case "Unselected" => DiceView.Unselected(DiceFormat.decode(js("dice")).get)
+          case "Skull" => DiceView.Skull(DiceFormat.decode(js("dice")).get)     
+
+//============================== DICE WIRE ====================================
+    override object DiceFormat extends WireFormat[Dice]:
+      override def encode(dice: Dice): Value =
+        dice match
+          case Dice.Skull => Obj("dice" -> "Skull")
+          case Dice.Diamond => Obj("dice" -> "Diamond")
+          case Dice.Coin => Obj("dice" -> "Coin")
+          case Dice.Sword => Obj("dice" -> "Sword")
+          case Dice.Monkey => Obj("dice" -> "Monkey")
+          case Dice.Parrot => Obj("dice" -> "Parrot")
+      
+      override def decode(js: Value): Try[Dice] = Try:
+        js("dice").str match
+          case "Skull" => Dice.Skull
+          case "Diamond" => Dice.Diamond
+          case "Coin" => Dice.Coin
+          case "Sword" => Dice.Sword
+          case "Monkey" => Dice.Monkey
+          case "Parrot" => Dice.Parrot
+          case _ => throw DecodingException(f"Invalid dice $js")
