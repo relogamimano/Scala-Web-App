@@ -49,73 +49,78 @@ class Logic extends StateMachine[Event, State, View]:
             case Roll => 
               val rolledDices = State.dices.map(randomDice())
               val newState = State(state.players,SelectingDice,rolledDices,state.selectedDice,state.score)
+              Seq(Action.Render(newState))
           case DiceClicked(diceId) => 
             throw IllegalMoveException("Roll the dice first!")
       case Phase.SelectingDice => 
+        val State.selected
         val score = calculateScore(state)
         event match 
           case ButtonClicked(buttonId) => 
             match buttonId
               case End => 
-                val newState = State(state.players,state.EndingTurn,rolledDices,state.selectedDice,state.score)
+                val newState = State(state.players,state.EndingTurn,rolledDice,state.selectedDice,state.score)
+                Seq(Action.Render(newState))
               case Roll => 
+                if State.selectedDice.isEmpty 
                 throw IllegalMoveException("Select Dice First!")
-          case DiceClicked(diceId)
-            var selectedDice = State.selectedDice
-            var selectedDice = selectedDice +:DiceId
-            // add the option to remove
+                else
+                val rolledDice = State.SelectedDice.map(randomDice())
+                val newState = State(state.players,state.SelectingDice,rolledDice,state.selectedDice,state.score)
+                Seq(Action.Render(newState))
+          // case DiceClicked(diceId)
+          //   var selectedDice = State.selectedDice
+          //   var selectedDice = selectedDice +:DiceId
+          //   // add the option to remove
+      //   val State(players,phase,dices,score) = state 
+      // case Phase.SelectingDice=> 
+      //   val State(players,phase,dices,score) = state 
+      //   event match 
+      //     // case DiceClicked
+      //     // case ButtonClicked
+      //   // val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
+      //   //raise exeption if no dice are selected
+      //   // passage a viewing dice quand tu touches le bouton 
+      //   val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
+      //   assert(versusHands.size >= 0 && versusHands.size <= players.size)
+      //   //if state.players.head != userId then 
+      //     //throw NotYourTurnException()
+      //   if versusHands.contains(userId) then 
+      //     throw IllegalMoveException("Don't choose two hands")
 
+      //   val newVersusHands = versusHands + (userId -> hand)
+      //   //a fight can start between the players
+      //   if newVersusHands.size == players.size then 
+      //     //Get the Id of the opponents
+      //     //val  vsUserId = players.filter(_ != userId)
+      //     //val res = hand.scoreAgainst(versusHands(vsUserId))
+      //     //val newScore = score + (userId -> (score(userId) + res))
+      //     val newScore = fight(players, newVersusHands)
+      //     val newRound = round + 1
+      //     val newState = State(players, Phase.ViewingHands, newVersusHands, newScore,newRound)
+      //     if newRound < 3 then 
+      //       val finalState = State(players, Phase.SelectingHand, Map.empty, newScore, newRound)
 
+      //       val SHOW_HANDS_PAUSE_MS = 2500
+      //       Seq(  
+      //         Action.Render(newState),
+      //         Action.Pause(SHOW_HANDS_PAUSE_MS),
+      //         Action.Render(finalState)  
+      //       )
+      //     else 
+      //       val finalState = State(players.tail :+ players.head, Phase.Done, Map.empty, newScore, newRound)
 
-        val State(players,phase,dices,score) = state 
-      case Phase.SelectingDice=> 
-        val State(players,phase,dices,score) = state 
-        event match 
-          // case DiceClicked
-          // case ButtonClicked
-        // val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
-        //raise exeption if no dice are selected
-        // passage a viewing dice quand tu touches le bouton 
-        val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
-        assert(versusHands.size >= 0 && versusHands.size <= players.size)
-        //if state.players.head != userId then 
-          //throw NotYourTurnException()
-        if versusHands.contains(userId) then 
-          throw IllegalMoveException("Don't choose two hands")
+      //       val SHOW_HANDS_PAUSE_MS = 2500
+      //       Seq(  
+      //         Action.Render(newState),
+      //         Action.Pause(SHOW_HANDS_PAUSE_MS),
+      //         Action.Render(finalState)  
+      //       )
 
-        val newVersusHands = versusHands + (userId -> hand)
-        //a fight can start between the players
-        if newVersusHands.size == players.size then 
-          //Get the Id of the opponents
-          //val  vsUserId = players.filter(_ != userId)
-          //val res = hand.scoreAgainst(versusHands(vsUserId))
-          //val newScore = score + (userId -> (score(userId) + res))
-          val newScore = fight(players, newVersusHands)
-          val newRound = round + 1
-          val newState = State(players, Phase.ViewingHands, newVersusHands, newScore,newRound)
-          if newRound < 3 then 
-            val finalState = State(players, Phase.SelectingHand, Map.empty, newScore, newRound)
-
-            val SHOW_HANDS_PAUSE_MS = 2500
-            Seq(  
-              Action.Render(newState),
-              Action.Pause(SHOW_HANDS_PAUSE_MS),
-              Action.Render(finalState)  
-            )
-          else 
-            val finalState = State(players.tail :+ players.head, Phase.Done, Map.empty, newScore, newRound)
-
-            val SHOW_HANDS_PAUSE_MS = 2500
-            Seq(  
-              Action.Render(newState),
-              Action.Pause(SHOW_HANDS_PAUSE_MS),
-              Action.Render(finalState)  
-            )
-
-        //We should wait for the other player to choose its hand
-        else 
-          val newVsHandsState = state.copy(versusHands = newVersusHands)
-          Seq(Action.Render(newVsHandsState))
+      //   //We should wait for the other player to choose its hand
+      //   else 
+      //     val newVsHandsState = state.copy(versusHands = newVersusHands)
+      //     Seq(Action.Render(newVsHandsState))
         
 
 
