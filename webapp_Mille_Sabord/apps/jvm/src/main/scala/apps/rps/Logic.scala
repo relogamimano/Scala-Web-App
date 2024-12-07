@@ -43,31 +43,29 @@ class Logic extends StateMachine[Event, State, View]:
       case Phase.StartingTurn =>
         event match
           case ButtonClicked(buttonId) => 
-          buttonId match 
-            case End => 
-              throw IllegalMoveException("Roll the dice first!")
-            case Roll => 
-              val rolledDices = State.dices.map(randomDice())
-              val newState = State(state.players,SelectingDice,rolledDices,state.selectedDice,state.score)
-              Seq(Action.Render(newState))
+            buttonId match 
+              case End => 
+                throw IllegalMoveException("Roll the dice first!")
+              case Roll => 
+                val rolledDices = State.dices.map(randomDice())
+                val newState = State(state.players,SelectingDice,rolledDices,state.selectedDice,state.score)
+                Seq(Action.Render(newState))
           case DiceClicked(diceId) => 
             throw IllegalMoveException("Roll the dice first!")
       case Phase.SelectingDice => 
-        val State.selected
         val score = calculateScore(state)
         event match 
           case ButtonClicked(buttonId) => 
-            match buttonId
+            buttonId match
               case End => 
                 val newState = State(state.players,state.EndingTurn,rolledDice,state.selectedDice,state.score)
                 Seq(Action.Render(newState))
               case Roll => 
-                if State.selectedDice.isEmpty 
-                throw IllegalMoveException("Select Dice First!")
+                if State.selectedDice.isEmpty then throw IllegalMoveException("Select Dice First!")
                 else
-                val rolledDice = State.SelectedDice.map(randomDice())
-                val newState = State(state.players,state.SelectingDice,rolledDice,state.selectedDice,state.score)
-                Seq(Action.Render(newState))
+                  val rolledDice = State.SelectedDice.map(randomDice())
+                  val newState = State(state.players,state.SelectingDice,rolledDice,state.selectedDice,state.score)
+                  Seq(Action.Render(newState))  
           // case DiceClicked(diceId)
           //   var selectedDice = State.selectedDice
           //   var selectedDice = selectedDice +:DiceId
