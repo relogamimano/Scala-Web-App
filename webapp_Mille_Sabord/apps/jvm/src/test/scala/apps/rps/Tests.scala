@@ -21,7 +21,6 @@ class Tests extends WebappSuite[Event, State, View]:
       .map(sm.project(state))
       .map(_.state.assertInstanceOf[StateView.Playing])
 
-
   /** Projects a given state for each given player and extracts the
     * [[scoreView]].
     */
@@ -36,16 +35,36 @@ class Tests extends WebappSuite[Event, State, View]:
         assert(actions.nonEmpty)
         actions.head.assertInstanceOf[Action.Render[State]].st
 
-      def nextRoundStartState = assert(actions.nonEmpty)
-      actions.last.assertInstanceOf[Action.Render[State]].st
+      def nextRoundStartState = 
+        assert(actions.nonEmpty)
+        actions.last.assertInstanceOf[Action.Render[State]].st
 
     def allStates = Seq(viewingHandsState, nextRoundStartState)
+
+  def rollDice(state: State): State =
+    newState = assertSingleRender:
+      sm.transition(state)(UID0, Event.ButtonClicked(ButtonType.Roll))
+
+  def selectDices(state: State, selectedDice: Set[DiceId]): State =
+    var newState = state
+    for diceId <- selectedDice do
+      newState = assertSingleRender:
+        sm.transition(initialState)(UID0, Event.DiceClicked(diceId))
+    newState
+
 
 /// # Unit tests
 
 /// ## Initial state
 
-  lazy val initState = sm.init(USER_IDS)
+/// ## Fixed mock state
+
+  //Let's create a known state that is going to be used to test accurately the different option of the game 
+  //Using a pre-made state allow us to know the symbol of each dice depending on its index
+  //To do so we are going to fix the seed of the game to always have the same result
+  //After some visual tests, we were able to determine the different case to allow us to test the different option of the game
+  val seed = 42 //Let's fix the seed of the game to 42
+  lazy val initState = sm.init(USER_IDS, seed)
   
   test("MS: Initial state has all dices empty"):
     val views = projectPlayingViews(USER_IDS)(initState)
@@ -58,12 +77,10 @@ class Tests extends WebappSuite[Event, State, View]:
   test("MS: Initial state has non-clickable"):
     val views = projectPlayingViews(USER_IDS)(initState)
     for view <- views do
-      view.diceView.forall(
-        dice match 
-          case DiceView.Selectable(d) => false
-          case DiceView.Unselected(d) => false
-          case DiceView.NonClickable(d) => true
-        )
+      assert(view.diceView.forall({
+        case DiceView.NonClickable(dice) => dice == Dice.Empty
+        case _ => false
+      }))
 
   test("MS: Initial state has all players at score 0"):
     val scoresForEachPlayer = projectScoresViews(USER_IDS)(initState)
@@ -72,28 +89,69 @@ class Tests extends WebappSuite[Event, State, View]:
 
 /// ##Rerolling dice state
   test("MS: Clicking on the roll button should randomize all the dice"):
+    val newState = rollDice(initState)
+    //We must verify that after rerolling the dices, the dices are not empty
+    for view <- projectPlayingViews(USER_IDS)(newState) do
+      assert(view.diceView.forall({
+        case DiceView.Unselected(dice) => dice != Dice.Empty
+        case _ => false
+      })) 
+
+  test("MS: Starting state should forbid the player from clicking on end button"):
     val newState = assertSingleRender:
-      sm.transition(initState)(UID0, Event.ButtonClicked(ButtonType.Roll))
+      sm.transition(initialState)(UID0, Event.ButtonClicked(ButtonType.End))
+    assertFailure[IllegalMoveException]:
+      sm.transition(newState)(UID0, Event.ButtonClicked(ButtonType.End))
+
+  test("MS: Starting state should forbid the player from clicking on a dice"):
+    for diceIdx <- 0 to 7 do 
+      val newState = assertSingleRender:
+        sm.transition(initialState)(UID0, Event.DiceClicked(diceIdx))
+      assertFailure[IllegalMoveException]:
+        sm.transition(newState)(UID0, Event.DiceClicked(diceIdx))
+
+/// ## Selecting dice state
+
+  test("MS: Playing state should let the player chose one dice and mark it as selected"):
+    val initialState = rollDice(initState)
+    //This id was determined after visual tests and represents a dice with symbol ........
+    val selectedDice = Set(3)
+    val newState = selectDices(initialState, selectedDice)
 
     for view <- projectPlayingViews(USER_IDS)(newState) do
-      for dice <- view.diceView do 
-        assert(dice )
+      assert((view.zipWithIndex.forall((diceV, idx) => 
+        if diceV.getDice == Dice.Skull then (diceV.isInstanceOf[DiceView.NonClickable])
+        else if selectedDice.contains(idx) then (diceV.isInstanceOf[DiceView.Selected])
+        else (diceV.isInstanceOf[DiceView.Unselected]))))
 
+  test("MS: Playing state should let the player chose three dice and mark them as selected"):
+    val initialState = rollDice(initState)
+    //This id was determined after visual tests and represents a dice with symbol ........
+    val selectedDice = Set(3,5,6)
+    val newState = selectDices(initialState, selectedDice)
 
-/// ## Selecting hands state
+    for view <- projectPlayingViews(USER_IDS)(newState) do
+      assert((view.zipWithIndex.forall((diceV, idx) => 
+        if diceV.getDice == Dice.Skull then (diceV.isInstanceOf[DiceView.NonClickable])
+        else if selectedDice.contains(idx) then (diceV.isInstanceOf[DiceView.Selected])
+        else (diceV.isInstanceOf[DiceView.Unselected]))))
 
-  test("RPS: Selecting hands state should let the player select a hand and mark them as ready (4pts)"):
-    val newState = assertSingleRender:
-      sm.transition(initState)(UID0, Event.DiceClicked(1))
+  test("MS: Playing state should forbid the player from choosing one skull dice"):
+    val initialState = rollDice(initState)
+    //This id was determined after visual tests and represents a dice with a skull symbol
+    val selectedDiceIdx = 4
+    val newState = selectDices(initialState, Set(selectedDice))
 
-    for view <- projectSelectingHandViews(USER_IDS)(newState) do
-      assert(view.ready(UID0))
-
-  test("RPS: Selecting hands state should forbid the player from selecting more than one hand (2pts)"):
-    val stateWithOneSelectedHand = assertSingleRender:
-      sm.transition(initState)(UID0, Event.HandSelected(Hand.Rock))
     assertFailure[IllegalMoveException]:
-      sm.transition(stateWithOneSelectedHand)(UID0, Event.HandSelected(Hand.Paper))
+      sm.transition(newState)(UID0, Event.DiceClicked(selectedDiceIdx))
+
+  test("MS: Playing state should forbid the player from rerolling dice if non are selected"):
+    val initialState = rollDice(initState)
+    //This id was determined after visual tests and represents a dice with a skull symbol
+    val newState = rollDice(initialState)
+
+    assertFailure[IllegalMoveException]:
+      sm.transition(newState)(UID0, Event.ButtonClicked(ButtonType.Roll))
 
 /// ## End of round state
 
@@ -112,6 +170,26 @@ class Tests extends WebappSuite[Event, State, View]:
       sm.transition(state)(userIds.head, Event.HandSelected(gameHands(userIds.head))),
       3
     ))
+
+  def playOneTurn(initState: State, currentUser: UserId, selectedDices: Set[DiceId]) =
+    var state = initState
+    state = rollDice(state)
+    state = selectDices(state, selectedDices)
+    state = rollDice(state)
+    state = assertSingleRender:
+      sm.transition(state)(currentUser, Event.ButtonClicked(ButtonType.End))
+    TurnResult(assertMultipleActions(sm.transition(state)(currentUser, Event.ButtonClicked(ButtonType.End)), 3 + selectedDices.size))
+
+
+  test("MS: If current player roll dice and save them directly the next player should then be able to play"):
+    val initialState = rollDice(initState)
+    val newState = assertSingleRender:
+      sm.transition(initialState)(UID0, Event.ButtonClicked(ButtonType.End))
+    val view = sm.project(newState)(UID0).phaseView.assertInstanceOf[PhaseView.ViewingHands]
+      
+    val currentPlayer = projectPlayingViews(USER_IDS)(newState)(0).currentPlayer
+    assertEquals(currentPlayer, UID1)
+    
 
   test("RPS: When all players have chosen their hand, hands are shown, there is a pause and next round starts (2pts)"):
     val roundRes = playOneRound(initState, USER_IDS)
@@ -195,8 +273,8 @@ class Tests extends WebappSuite[Event, State, View]:
     assertNotEquals(e1, e2)
   
   test("MS: Different events of dice clicked are not equal"):
-    val e1 = Event.ButtonClicked(ButtonId.Roll)
-    val e2 = Event.ButtonClicked(ButtonId.End)
+    val e1 = Event.ButtonClicked(ButtonType.Roll)
+    val e2 = Event.ButtonClicked(ButtonType.End)
     assertNotEquals(e1, e2)
   
   test("MS: Dice event wire"):
@@ -204,8 +282,8 @@ class Tests extends WebappSuite[Event, State, View]:
       Event.DiceClicked(diceId).testEventWire
   
   test("MS: Button event wire"):
-    Event.ButtonClicked(ButtonId.Roll).testEventWire
-    Event.ButtonClicked(ButtonId.End).testEventWire
+    Event.ButtonClicked(ButtonType.Roll).testEventWire
+    Event.ButtonClicked(ButtonType.End).testEventWire
   
   test("MS: View wire"):
     for

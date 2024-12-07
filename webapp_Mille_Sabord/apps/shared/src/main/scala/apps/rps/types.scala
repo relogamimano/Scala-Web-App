@@ -28,9 +28,9 @@ object Dice:
   val Empty = "❓"
 
 extension (dice: Dice)
-  def randomDice(): Dice=
+  def randomDice(randomSeed: Random): Dice=
     //Get a random number between the interval [1,7[
-    val randomDiceIdx = Random.between(1, 7)
+    val randomDiceIdx = randomSeed.between(1, 7)
     randomDiceIdx match 
       case 1 => Dice.Skull
       case 2 => Dice.Diamond
@@ -100,6 +100,12 @@ enum DiceView:
   /** This is also used to indicate that dices can't be selected */ 
   case NonClickable(dice: Dice)
 
+  /** Get the dice from the DiceView */
+  def getDice: Dice = this match
+    case Selected(dice) => dice
+    case Unselected(dice) => dice
+    case NonClickable(dice) => dice
+
 
 enum ButtonView: 
   case Clickable(button: Button)
@@ -131,5 +137,6 @@ case class State (
   phase: Phase,
   dices : Vector[Dice], //The vector should always contains 8 dices
   selectedDices : Set[DiceId],
-  score: Map[UserId, Int]
+  score: Map[UserId, Int],
+  seed: Random
 )

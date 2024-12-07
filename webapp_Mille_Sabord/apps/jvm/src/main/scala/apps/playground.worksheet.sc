@@ -33,7 +33,13 @@ enum DiceView:
   case Unselected(dice: Dice)
 
   /** Skull dice have a gray square around them and a lower opacity*/
-  case Skull(dice: Dice)
+  case NonClickable(dice: Dice)
+
+  /** Get the dice from the DiceView */
+  def getDice: Dice = this match
+    case Selected(dice) => dice
+    case Unselected(dice) => dice
+    case NonClickable(dice) => dice
 
 
 List.fill(8)(Dice.Empty).toVector
@@ -45,17 +51,62 @@ Dice.Empty.randomDice()
 
 val dices = List.fill(8)(Dice.Empty.randomDice()).toVector
 
-val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.NonClickable(dice) else DiceView.Unselected(dice)).toVector
 diceView
 
 val selectedDice = Set(3,5)
 
-dices.zipWithIndex.map((dice, id) => 
-  if selectedDice.contains(id) then DiceView.Selected(dice) 
-  else if dice != Dice.Skull then DiceView.Unselected(dice)
-  else DiceView.Skull)
-
+val view = 
+  dices.zipWithIndex.map((dice, id) => 
+    if dice == Dice.Skull then DiceView.NonClickable(dice)
+    else if  selectedDice.contains(id) then DiceView.Selected(dice) 
+    else DiceView.Unselected(dice))
+view
 val select = Set()
 select.isEmpty
 
 dices.map(dice => dice.randomDice())
+
+
+val seed = 42
+val random = new Random(seed)
+
+
+val rdmInt = Random.nextInt()
+val rdm = new Random(rdmInt)
+
+def testRdm(seed: Int = Random.nextInt()): Int = 
+  val rdm = new Random(seed)
+  rdm.nextInt()
+
+testRdm()
+
+val emptyDice = DiceView.NonClickable(Dice.Empty)
+emptyDice match
+  case DiceView.NonClickable(dice) => dice
+  case _ => "No dice"
+
+view(5)
+//Get the dice value inside of view(5)
+
+val selectedView = view.updated(5, DiceView.Selected(view(5).getDice))
+
+
+(view.zipWithIndex.forall((diceV, idx) => 
+  if diceV.getDice == Dice.Skull then (diceV.isInstanceOf[DiceView.NonClickable])
+  else if selectedDice.contains(idx) then (diceV.isInstanceOf[DiceView.Selected])
+  else (diceV.isInstanceOf[DiceView.Unselected])))
+
+enum ButtonType: 
+  case Roll
+  case End
+
+val buttonTest = ButtonType.End
+
+(0 to 7).toSet
+
+def testSet(set: Set[Int]) = 
+  for ele <- set do println(ele)
+
+testSet((0 to 7).toSet)
+Set(4)

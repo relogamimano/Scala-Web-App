@@ -8,6 +8,7 @@ import ujson.Value
 import scala.annotation.unused
 import scala.util.{Random, Try}
 import scala.collection.MapOps
+import scala.util.Random
 
 class Logic extends StateMachine[Event, State, View]:
 
@@ -24,13 +25,14 @@ class Logic extends StateMachine[Event, State, View]:
   private val VIEW_DICE_PAUSE_MS = 2500
 
   /** Creates a new application state. */
-  override def init(clients: Seq[UserId]): State =
+  override def init(clients: Seq[UserId], rdmSeed: Int = Random.nextInt()): State =
     State(
       players = clients.toVector,
       phase = Phase.SartingTurn,
       dices = List.fill(8)(Dice.Empty).toVector,
       selectedDice = Set(),
       score = clients.map(_ -> 0).toMap, 
+      seed = new Random(rdmSeed) //If there are any specified seed, we use a random one (mostly useful for testing)
     )
 
     //How does the state changes upon action
@@ -88,7 +90,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
-    val State(players,phase,dices,selectedDice,score) = state 
+    val State(players,phase,dices,selectedDice,score,seed) = state 
 
     val stateView :StateView = 
       /** The game is done and we show who win*/
@@ -116,9 +118,9 @@ class Logic extends StateMachine[Event, State, View]:
           case Phase.SelectingDice =>
               val phaseView =  
                 val diceView = dices.zipWithIndex.map((dice, id) => 
-                  if selectedDice.contains(id) then DiceView.Selected(dice) 
-                  else if dice != Dice.Skull then DiceView.Unselected(dice)
-                  else DiceView.NonClickable(dice))
+                  if dice == Dice.Skull then DiceView.NonClickable(dice)
+                  else if  selectedDice.contains(id) then DiceView.Selected(dice) 
+                  else DiceView.Unselected(dice))
                 val buttonView = 
                   //The player can reroll the dices only if she has at least selected one dice
                   if selectedDice.isEmpty then 
