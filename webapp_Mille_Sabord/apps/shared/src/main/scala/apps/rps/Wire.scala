@@ -12,87 +12,153 @@ object Wire extends AppWire[Event, View]:
   import ujson.*
 
   override object eventFormat extends WireFormat[Event]:
-    extension(self: Hand)
-      def tag = 
-        self match 
-          case Hand.Rock => "Rock"
-          case Hand.Paper => "Paper"
-          case Hand.Scissors => "Scissors"
-          //case _ => "allHands"
-
     override def encode(event: Event): Value =
       event match 
-        case HandSelected(hand) =>
-          Str(hand.tag)
-        
+        case DiceClicked(diceId) => Obj("type" -> "DiceClicked", "diceId" -> diceId)
+        case ButtonClicked(buttonId) => Obj("type" -> "ButtonClicked", "buttonId" -> ButtonIdFormat.encode(buttonId))        
 
-    override def decode(json: Value): Try[Event] =
-      Try{
-        val json_val = json.str
-        json_val match
-          case "Rock" => HandSelected(Hand.Rock)
-          case "Paper" => HandSelected(Hand.Paper)
-          case "Scissors" => HandSelected(Hand.Scissors)
-          //case "allHands" => HandSelected(Hand.allHands)
-      }
-      
+    override def decode(json: Value): Try[Event] = Try:
+      json("type").str match
+        case "DiceClicked" => DiceClicked(json("diceId").num.toInt)
+        case "ButtonClicked" => ButtonClicked(ButtonIdFormat.decode(json("buttonId")).get)
+        case _ => throw DecodingException(f"Invalid memory event $json")
+           
 
-  override object viewFormat extends WireFormat[View]:
-    extension(self: Hand)
-      def tag = 
-        self match 
-          case Hand.Rock => "Rock"
-          case Hand.Paper => "Paper"
-          case Hand.Scissors => "Scissors"
-          //case _ => "allHands"
-    extension(self: PhaseView)
-      def tag = 
-        self match 
-          case PhaseView.SelectingHand(ready) => "Selecting"
-          case PhaseView.ViewingHands(hands) => "Viewing"
+//========================== VIEW ENCODING HIERACHY ===============================
+//
+//                                         [View]
+//                                        /      \
+//                                       /        \
+//                            [StateView]         [ScoresView]              
+//                            /    |     \
+//                           /     |      \
+//                          /      |       \
+//              [PhaseView]   [DiceView]  [ButtonView]         
+//                                 |            |
+//                               [DICE]         [Button]
+//
+//============================= VIEW WIRE ===================================
+    override object ViewFormat extends WireFormat[View]:
+      val scoresmap = MapWire(StringWire, IntWire)
+      override def encode(view: View): Value =
+        Obj(
+          "stateView" -> StateViewFormat.encode(view.stateView),
+          "scoresView" -> scoresmap.encode(view.scoresView)
+        )
+      override def decode(js: Value): Try[View] = Try:
+        View(
+          StateViewFormat.decode(js("stateView")).get,
+          scoresmap.decode(js("scoresView")).get
+        )
+//============================= STATE VIEW WIRE =================================
+    override object StateViewFormat extends WireFormat[StateView]:
 
-   
-
-    override def encode(v: View): Value =
-        v match 
-          case View(phaseView,scoresView) => 
-            Arr(
-                Obj(
-                    "tag" -> phaseView.tag,
-                    "value" -> {
-                      phaseView match 
-                      case PhaseView.SelectingHand(ready) => 
-                        Arr(ready.map((key,value) => Obj("key" -> key, "value" -> Bool(value))))
-                      case PhaseView.ViewingHands(hands) => 
-                        Arr(hands.map((key,value) => Obj("key" -> key, "value" -> Str(value.tag))))
-                    }
-                  ),
-                Arr(scoresView.map((key,value) => Obj("key" -> key, "value" -> Num(value))))
+      override def encode(stateView: StateView): Value = 
+        stateView match
+          case StateView.Playing(phase:PhaseView, currentPlayer: UserId, diceView:Vector[DiceView], button:Vector[ButtonView]) =>
+            Obj("type" -> "Playing",
+            "phase" -> PhaseViewFormat.encode(phase),
+            "currentPlayer" -> currentPlayer,
+            "diceView" -> VectorWire(DiceViewFormat).encode(diceView),
+            "buttonView" -> VectorWire(ButtonViewFormat).encode(button)
             )
+          case StateView.Finished(winnerId:UserId) =>
+            Obj("type" -> "Finished",
+            "winnerId" -> winnerId)
+
+      override def decode(js: Value): Try[StateView] = Try:
+        js("type").str match
+          case "Playing" =>
+            StateView.Playing(
+              PhaseViewFormat.decode(js("phase")).get,
+              js("currentPlayer").str,
+              VectorWire(DiceViewFormat).decode(js("dice")).get,
+              VectorWire(ButtonViewFormat).decode(js("button")).get
+            )
+          case "Finished" =>
+            StateView.Finished(js("winnerId").str)
+//================================ PHASE VIEW WIRE ==============================
+    override object PhaseViewFormat extends WireFormat[PhaseView]:
+      override def encode(phaseView: PhaseView): Value =
+      phaseView match
+        case PhaseView.Starting => Obj("type" -> "Starting")
+        case PhaseView.SelectingDice => Obj("type" -> "SelectingDice")
+        case PhaseView.ViewingDice => Obj("type" -> "ViewingDice")
+        case PhaseView.SkullEnd => Obj("type" -> "SkullEnd")
+        case PhaseView.SavingEnd => Obj("type" -> "SavingEnd")
+        case PhaseView.Waiting => Obj("type" -> "Waiting")
       
-    def decodeHand(hand: String): Hand = 
-        hand match 
-          case "Rock" => Hand.Rock
-          case "Paper" => Hand.Paper
-          case "Scissors" => Hand.Scissors
+      override def decode(js: Value): Try[PhaseView] = Try:
+        js("type").str match
+          case "Starting" => PhaseView.Starting
+          case "SelectingDice" => PhaseView.SelectingDice
+          case "ViewingDice" => PhaseView.ViewingDice
+          case "SkullEnd" => PhaseView.SkullEnd
+          case "SavingEnd" => PhaseView.SavingEnd
+          case "Waiting" => PhaseView.Waiting
+          case _ => throw DecodingException(f"Invalid phase view $js")
+          
+//=============================== BUTTON VIEW WIRE ================================
+    override object ButtonViewFormat extends WireFormat[ButtonView]:
+      override def encode(buttonView: ButtonView): Value =
+        buttonView match
+          case ButtonView.Clickable(button:Button) => 
+            Obj("type" -> "Clickable", "button" -> button)
+          case ButtonView.NonClickable(button:Button) =>
+            Obj("type" -> " NonClickable", "button" -> button)
+        
+      override def decode(js: Value): Try[ButtonView] = Try:
+        js("type").str match
+          case "Clickable" => ButtonView.Clickable(js("button").str)
+          case "NonClickable" => ButtonView.NonClickable(js("button").str)
 
+//============================== BUTTON ID WIRE ====================================
+    override object ButtonIdFormat extends WireFormat[ButtonType]:
+      override def encode(button: ButtonType): Value =
+        button match
+          case ButtonType.Roll => Obj("type" -> "Roll")
+          case ButtonType.End => Obj("type" -> "End")
+      
+      override def decode(js: Value): Try[ButtonType] = Try:
+        js("type").str match
+          case "Roll" => ButtonType.Roll
+          case "End" => ButtonType.End
+          case _ => throw DecodingException(f"Invalid button id $js")
+//============================== DICE VIEW WIRE ====================================
+    override object DiceViewFormat extends WireFormat[DiceView]:
 
-    override def decode(json: Value): Try[View] =
-      Try{
-        val json_val = json.arr
-        val (phase,score) = (json_val(0).obj, json_val(1).arr)
-        val phase_val = phase("value").arr.toList.flatMap(_.arr.toList)
-        val score_val = score.toList.flatMap(_.arr.toList)
-        val phase_view = 
-          phase("tag").str match 
-          case "Selecting" => 
-            PhaseView.SelectingHand(phase_val.map(x => Map(x.obj("key").str -> x.obj("value").bool)).flatten.toMap)
-          case "Viewing" => 
-            PhaseView.ViewingHands(phase_val.map(x => Map(x.obj("key").str -> decodeHand(x.obj("value").str))).flatten.toMap)
-        val score_view : ScoresView= 
-          (score_val.map(x => Map(x.obj("key").str -> x.obj("value").num.toInt)).flatten.toMap)
-        View(phase_view,score_view)
-      }
+      override def encode(diceView: DiceView): Value =
+        diceView match
+          case DiceView.Selected(dice:Dice) =>
+            Obj("type" -> "Selected", "dice" -> DiceFormat.encode(dice))
+          case DiceView.Unselected(dice:Dice) =>
+            Obj("type" -> "Unselected", "dice" -> DiceFormat.encode(dice))
+          case DiceView.NonClickable(dice:Dice) =>
+            Obj("type" -> "NonClickable", "dice" -> DiceFormat.encode(dice))
+      
+      override def decode(js: Value): Try[DiceView] = Try:
+        js("type").str match
+          case "Selected" => DiceView.Selected(DiceFormat.decode(js("dice")).get)
+          case "Unselected" => DiceView.Unselected(DiceFormat.decode(js("dice")).get)
+          case "NonClickable" => DiceView.NonClickable(DiceFormat.decode(js("dice")).get)     
 
-
-
+//============================== DICE WIRE ====================================
+    override object DiceFormat extends WireFormat[Dice]:
+      override def encode(dice: Dice): Value =
+        dice match
+          case Dice.Skull => Obj("dice" -> "Skull")
+          case Dice.Diamond => Obj("dice" -> "Diamond")
+          case Dice.Coin => Obj("dice" -> "Coin")
+          case Dice.Sword => Obj("dice" -> "Sword")
+          case Dice.Monkey => Obj("dice" -> "Monkey")
+          case Dice.Parrot => Obj("dice" -> "Parrot")
+      
+      override def decode(js: Value): Try[Dice] = Try:
+        js("dice").str match
+          case "Skull" => Dice.Skull
+          case "Diamond" => Dice.Diamond
+          case "Coin" => Dice.Coin
+          case "Sword" => Dice.Sword
+          case "Monkey" => Dice.Monkey
+          case "Parrot" => Dice.Parrot
+          case _ => throw DecodingException(f"Invalid dice $js")
