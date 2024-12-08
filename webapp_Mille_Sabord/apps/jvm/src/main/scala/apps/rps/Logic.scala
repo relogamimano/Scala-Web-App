@@ -8,6 +8,7 @@ import ujson.Value
 import scala.annotation.unused
 import scala.util.{Random, Try}
 import scala.collection.MapOps
+import scala.util.Random
 
 class Logic extends StateMachine[Event, State, View]:
 
@@ -25,13 +26,14 @@ class Logic extends StateMachine[Event, State, View]:
   private val SHOW_TURN_END_PAUSE_MS = 2500
 
   /** Creates a new application state. */
-  override def init(clients: Seq[UserId]): State =
+  override def init(clients: Seq[UserId], rdmSeed: Int = Random.nextInt()): State =
     State(
       players = clients.toVector,
       phase = Phase.StartingTurn,
       dices = List.fill(8)(Dice.Empty).toVector,
       selectedDice = Set(),
       score = clients.map(_ -> 0).toMap, 
+      seed = new Random(rdmSeed) //If there are any specified seed, we use a random one (mostly useful for testing)
     )
 
   def calculateScore(dices: Vector[Dice]): Int = 
@@ -179,7 +181,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
-    val State(players,phase,dices,selectedDice,score) = state 
+    val State(players,phase,dices,selectedDice,score,seed) = state 
 
     val stateView :StateView = 
       /** The game is done and we show who win*/
@@ -190,37 +192,38 @@ class Logic extends StateMachine[Event, State, View]:
         /** It's not the player turn and she should wait*/
         if userId != players.head then
           val phaseView = PhaseView.Waiting
-          //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-          val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+          //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+          val diceView = dices.map(dice => DiceView.NonClickable(dice) ).toVector
           val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
           StateView.Playing(phaseView,userId,diceView,buttonView)
         else
         phase match 
           /** The active player is starting her turn, the other are waiting*/
-          case Phase.StartingTurn => 
-            //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-            val diceView = dices.map(dice => DiceView.Skull(dice) ).toVector
+          case Phase.SartingTurn => 
+            //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+            val diceView = dices.map(dice => DiceView.NonClickable(dice) ).toVector
             val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
             StateView.Playing(PhaseView.Starting,userId,diceView,buttonView)
 
           /** A player is selecting dice, the other are waiting*/
           case Phase.SelectingDice =>
-              val diceView = dices.zipWithIndex.map((dice, id) => 
-                if dice == Dice.Skull then DiceView.Skull(dice)
-                else if selectedDice.contains(id) then DiceView.Selected(dice) 
-                else DiceView.Unselected(dice))
-              val buttonView = 
-                //The player can reroll the dices only if she has at least selected one dice
-                if selectedDice.isEmpty then 
-                  Vector(ButtonView.NonClickable(Button.Roll), ButtonView.Clickable(Button.End))
-                else 
-                  Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
+              val phaseView =  
+                val diceView = dices.zipWithIndex.map((dice, id) => 
+                  if dice == Dice.Skull then DiceView.NonClickable(dice)
+                  else if  selectedDice.contains(id) then DiceView.Selected(dice) 
+                  else DiceView.Unselected(dice))
+                val buttonView = 
+                  //The player can reroll the dices only if she has at least selected one dice
+                  if selectedDice.isEmpty then 
+                    Vector(ButtonView.NonClickable(Button.Roll), ButtonView.Clickable(Button.End))
+                  else 
+                    Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
                   
               StateView.Playing(PhaseView.SelectingDice,userId,diceView,buttonView)
 
           /**Players are viewing results of rerolled dices*/
           case Phase.ViewingDice => 
-            val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.Skull(dice) else DiceView.Unselected(dice)).toVector
+            val diceView = dices.map(dice => if dice == Dice.Skull then DiceView.NonClickable(dice) else DiceView.Unselected(dice)).toVector
             val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
             StateView.Playing(PhaseView.ViewingDice,userId,diceView,buttonView)
 
@@ -233,8 +236,8 @@ class Logic extends StateMachine[Event, State, View]:
               StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
             /** Player chose to end her turn and save her score --> SavingEnd*/
             else  
-              //All dices are viewed as "Skull", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
-              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
+              //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
+              val diceView = dices.map(dice => DiceView.NonClickable(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SavingEnd,userId,diceView,buttonView)
 
