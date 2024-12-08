@@ -161,16 +161,6 @@ class Tests extends WebappSuite[Event, State, View]:
       .map(_ -> Hand.Rock)
       .toMap + (USER_IDS.head -> Hand.Paper)
 
-  def playOneRound(initState: State, userIds: Seq[UserId]) =
-    var state = initState
-    for uid <- userIds.tail do
-      state = assertSingleRender:
-        sm.transition(state)(uid, Event.HandSelected(gameHands(uid)))
-    RoundResult(assertMultipleActions(
-      sm.transition(state)(userIds.head, Event.HandSelected(gameHands(userIds.head))),
-      3
-    ))
-
   def playOneTurn(initState: State, currentUser: UserId, selectedDices: Set[DiceId]) =
     var state = initState
     state = rollDice(state)
@@ -246,16 +236,16 @@ class Tests extends WebappSuite[Event, State, View]:
 
 /// ## Additional tests
 
-  test("RPS: The game should work with different subsets of players"):
+  test("MS: The game should work with different subsets of players"):
     for
       n <- 1 to USER_IDS.length
       c <- USER_IDS.combinations(n)
     do
-      playOneRound(sm.init(c), c)
+      playOneTurn(sm.init(c), c)
 
   test("MS: The number of dices should not change from round to round") {
     val nDices = dicesSize(initState)
-    for s <- playOneRound(initState) do
+    for s <- playOneTurn(initState) do
       assertEquals(dicesSize(s), nCards)
       assertEquals(dicesSize(s), nCards)
   }
