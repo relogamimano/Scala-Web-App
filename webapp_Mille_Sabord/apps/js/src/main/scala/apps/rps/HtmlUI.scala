@@ -1,7 +1,7 @@
 package apps
 package rps
 
-import PhaseView.ViewingHands
+import PhaseView.*
 import cs214.webapp.*
 import cs214.webapp.client.*
 import scalatags.JsDom.all
@@ -24,37 +24,27 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   override def render(userId: UserId, view: View): Frag =
     frag(
-      h2(b("Rock paper scissors: ")),
+      h2(b("Mille Sabords: ")),
       renderView(userId, view)
     )
 
   def renderView(userId: UserId, view: View): Frag =
     frag(
-      renderPhase(view.phaseView),
+      renderState(userId, view.stateView),
       renderScores(view.scoresView)
     )
 
-  def renderPhase(phaseView: PhaseView): Frag = phaseView match
-    case PhaseView.SelectingHand(ready) =>
-      val notReadyPlayers = ready.filterNot(_._2).map(_._1)
-      frag(
-        if notReadyPlayers.isEmpty then
-          frag()
-        else
-          p(i(s"${notReadyPlayers.mkString(", ")} " +
-            s"${if notReadyPlayers.size > 1 then "are" else "is"} " +
-            "choosing their next hand"))
-        ,
-        renderPlayerChoices(ready.map((userId, isReady) => (userId, if isReady then "✅" else "💭"))),
-        if !ready(userId) then
-          renderHandButtons(userId, ready(userId))
-        else
-          frag()
+  def renderState(userId: UserId, stateView: StateView): Frag = stateView match
+    case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
+      frag (
+        p(i(s"Current player: $currentPlayer")),
+        renderPhase(phase),
+        renderDice(diceView),
+        renderButtons(buttonView)
       )
-    case PhaseView.ViewingHands(hands) =>
+    case StateView.Finished(winnerId) =>
       frag(
-        p(i("Here are the results !")),
-        renderPlayerChoices(hands)
+        p(i(s"The game is over! Winner: $winnerId"))
       )
 
   def renderScores(scores: Map[UserId, Int]) = frag(
@@ -70,61 +60,101 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     )
   )
 
-  def renderPlayerChoices(playerHandStr: Map[UserId, String]) =
+  def renderPhase(phase: PhaseView): Frag = phase match
+    case PhaseView.Starting => 
+      frag(p(i("Start your turn and roll the dice!")))
+    case PhaseView.SelectingDice => 
+      frag(p(i("Select the dice you want to rethrow:")))
+    case PhaseView.ViewingDice => 
+      frag(p(i("Here's what you got! Do you want to end your turn or try again?")))
+    case PhaseView.SkullEnd => 
+      frag(p(i("Shoot! You got 3 skulls. Game over :(")))
+    case PhaseView.SavingEnd => 
+      frag(p(i("Here's your score for this turn!")))
+    case PhaseView.Waiting =>
+      frag(p(i("Let's watch your opponent play...")))
+
+  def renderButtons(buttonView: Vector[ButtonView]): Frag =
     div(
-      cls := "choices",
-      for
-        (player, handStr) <- playerHandStr.toSeq
-      yield div(
-        div(cls := "card", handStr),
-        div(player)
-      )
+      cls := "buttons-container",
+      for button <- buttonView yield button match
+        case ButtonView.Clickable(button) =>
+          div(
+            cls := "button clickable",
+            onclick := { () => 
+              val buttonEvent = button match {
+                case Button.Roll => Event.ButtonClicked(ButtonId.Roll)
+                case Button.End => Event.ButtonClicked(ButtonId.End)
+                // Add other button types here as needed
+              }
+              sendEvent(buttonEvent)
+            },
+            button
+          )
+        case ButtonView.NonClickable(button) =>
+          div(cls := "button non-clickable", button)
     )
 
-  def renderHandButtons(userId: UserId, alreadyChosen: Boolean) =
-    p(
-      p(i(s"Choose your hand !")),
-      cls := "hands",
-      if !alreadyChosen then data.interactive := "interactive" else frag(),
-      for
-        hand <- Hand.allHands.toSeq
-      yield div(
-        cls := "card",
-        if !alreadyChosen then onclick := { () => sendEvent(Event.HandSelected(hand)) }
-        else frag(),
-        hand
-      )
+
+  def renderDice(diceView: Vector[DiceView]): Frag =
+    div(
+      cls := "dice-container",
+      for dice <- diceView yield dice match
+        case DiceView.Selected(dice) =>
+          div(cls := "dice selected", dice)
+
+        case DiceView.Unselected(dice) =>
+          div(cls := "dice", dice)
+
+        case DiceView.Skull(dice) =>
+          div(cls := "dice skull", dice)
     )
+
 
   override def css: String = super.css +
-    """| .card {
-       |   aspect-ratio: 1;
-       |   align-items: center;
-       |   display: flex;
-       |   justify-content: center;
-       |   overflow: hidden;
-       |   text-align: center;
-       |   word-break: break-all;
-       |   align-items: center;
-       |   background: #eeeeec;
-       |   border-radius: 0.5rem;
-       |   box-sizing: border-box;
-       |   cursor: default;
-       |   font-size: 2.5rem;
-       |   font-family: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
-       |   outline: thin solid var(--taupe);
-       | }
-       | .choices, .hands, .score {
-       |     display: flex;
-       |     flex-flow: row wrap;
-       |     justify-content: space-evenly;
-       |     align-items: center;
-       | }
-       | .scores {
-       |     width: 100%;
-       |     display: grid;
-       |     gap: 0.5rem 1rem;
-       |     grid-template-columns: minmax(max-content, 1rem) 1fr;
-       |     align-items: baseline;
-       | }
-       """.stripMargin
+    """| .dice-container {
+      |   display: flex;
+      |   justify-content: center;
+      |   gap: 1rem;
+      | }
+      | .dice {
+      |   width: 50px;
+      |   height: 50px;
+      |   font-size: 2rem;
+      |   text-align: center;
+      |   border: 1px solid black;
+      |   border-radius: 5px;
+      |   display: flex;
+      |   justify-content: center;
+      |   align-items: center;
+      | }
+      | .selected {
+      |   border-color: green;
+      |   background-color: #e6ffe6;
+      | }
+      | .skull {
+      |   opacity: 0.5;
+      |   background-color: gray;
+      | }
+      | .buttons-container {
+      |   display: flex;
+      |   gap: 1rem;
+      |   justify-content: center;
+      | }
+      | .button {
+      |   padding: 0.5rem 1rem;
+      |   font-size: 1.2rem;
+      |   border-radius: 5px;
+      |   cursor: pointer;
+      |   text-align: center;
+      | }
+      | .clickable {
+      |   background-color: #4caf50;
+      |   color: white;
+      | }
+      | .non-clickable {
+      |   background-color: #d3d3d3;
+      |   color: #777;
+      |   cursor: not-allowed;
+      | }
+    """.stripMargin

@@ -3,19 +3,19 @@ import scala.util.Random
 val randomDiceIdx = Random.between(1, 7)
 2+2
 type Dice = String
-//test de commentaires pour git 
+  //test de commentaires pour git 
 object Dice:
   val Skull = "💀"
   val Diamond = "💎"
   val Coin = "📀"
   val Sword = "🔪"
-  val Monkey = "🐵" //"🐒"
+  val Monkey = "🐵" // "🐒"
   val Parrot = "🐦"
   val Empty = "❓"
 
 extension (dice: Dice)
   def randomDice(): Dice=
-    //Get a random number between the interval [1,7[
+      //Get a random number between the interval [1,7[
     val randomDiceIdx = Random.between(1, 7)
     randomDiceIdx match 
       case 1 => Dice.Skull
@@ -110,3 +110,4 @@ def testSet(set: Set[Int]) =
 
 testSet((0 to 7).toSet)
 Set(4)
+

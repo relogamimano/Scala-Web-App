@@ -21,64 +21,93 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   override val wire = rps.Wire
 
-  val handNames = Map(
-    "rock" -> Hand.Rock,
-    "r" -> Hand.Rock,
-    "paper" -> Hand.Paper,
-    "p" -> Hand.Paper,
-    "scissors" -> Hand.Scissors,
-    "s" -> Hand.Scissors
+  val diceNames = Map(
+    "skull" -> Dice.Skull,
+    "diamond" -> Dice.Diamond,
+    "coin" -> Dice.Coin,
+    "sword" -> Dice.Sword,
+    "monkey" -> Dice.Monkey,
+    "parrot" -> Dice.Parrot
   )
 
-  override def handleTextInput(view: View, text: String): Option[Event] = handNames
-    .get(text.toLowerCase())
-    .map(Event.HandSelected.apply)
+  val buttonNames = Map(
+    "roll" -> ButtonId.Roll,
+    "end" -> ButtonId.End
+  )
+
+  // Handle both dice selection and button actions from text input
+  override def handleTextInput(view: View, text: String): Option[Event] = 
+    diceNames.get(text.toLowerCase()) match {
+      case Some(diceId) => Some(Event.DiceClicked(diceId))  // Handle dice selection via text input
+      case None => buttonNames.get(text.toLowerCase()) match {
+        case Some(buttonId) => Some(Event.ButtonClicked(buttonId))  // Handle button click via text input
+        case None => None  // No valid input
+      }
+    }
 
   override def renderView(userId: UserId, view: View): Vector[TextSegment] =
     Vector(
-      TextSegment(text = "Rock, Paper, Scissors\n\n", modifiers = cls := "title")
-    ) ++ renderView(view)
+      TextSegment(text = "Mille Sabords\n\n", modifiers = cls := "title")
+    ) ++ renderView(userId, view)
 
-  def renderView(view: View): Vector[TextSegment] =
-    phaseView(view.phaseView) ++ scoresView(view.scoresView)
+  def renderView(userId: UserId, view: View): Vector[TextSegment] =
+    renderState(userId, view.stateView) ++ renderScores(view.scoresView)
 
-  def phaseView(phaseView: PhaseView): Vector[TextSegment] = phaseView match
-    case PhaseView.SelectingHand(ready) =>
-      val notReadyPlayers = ready.filterNot(_._2).map(_._1)
-      (Vector(
+  def renderState(userId: UserId, stateView: StateView): Vector[TextSegment] = stateView match
+    case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
+      Vector(
+        TextSegment(s"Current player: $currentPlayer\n"),
+        renderPhase(phase),
+        renderDice(diceView),
+        renderButtons(buttonView)
+      ).flatten
+
+    case StateView.Finished(winnerId) =>
+      Vector(
+        TextSegment(s"The game is over! Winner: $winnerId\n")
+      )
+
+  def renderPhase(phase: PhaseView): Vector[TextSegment] = phase match
+    case PhaseView.Starting =>
+      Vector(TextSegment("Start your turn and roll the dice!\n"))
+    case PhaseView.SelectingDice =>
+      Vector(TextSegment("Select the dice you want to rethrow:\n"))
+    case PhaseView.ViewingDice =>
+      Vector(TextSegment("Here's what you got! Do you want to end your turn or try again?\n"))
+    case PhaseView.SkullEnd =>
+      Vector(TextSegment("Shoot! You got 3 skulls. Game over :(\n"))
+    case PhaseView.SavingEnd =>
+      Vector(TextSegment("Here's your score for this turn!\n"))
+    case PhaseView.Waiting =>
+      Vector(TextSegment("Let's watch your opponent play...\n"))
+
+  def renderDice(diceView: Vector[DiceView]): Vector[TextSegment] =
+    diceView.map {
+      case DiceView.Selected(dice) => TextSegment(s"[Selected: $dice] ")
+      case DiceView.Unselected(dice) => TextSegment(s"[$dice] ")
+      case DiceView.Skull(dice) => TextSegment(s"[Skull: $dice] ", modifiers = cls := "skull")
+    }
+
+  def renderButtons(buttonView: Vector[ButtonView]): Vector[TextSegment] =
+    buttonView.map {
+      case ButtonView.Clickable(button) =>
         TextSegment(
-          if notReadyPlayers.isEmpty then ""
-          else
-            s"${notReadyPlayers.mkString(",")} " +
-              s"${if notReadyPlayers.size > 1 then "are" else "is"} " +
-              "choosing their next hand\n"
-        )
-      ) ++ renderPlayerChoices(ready.map((userId, isReady) => (userId, if isReady then "✅" else "💭")))
-        :+ TextSegment("\n"))
-        ++ (if !ready(userId) then renderHandButtons(userId) else Vector.empty)
-    case PhaseView.ViewingHands(hands) =>
-      TextSegment("Here are the results!\n") +: renderPlayerChoices(hands)
-
-  def renderPlayerChoices(hands: Map[UserId, String]): Vector[TextSegment] =
-    Vector(
-      TextSegment(hands.map { case (userId, hand) => s"$userId: $hand" }.mkString("", ", ", "\n"))
-    )
-
-  def renderHandButtons(userId: UserId): Vector[TextSegment] =
-    TextSegment("Choose your hand: ")
-      +: Hand.allHands.toSeq.map { hand =>
-        TextSegment(
-          hand,
+          s"[$button] ",
           onMouseEvent = Some({
-            case MouseEvent.Click(_) => sendEvent(Event.HandSelected(hand))
-            case _                   => ()
+            case MouseEvent.Click(_) =>
+              sendEvent(
+                if button == Button.Roll then Event.ButtonClicked(ButtonId.Roll)
+                else Event.ButtonClicked(ButtonId.End)
+              )
+            case _ => ()
           }),
           modifiers = cls := "clickable"
         )
-      }.toVector
-      :+ TextSegment("\n\n")
+      case ButtonView.NonClickable(button) =>
+        TextSegment(s"[$button] ", modifiers = cls := "non-clickable")
+    }
 
-  def scoresView(scoresView: ScoresView): Vector[TextSegment] =
+  def renderScores(scoresView: ScoresView): Vector[TextSegment] =
     Vector(
       TextSegment("Scores: ", modifiers = cls := "bold"),
       TextSegment(scoresView.map { case (userId, score) => s"$userId: $score" }.mkString(", "))
@@ -95,7 +124,12 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       | }
       | .clickable {
       |   cursor: pointer;
-      |   font-size: 150%;
-      |   letter-spacing: 1.5em;
+      |   color: green;
       | }
-  """.stripMargin
+      | .non-clickable {
+      |   color: gray;
+      | }
+      | .skull {
+      |   color: red;
+      | }
+    """.stripMargin
