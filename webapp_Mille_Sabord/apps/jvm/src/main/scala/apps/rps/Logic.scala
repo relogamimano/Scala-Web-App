@@ -31,7 +31,7 @@ class Logic extends StateMachine[Event, State, View]:
       players = clients.toVector,
       phase = Phase.StartingTurn,
       dices = List.fill(8)(Dice.Empty).toVector,
-      selectedDice = Set(),
+      selectedDices = Set(),
       score = clients.map(_ -> 0).toMap, 
       seed = new Random(rdmSeed) //If there are any specified seed, we use a random one (mostly useful for testing)
     )
@@ -42,10 +42,10 @@ class Logic extends StateMachine[Event, State, View]:
       case (acc, _)          => acc + 100 // +100 pour tous les autres symboles
     }
 
-  def rollDices(dices: Vector[Dice], selectedDice: Set[DiceId]): Vector[Dice] = 
+  def rollDices(dices: Vector[Dice], selectedDice: Set[DiceId],rdmSeed: Random): Vector[Dice] = 
     dices.zipWithIndex.map((dice, id) => 
       if dice == Dice.Skull then throw IllegalMoveException("Can't reroll a skull")
-      else if selectedDice.contains(id) then dice.randomDice() 
+      else if selectedDice.contains(id) then dice.randomDice(rdmSeed) 
       else dice)
   
   def isGameLost(dices: Vector[Dice]): Boolean = 
@@ -53,7 +53,7 @@ class Logic extends StateMachine[Event, State, View]:
 
     //How does the state changes upon action
   override def transition(state: State)(userId: UserId, event: Event): Try[Seq[Action[State]]] = Try : 
-    val State(players,phase,dices,selectedDice,score) = state 
+    val State(players,phase,dices,selectedDice,score,seed) = state 
     state.phase match 
       case Phase.EndingGame => 
         throw IllegalMoveException("Game is over !")
@@ -65,10 +65,10 @@ class Logic extends StateMachine[Event, State, View]:
         event match
           case Event.ButtonClicked(buttonId) => 
             buttonId match 
-              case ButtonId.End => 
+              case ButtonType.End => 
                 throw IllegalMoveException("Roll the dice first!")
-              case ButtonId.Roll =>  
-                val rolledDices = dices.map(_.randomDice())
+              case ButtonType.Roll =>  
+                val rolledDices = dices.map(_.randomDice(seed))
                 val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
                 Seq(Action.Render(newState))
           case Event.DiceClicked(diceId) => 
@@ -77,27 +77,27 @@ class Logic extends StateMachine[Event, State, View]:
         event match 
           case Event.ButtonClicked(buttonId) => 
             buttonId match
-              case ButtonId.End =>   
+              case ButtonType.End =>   
                 val initDice = dices.map(_ => Dice.Empty)
                 val turnScore = calculateScore(dices)
                 val newScore = score + (userId -> (score(userId) + turnScore))
-                val endState = State(players,Phase.EndingTurn,dices,Set(),newScore)
-                val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),newScore)
+                val endState = State(players,Phase.EndingTurn,dices,Set(),newScore,seed)
+                val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),newScore,seed)
                 Seq(
                       Action.Render(endState),
                       Action.Pause(SHOW_TURN_END_PAUSE_MS),
                       Action.Render(newPlayerState)
                     )
-              case ButtonId.Roll => 
+              case ButtonType.Roll => 
                 if selectedDice.isEmpty then throw IllegalMoveException("Select Dice First!")
                 else
-                  val rolledDice = rollDices(dices,selectedDice)
+                  val rolledDice = rollDices(dices,selectedDice,seed)
                   val viewState = state.copy(phase = Phase.ViewingDice,dices = rolledDice)
 
                   if isGameLost(rolledDice) then 
                     val initDice = dices.map(_ => Dice.Empty)
-                    val endState = viewState.copy(phase = Phase.EndingTurn,selectedDice = Set())
-                    val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score)
+                    val endState = viewState.copy(phase = Phase.EndingTurn,selectedDices = Set())
+                    val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
                     Seq(
                       Action.Render(viewState),
                       Action.Pause(VIEW_DICE_PAUSE_MS),
@@ -106,7 +106,7 @@ class Logic extends StateMachine[Event, State, View]:
                       Action.Render(newPlayerState)
                     )
                   else
-                    val newTurnState = State(players,Phase.SelectingDice,rolledDice,Set(),score)
+                    val newTurnState = State(players,Phase.SelectingDice,rolledDice,Set(),score,seed)
                     Seq(
                       Action.Render(viewState),
                       Action.Pause(VIEW_DICE_PAUSE_MS),
@@ -117,7 +117,7 @@ class Logic extends StateMachine[Event, State, View]:
             if selectedDice.contains(diceId) then throw IllegalMoveException("Selected a new dice!")
             else 
               val newSelectedDice = selectedDice + diceId
-              val newState = state.copy(selectedDice = newSelectedDice)
+              val newState = state.copy(selectedDices = newSelectedDice)
               Seq(Action.Render(newState))  
 
         //TO DO 
@@ -199,7 +199,7 @@ class Logic extends StateMachine[Event, State, View]:
         else
         phase match 
           /** The active player is starting her turn, the other are waiting*/
-          case Phase.SartingTurn => 
+          case Phase.StartingTurn => 
             //All dices are viewed as "NonClickable", meaning that they have a grey surrounding square and lower opacity to indicates that they can't be selected
             val diceView = dices.map(dice => DiceView.NonClickable(dice) ).toVector
             val buttonView = Vector(ButtonView.Clickable(Button.Roll), ButtonView.NonClickable(Button.End))
@@ -207,17 +207,16 @@ class Logic extends StateMachine[Event, State, View]:
 
           /** A player is selecting dice, the other are waiting*/
           case Phase.SelectingDice =>
-              val phaseView =  
-                val diceView = dices.zipWithIndex.map((dice, id) => 
-                  if dice == Dice.Skull then DiceView.NonClickable(dice)
-                  else if  selectedDice.contains(id) then DiceView.Selected(dice) 
-                  else DiceView.Unselected(dice))
-                val buttonView = 
-                  //The player can reroll the dices only if she has at least selected one dice
-                  if selectedDice.isEmpty then 
-                    Vector(ButtonView.NonClickable(Button.Roll), ButtonView.Clickable(Button.End))
-                  else 
-                    Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
+              val diceView = dices.zipWithIndex.map((dice, id) => 
+                if dice == Dice.Skull then DiceView.NonClickable(dice)
+                else if  selectedDice.contains(id) then DiceView.Selected(dice) 
+                else DiceView.Unselected(dice))
+              val buttonView = 
+                //The player can reroll the dices only if she has at least selected one dice
+                if selectedDice.isEmpty then 
+                  Vector(ButtonView.NonClickable(Button.Roll), ButtonView.Clickable(Button.End))
+                else 
+                  Vector(ButtonView.Clickable(Button.Roll), ButtonView.Clickable(Button.End))
                   
               StateView.Playing(PhaseView.SelectingDice,userId,diceView,buttonView)
 
@@ -231,7 +230,7 @@ class Logic extends StateMachine[Event, State, View]:
           case Phase.EndingTurn => 
             /** Player has 3 skulls and loss her turn --> SkullEnd*/
             if isGameLost(dices) then 
-              val diceView = dices.map(dice => DiceView.Skull(dice)).toVector
+              val diceView = dices.map(dice => DiceView.NonClickable(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
             /** Player chose to end her turn and save her score --> SavingEnd*/
