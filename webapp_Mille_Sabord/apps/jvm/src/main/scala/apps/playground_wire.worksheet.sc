@@ -1,146 +1,176 @@
 import ujson.*
 import scala.util.{Failure, Success, Try}
 import io.undertow.util.FlexBase64.Decoder
+import scala.util.Random
 
-type Hand = String
+
+//* Scala Logic import */
 type UserId = String
 
-import Hand.*
+/** Dice are simply strings in this version of the game (use Emoji!) */
+type Dice = String
+type DiceId = Int
 
-/** Hands are simply strings in this version of the game (use Emoji!) */
+
+/** Button are the string with the indication text of the button */
+type Button = String
+enum ButtonType: 
+  case Roll
+  case End
+
+object Dice:
+  val Skull = "💀"
+  val Diamond = "💎"
+  val Coin = "📀"
+  val Sword = "🔪"
+  val Monkey = "🐵" //"🐒"
+  val Parrot = "🐦"
+  val Empty = "❓"
+
+extension (dice: Dice)
+  def randomDice(randomSeed: Random): Dice=
+    //Get a random number between the interval [1,7[
+    val randomDiceIdx = randomSeed.between(1, 7)
+    randomDiceIdx match 
+      case 1 => Dice.Skull
+      case 2 => Dice.Diamond
+      case 3 => Dice.Coin
+      case 4 => Dice.Sword
+      case 5 => Dice.Monkey
+      case 6 => Dice.Parrot
+      
+object Button:
+  val Roll = "Roll the dice"
+  val End = "End my turn"
 
 
-object Hand:
-  val Rock = "✊"
-  val Paper = "✋"
-  val Scissors = "✌️"
-  val allHands = Set(Rock, Paper, Scissors)
-
-extension (hand: Hand)
-  def scoreAgainst(other: Hand): Int = (hand, other) match
-    case (Rock, Scissors) | (Paper, Rock) | (Scissors, Paper) => 1
-    case (Scissors, Rock) | (Rock, Paper) | (Paper, Scissors) => -1
-    case _                                                    => 0
-
-/** A view of the rock paper scissor's state for a specific client.
+/** A view of Mille Sabord's state for a specific client.
   *
-  * The UI alternates between two views: selecting next hand and viewing the
-  * results, attributing corresponding scores.
+  * The UI alternates between two views: 
+  * - the "playing" phase where the player select dice, reroll them and can end its turn
+  * - the "scoring" phase where the player turn ends and its points for the turn are computed and displayed
   *
-  * @param phaseView
+  * @param stateView
   *   A projection of the current phase of the game.
   * @param scoresView
   *   The score of each player.
   */
+//??
 case class View(
-    phaseView: PhaseView,
+    stateView: StateView,
     scoresView: ScoresView
 )
 
-enum PhaseView:
-  /** Players are selecting their next hand. */
-  case SelectingHand(ready: Map[UserId, Boolean])
+enum StateView:
+  /** The game is ongoing. */
+  case Playing(phase: PhaseView, currentPlayer: UserId, diceView: Vector[DiceView], buttonView: Vector[ButtonView])
 
-  /** Players are looking at each other's hand. */
-  case ViewingHands(hands: Map[UserId, Hand])
+  /** The game is over (only one winner of the game possible) */
+  case Finished(winnerId: UserId) //This isn't a Set of UserId as, in this game, it can only be one winner
+
+//??
+enum PhaseView:
+  /** It's the start of your turn, roll the dice for the first time. */
+  case Starting
+
+  /** It's your turn to select dice to rethrown. */
+  case SelectingDice
+
+  /** It's your turn and you can view the result of your reroll. */
+  case ViewingDice
+
+  /** Your turn came to an end because you get 3 skulls */
+  case SkullEnd
+
+  /** Your turn came to an end because you chose to stop it and save your score*/
+  case SavingEnd
+
+  /** It's another player's turn: we're waiting for them rethrow dice or stop. */
+  case Waiting
 
 type ScoresView = Map[UserId, Int]
 
+
+enum DiceView:
+  /** Selected dice have a green square around them*/
+  case Selected(dice: Dice)
+
+  /** Unselected dice just have default view*/
+  case Unselected(dice: Dice)
+
+  /** Skull dice have a gray square around them and a lower opacity*/
+  /** This is also used to indicate that dices can't be selected */ 
+  case NonClickable(dice: Dice)
+
+  /** Get the dice from the DiceView */
+  def getDice: Dice = this match
+    case Selected(dice) => dice
+    case Unselected(dice) => dice
+    case NonClickable(dice) => dice
+
+
+enum ButtonView: 
+  case Clickable(button: Button)
+
+  /** NonClickable button can't be selected and have a lower opacity*/
+  case NonClickable(button: Button)
+
+  //case Selected(button: Button) //Can implemented if we have to do animation for clicking on button
+
 enum Event:
-  /** A player has chosen their hand. */
-  case HandSelected(hand: Hand)
+  /** A player has selected a dice. */
+  case DiceClicked(diceId: DiceId)
 
-// ----------- Do we need to use type State ? ----------
-//type State = Unit
+  /** A player has clicked on a button. */
+  case ButtonClicked(buttonId: ButtonType)
+
+
 enum Phase:
-  case SelectingHand
-  case ViewingHands
+  case StartingTurn
+  case SelectingDice
+  /** View when the player is rolling dice. */
+  case ViewingDice 
+  /** View when the player is ending her turn -> triggered by SkullEnd or SavingEnd */
+  case EndingTurn 
+  case EndingGame
 
-case class State (
+case class State (  
   players: Vector[UserId],
   phase: Phase,
+  dices : Vector[Dice], //The vector should always contains 8 dices
+  selectedDices : Set[DiceId],
   score: Map[UserId, Int],
+  seed: Random
 )
 
-extension(self: Hand)
-      def tag = 
-        self match 
-          case Hand.Rock => "Rock"
-          case Hand.Paper => "Paper"
-          case Hand.Scissors => "Scissors"
-          //case _ => "allHands"
-    extension(self: PhaseView)
-      def tag = 
-        self match 
-          case PhaseView.SelectingHand(ready) => "Selecting"
-          case PhaseView.ViewingHands(hands) => "Viewing"
+//*Wire import */
 
-   
+def encode(event: Event): Value =
+  event match 
+    case Event.DiceClicked(diceId) => Obj("type" -> "DiceClicked", "diceId" -> diceId)
+    case Event.ButtonClicked(buttonId) => Obj("type" -> "ButtonClicked", "buttonId" -> encodeButton(buttonId))        
 
-    def encode(v: View): Value =
-        v match 
-          case View(phaseView,scoresView) => 
-            Arr(
-                Obj(
-                    "tag" -> phaseView.tag,
-                    "value" -> {
-                      phaseView match 
-                      case PhaseView.SelectingHand(ready) => 
-                        Arr(ready.map((key,value) => Obj("key" -> key, "value" -> Bool(value))))
-                      case PhaseView.ViewingHands(hands) => 
-                        Arr(hands.map((key,value) => Obj("key" -> key, "value" -> Str(value.tag))))
-                    }
-                  ),
-                Arr(scoresView.map((key,value) => Obj("key" -> key, "value" -> Num(value))))
-            )
-      
-    def decodeHand(hand: String): Hand = 
-      hand match 
-        case "Rock" => Hand.Rock
-        case "Paper" => Hand.Paper
-        case "Scissors" => Hand.Scissors
+def decode(json: Value): Try[Event] = Try:
+  json("type").str match
+    case "DiceClicked" => Event.DiceClicked(json("diceId").num.toInt)
+    case "ButtonClicked" => Event.ButtonClicked(decodeButton(json("buttonId")).get)
+    case _ => throw Exception(f"Invalid memory event $json")
+
+def encodeButton(button: ButtonType): Value =
+  button match
+    case ButtonType.Roll => Obj("type" -> "Roll")
+    case ButtonType.End => Obj("type" -> "End")
+
+def decodeButton(js: Value): Try[ButtonType] = Try:
+  js("type").str match
+    case "Roll" => ButtonType.Roll
+    case "End" => ButtonType.End
+    case _ => throw Exception(f"Invalid button id $js")
 
 
-    def decode(json: Value): Try[View] =
-      Try{
-        val json_val = json.arr
-        val (phase,score) = (json_val(0).obj, json_val(1).arr)
-        val phase_val = phase("value").arr.toList.flatMap(_.arr.toList)
-        val score_val = score.toList.flatMap(_.arr.toList)
-        val phase_view = 
-          phase("tag").str match 
-          case "Selecting" => 
-            PhaseView.SelectingHand(phase_val.map(x => Map(x.obj("key").str -> x.obj("value").bool)).flatten.toMap)
-          case "Viewing" => 
-            PhaseView.ViewingHands(phase_val.map(x => Map(x.obj("key").str -> decodeHand(x.obj("value").str))).flatten.toMap)
-        val score_view : ScoresView= 
-          (score_val.map(x => Map(x.obj("key").str -> x.obj("value").num.toInt)).flatten.toMap)
-        View(phase_view,score_view)
-      }
-val rock : Hand = Hand.Rock
-val scissor : Hand = Hand.Scissors
-//val phase_View = PhaseView.SelectingHand(Map("1" -> true, "2" -> false))
-val phase_View = PhaseView.ViewingHands(Map("1"-> rock, "2" -> scissor))
-val scores_View = Map("1" -> 2, "2" -> 1)
-val view = View(phase_View, scores_View)
+val eventDice = Event.DiceClicked(3)
+val eventButton = Event.ButtonClicked(ButtonType.End)
 
-val encoded = encode(view)
+decode(encode(eventDice))
 
-
-
-val json_val = encoded.arr
-val (phase,score) = (json_val(0).obj, json_val(1).arr)
-val phase_val = phase("value").arr.toList.flatMap(_.arr.toList)
-val score_val = score.toList.flatMap(_.arr.toList)
-val phase_view = 
-    phase("tag").str match 
-    case "Selecting" => 
-      PhaseView.SelectingHand(phase_val.map(x => Map(x.obj("key").str -> x.obj("value").bool)).flatten.toMap)
-    case "Viewing" => 
-      PhaseView.ViewingHands(phase_val.map(x => Map(x.obj("key").str -> decodeHand(x.obj("value").str))).flatten.toMap)
-val score_view : ScoresView= 
-          (score_val.map(x => Map(x.obj("key").str -> x.obj("value").num.toInt)).flatten.toMap)
-View(phase_view,score_view)
-
-decode(encode(view))
-view
+decode(encode(eventButton))

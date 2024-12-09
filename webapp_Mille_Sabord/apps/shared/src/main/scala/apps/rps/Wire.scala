@@ -19,8 +19,8 @@ object Wire extends AppWire[Event, View]:
 
     override def decode(json: Value): Try[Event] = Try:
       json("type").str match
-        case "DiceClicked" => DiceClicked(json("diceId").num.toInt)
-        case "ButtonClicked" => ButtonClicked(ButtonIdFormat.decode(json("buttonId")).get)
+        case "DiceClicked" => Event.DiceClicked(json("diceId").num.toInt)
+        case "ButtonClicked" => Event.ButtonClicked(ButtonIdFormat.decode(json("buttonId")).get)
         case _ => throw DecodingException(f"Invalid memory event $json")
            
 
