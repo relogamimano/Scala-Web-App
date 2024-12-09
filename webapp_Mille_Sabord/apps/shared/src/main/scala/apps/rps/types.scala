@@ -1,11 +1,9 @@
 package apps.rps
 
-//import cs214.webapp.UserId
+import cs214.webapp.UserId
 // import Dice.*
 // import Button.*
 import scala.util.Random
-
-type UserId = String
 
 /** Dice are simply strings in this version of the game (use Emoji!) */
 type Dice = String

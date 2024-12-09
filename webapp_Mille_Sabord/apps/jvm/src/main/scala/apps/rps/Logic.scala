@@ -26,14 +26,17 @@ class Logic extends StateMachine[Event, State, View]:
   private val SHOW_TURN_END_PAUSE_MS = 2500
 
   /** Creates a new application state. */
-  override def init(clients: Seq[UserId], rdmSeed: Int = Random.nextInt()): State =
+  override def init(clients: Seq[UserId]): State =
+    initSeed(clients)
+  
+  def initSeed(clients: Seq[UserId], initSeed: Option[Int] = None): State =
     State(
       players = clients.toVector,
       phase = Phase.StartingTurn,
       dices = List.fill(8)(Dice.Empty).toVector,
       selectedDices = Set(),
       score = clients.map(_ -> 0).toMap, 
-      seed = new Random(rdmSeed) //If there are any specified seed, we use a random one (mostly useful for testing)
+      seed = new Random(initSeed.getOrElse(Random.nextInt())) //If there are any specified seed, we use a random one (mostly useful for testing)
     )
 
   def calculateScore(dices: Vector[Dice]): Int = 
