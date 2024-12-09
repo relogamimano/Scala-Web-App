@@ -83,8 +83,8 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
             cls := "button clickable",
             onclick := { () => 
               val buttonEvent = button match {
-                case Button.Roll => Event.ButtonClicked(ButtonId.Roll)
-                case Button.End => Event.ButtonClicked(ButtonId.End)
+                case Button.Roll => Event.ButtonClicked(ButtonType.Roll)
+                case Button.End => Event.ButtonClicked(ButtonType.End)
                 // Add other button types here as needed
               }
               sendEvent(buttonEvent)
@@ -106,7 +106,7 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
         case DiceView.Unselected(dice) =>
           div(cls := "dice", dice)
 
-        case DiceView.Skull(dice) =>
+        case DiceView.NonClickable(dice) =>
           div(cls := "dice skull", dice)
     )
 

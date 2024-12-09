@@ -174,3 +174,124 @@ val eventButton = Event.ButtonClicked(ButtonType.End)
 decode(encode(eventDice))
 
 decode(encode(eventButton))
+
+
+// Encode and decode the View
+val scoresmap = MapWire(StringWire, IntWire)
+def encodeView(view: View): Value =
+  Obj(
+    "stateView" -> encodeStateView(view.stateView),
+    "scoresView" -> scoresmap.encode(view.scoresView)
+  )
+def decodeView(js: Value): Try[View] = Try:
+  View(
+    decodeView(js("stateView")).get,
+    scoresmap.decode(js("scoresView")).get
+  )
+//============================= STATE VIEW WIRE =================================
+def encodeStateView(stateView: StateView): Value = 
+  stateView match
+    case StateView.Playing(phase:PhaseView, currentPlayer: UserId, diceView:Vector[DiceView], button:Vector[ButtonView]) =>
+      Obj("type" -> "Playing",
+      "phase" -> encodePhaseView(phase),
+      "currentPlayer" -> currentPlayer,
+      "diceView" -> encodeDiceView(diceView),
+      "buttonView" -> encodeButtonView(button)
+      )
+    case StateView.Finished(winnerId:UserId) =>
+      Obj("type" -> "Finished",
+      "winnerId" -> winnerId)
+
+def decodeStateView(js: Value): Try[StateView] = Try:
+  js("type").str match
+    case "Playing" =>
+      StateView.Playing(
+        decodeView(js("phase")).get,
+        js("currentPlayer").str,
+        decodeDiceView(js("dice")).get,
+        decodeButtonView(js("button")).get
+      )
+    case "Finished" =>
+      StateView.Finished(js("winnerId").str)
+
+//================================ PHASE VIEW WIRE ==============================
+def encodePhaseView(phaseView: PhaseView): Value =
+  phaseView match
+    case PhaseView.Starting => Obj("type" -> "Starting")
+    case PhaseView.SelectingDice => Obj("type" -> "SelectingDice")
+    case PhaseView.ViewingDice => Obj("type" -> "ViewingDice")
+    case PhaseView.SkullEnd => Obj("type" -> "SkullEnd")
+    case PhaseView.SavingEnd => Obj("type" -> "SavingEnd")
+    case PhaseView.Waiting => Obj("type" -> "Waiting")
+    
+def decodePhaseView(js: Value): Try[PhaseView] = Try:
+  js("type").str match
+    case "Starting" => PhaseView.Starting
+    case "SelectingDice" => PhaseView.SelectingDice
+    case "ViewingDice" => PhaseView.ViewingDice
+    case "SkullEnd" => PhaseView.SkullEnd
+    case "SavingEnd" => PhaseView.SavingEnd
+    case "Waiting" => PhaseView.Waiting
+    case _ => throw Exception(f"Invalid phase view $js")
+        
+//=============================== BUTTON VIEW WIRE ================================
+def encodeButtonView(buttonView: ButtonView): Value =
+  buttonView match
+    case ButtonView.Clickable(button:Button) => 
+      Obj("type" -> "Clickable", "button" -> button)
+    case ButtonView.NonClickable(button:Button) =>
+      Obj("type" -> " NonClickable", "button" -> button)
+      
+def decodeButtonView(js: Value): Try[ButtonView] = Try:
+  js("type").str match
+    case "Clickable" => ButtonView.Clickable(js("button").str)
+    case "NonClickable" => ButtonView.NonClickable(js("button").str)
+
+//============================== BUTTON ID WIRE ====================================
+def encodeButtonType(button: ButtonType): Value =
+  button match
+    case ButtonType.Roll => Obj("type" -> "Roll")
+    case ButtonType.End => Obj("type" -> "End")
+
+def decodeButtonType(js: Value): Try[ButtonType] = Try:
+  js("type").str match
+    case "Roll" => ButtonType.Roll
+    case "End" => ButtonType.End
+    case _ => throw Exception(f"Invalid button id $js")
+//============================== DICE VIEW WIRE ====================================
+def encodeDiceView(diceView: DiceView): Value =
+  diceView match
+    case DiceView.Selected(dice:Dice) =>
+      Obj("type" -> "Selected", "dice" -> encodeDice(dice))
+    case DiceView.Unselected(dice:Dice) =>
+      Obj("type" -> "Unselected", "dice" -> encodeDice(dice))
+    case DiceView.NonClickable(dice:Dice) =>
+      Obj("type" -> "NonClickable", "dice" -> encodeDice(dice))
+
+def decodeDiceView(js: Value): Try[DiceView] = Try:
+  js("type").str match
+    case "Selected" => DiceView.Selected(decodeDice(js("dice")).get)
+    case "Unselected" => DiceView.Unselected(decodeDice(js("dice")).get)
+    case "NonClickable" => DiceView.NonClickable(decodeDice(js("dice")).get)     
+
+//============================== DICE WIRE ====================================
+def encodeDice(dice: Dice): Value =
+  dice match
+    case Dice.Skull => Obj("dice" -> "Skull")
+    case Dice.Diamond => Obj("dice" -> "Diamond")
+    case Dice.Coin => Obj("dice" -> "Coin")
+    case Dice.Sword => Obj("dice" -> "Sword")
+    case Dice.Monkey => Obj("dice" -> "Monkey")
+    case Dice.Parrot => Obj("dice" -> "Parrot")
+    case Dice.Empty => Obj("dice" -> "Empty")
+    
+def decodeDice(js: Value): Try[Dice] = Try:
+  js("dice").str match
+    case "Skull" => Dice.Skull
+    case "Diamond" => Dice.Diamond
+    case "Coin" => Dice.Coin
+    case "Sword" => Dice.Sword
+    case "Monkey" => Dice.Monkey
+    case "Parrot" => Dice.Parrot
+    case "Empty" => Dice.Empty
+    case _ => throw Exception(f"Invalid dice $js")

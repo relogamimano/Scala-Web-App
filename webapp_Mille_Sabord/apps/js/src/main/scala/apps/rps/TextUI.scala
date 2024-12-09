@@ -27,18 +27,19 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     "coin" -> Dice.Coin,
     "sword" -> Dice.Sword,
     "monkey" -> Dice.Monkey,
-    "parrot" -> Dice.Parrot
+    "parrot" -> Dice.Parrot,
+    "empty" -> Dice.Empty
   )
 
   val buttonNames = Map(
-    "roll" -> ButtonId.Roll,
-    "end" -> ButtonId.End
+    "roll" -> ButtonType.Roll,
+    "end" -> ButtonType.End
   )
 
   // Handle both dice selection and button actions from text input
   override def handleTextInput(view: View, text: String): Option[Event] = 
     diceNames.get(text.toLowerCase()) match {
-      case Some(diceId) => Some(Event.DiceClicked(diceId))  // Handle dice selection via text input
+      case Some(diceId) => Some(Event.DiceClicked(diceId.toInt: DiceId))  // Handle dice selection via text input
       case None => buttonNames.get(text.toLowerCase()) match {
         case Some(buttonId) => Some(Event.ButtonClicked(buttonId))  // Handle button click via text input
         case None => None  // No valid input
@@ -50,17 +51,24 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       TextSegment(text = "Mille Sabords\n\n", modifiers = cls := "title")
     ) ++ renderView(userId, view)
 
+  /**
   def renderView(userId: UserId, view: View): Vector[TextSegment] =
     renderState(userId, view.stateView) ++ renderScores(view.scoresView)
+    */
 
   def renderState(userId: UserId, stateView: StateView): Vector[TextSegment] = stateView match
     case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
+      /**
       Vector(
         TextSegment(s"Current player: $currentPlayer\n"),
         renderPhase(phase),
         renderDice(diceView),
         renderButtons(buttonView)
       ).flatten
+      */
+      Vector(
+        TextSegment(s"Current player: $currentPlayer\n")
+      ) ++ renderPhase(phase) ++ renderDice(diceView) ++ renderButtons(buttonView)
 
     case StateView.Finished(winnerId) =>
       Vector(
@@ -85,7 +93,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     diceView.map {
       case DiceView.Selected(dice) => TextSegment(s"[Selected: $dice] ")
       case DiceView.Unselected(dice) => TextSegment(s"[$dice] ")
-      case DiceView.Skull(dice) => TextSegment(s"[Skull: $dice] ", modifiers = cls := "skull")
+      case DiceView.NonClickable(dice) => TextSegment(s"[Skull: $dice] ", modifiers = cls := "skull")
     }
 
   def renderButtons(buttonView: Vector[ButtonView]): Vector[TextSegment] =
@@ -96,8 +104,8 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
           onMouseEvent = Some({
             case MouseEvent.Click(_) =>
               sendEvent(
-                if button == Button.Roll then Event.ButtonClicked(ButtonId.Roll)
-                else Event.ButtonClicked(ButtonId.End)
+                if button == Button.Roll then Event.ButtonClicked(ButtonType.Roll)
+                else Event.ButtonClicked(ButtonType.End)
               )
             case _ => ()
           }),
