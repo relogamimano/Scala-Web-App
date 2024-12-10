@@ -16550,7 +16550,7 @@ $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.render__T__O__L
   return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$24, frags, ev$8);
 });
 $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.css__T = (function() {
-  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("\r\n    | .textapp {\r\n    |   font-size: 1rem;\r\n    | }\r\n    |\r\n    | .textapp input {\r\n    |   height: 1em;\r\n    |   width: 100%;\r\n    |   border: solid 1px black;\r\n    |   box-sizing: border-box;\r\n    | }\r\n    |  \r\n    |  .textapp .console {\r\n    |      overflow: hidden;\r\n    |      padding: 0.5em;\r\n    |      font-size: 1em;\r\n    |      display: flex;\r\n    |      flex-direction: column;\r\n    |      justify-content: center;\r\n    |      align-items: start;\r\n    |      border: solid 1px black;\r\n    |  }\r\n    |  \r\n    |  .textapp .console span {\r\n    |      box-sizing: border-box;\r\n    |  }\r\n    ", 124));
+  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("\n    | .textapp {\n    |   font-size: 1rem;\n    | }\n    |\n    | .textapp input {\n    |   height: 1em;\n    |   width: 100%;\n    |   border: solid 1px black;\n    |   box-sizing: border-box;\n    | }\n    |  \n    |  .textapp .console {\n    |      overflow: hidden;\n    |      padding: 0.5em;\n    |      font-size: 1em;\n    |      display: flex;\n    |      flex-direction: column;\n    |      justify-content: center;\n    |      align-items: start;\n    |      border: solid 1px black;\n    |  }\n    |  \n    |  .textapp .console span {\n    |      box-sizing: border-box;\n    |  }\n    ", 124));
 });
 /** @constructor */
 function $c_Lcs214_webapp_client_graphics_TextSegment$() {

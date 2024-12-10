@@ -39,11 +39,32 @@ class Logic extends StateMachine[Event, State, View]:
       seed = new Random(initSeed.getOrElse(Random.nextInt())) //If there are any specified seed, we use a random one (mostly useful for testing)
     )
 
-  def calculateScore(dices: Vector[Dice]): Int = 
-    dices.foldLeft(0){
-      case (acc, Dice.Skull) => acc + 0 // Pas de points pour les crânes
-      case (acc, _)          => acc + 100 // +100 pour tous les autres symboles
-    }
+  def calculateScore(dices: Vector[Dice]): Int = {
+  // Check for occurences
+  val counts = dices.groupBy(identity).view.mapValues(_.size)
+
+  // Points for three similar emojis
+  val bonusPoints = counts.collect {
+    case (Dice.Skull, count) => 0
+    case (_, count) if count >= 3 => 100
+    case (_, count) if count >= 4 => 200
+    case (_, count) if count >= 5 => 500
+    case (_, count) if count >= 6 => 1000
+    case (_, count) if count >= 7 => 2000
+    case (_, count) if count >= 8 => 4000
+  }.sum
+
+  // Points for Diamond And Coins
+  val normalPoints = dices.foldLeft(0) {
+    case (acc, Dice.Coin) => acc + 100
+    case (acc, Dice.Diamond) => acc + 100
+    case (acc, _) => acc + 0
+  }
+
+  // Total points
+   normalPoints + bonusPoints
+}
+
 
   def rollDices(dices: Vector[Dice], selectedDice: Set[DiceId],rdmSeed: Random): Vector[Dice] = 
     dices.zipWithIndex.map((dice, id) => 
@@ -51,8 +72,13 @@ class Logic extends StateMachine[Event, State, View]:
       else if selectedDice.contains(id) then dice.randomDice(rdmSeed) 
       else dice)
   
-  def isGameLost(dices: Vector[Dice]): Boolean = 
+  def isTurnLost(dices: Vector[Dice]): Boolean = 
+    // rename for turn over 
     dices.foldLeft(0)((prev,next) => prev + (if next == Dice.Skull then 1 else 0)) == 3
+  
+  def isGameWon(score:Int): Boolean = 
+    score >= 3000
+
 
     //How does the state changes upon action
   override def transition(state: State)(userId: UserId, event: Event): Try[Seq[Action[State]]] = Try : 
@@ -84,20 +110,25 @@ class Logic extends StateMachine[Event, State, View]:
                 val initDice = dices.map(_ => Dice.Empty)
                 val turnScore = calculateScore(dices)
                 val newScore = score + (userId -> (score(userId) + turnScore))
-                val endState = State(players,Phase.EndingTurn,dices,Set(),newScore,seed)
-                val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),newScore,seed)
-                Seq(
+                val userScore: Int = newScore(userId)
+                if isGameWon(userScore) then 
+                  val endPhase = state.copy(phase = Phase.EndingGame)
+                    Seq(Action.Render(endPhase))
+                else 
+                  val endState = State(players,Phase.EndingTurn,dices,Set(),newScore,seed)
+                  val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),newScore,seed)
+                  Seq(
                       Action.Render(endState),
                       Action.Pause(SHOW_TURN_END_PAUSE_MS),
                       Action.Render(newPlayerState)
-                    )
+                      )
               case ButtonType.Roll => 
                 if selectedDice.isEmpty then throw IllegalMoveException("Select Dice First!")
                 else
                   val rolledDice = rollDices(dices,selectedDice,seed)
                   val viewState = state.copy(phase = Phase.ViewingDice,dices = rolledDice)
 
-                  if isGameLost(rolledDice) then 
+                  if isTurnLost(rolledDice) then 
                     val initDice = dices.map(_ => Dice.Empty)
                     val endState = viewState.copy(phase = Phase.EndingTurn,selectedDices = Set())
                     val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
@@ -122,65 +153,6 @@ class Logic extends StateMachine[Event, State, View]:
               val newSelectedDice = selectedDice + diceId
               val newState = state.copy(selectedDices = newSelectedDice)
               Seq(Action.Render(newState))  
-
-        //TO DO 
-
-          // case DiceClicked(diceId)
-          //   var selectedDice = State.selectedDice
-          //   var selectedDice = selectedDice +:DiceId
-          //   // add the option to remove
-      //   val State(players,phase,dices,score) = state 
-      // case Phase.SelectingDice=> 
-      //   val State(players,phase,dices,score) = state 
-      //   event match 
-      //     // case DiceClicked
-      //     // case ButtonClicked
-      //   // val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
-      //   //raise exeption if no dice are selected
-      //   // passage a viewing dice quand tu touches le bouton 
-      //   val Event.HandSelected(hand) = event.asInstanceOf[Event.HandSelected]
-      //   assert(versusHands.size >= 0 && versusHands.size <= players.size)
-      //   //if state.players.head != userId then 
-      //     //throw NotYourTurnException()
-      //   if versusHands.contains(userId) then 
-      //     throw IllegalMoveException("Don't choose two hands")
-
-      //   val newVersusHands = versusHands + (userId -> hand)
-      //   //a fight can start between the players
-      //   if newVersusHands.size == players.size then 
-      //     //Get the Id of the opponents
-      //     //val  vsUserId = players.filter(_ != userId)
-      //     //val res = hand.scoreAgainst(versusHands(vsUserId))
-      //     //val newScore = score + (userId -> (score(userId) + res))
-      //     val newScore = fight(players, newVersusHands)
-      //     val newRound = round + 1
-      //     val newState = State(players, Phase.ViewingHands, newVersusHands, newScore,newRound)
-      //     if newRound < 3 then 
-      //       val finalState = State(players, Phase.SelectingHand, Map.empty, newScore, newRound)
-
-      //       val SHOW_HANDS_PAUSE_MS = 2500
-      //       Seq(  
-      //         Action.Render(newState),
-      //         Action.Pause(SHOW_HANDS_PAUSE_MS),
-      //         Action.Render(finalState)  
-      //       )
-      //     else 
-      //       val finalState = State(players.tail :+ players.head, Phase.Done, Map.empty, newScore, newRound)
-
-      //       val SHOW_HANDS_PAUSE_MS = 2500
-      //       Seq(  
-      //         Action.Render(newState),
-      //         Action.Pause(SHOW_HANDS_PAUSE_MS),
-      //         Action.Render(finalState)  
-      //       )
-
-      //   //We should wait for the other player to choose its hand
-      //   else 
-      //     val newVsHandsState = state.copy(versusHands = newVersusHands)
-      //     Seq(Action.Render(newVsHandsState))
-        
-
-
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
@@ -232,7 +204,7 @@ class Logic extends StateMachine[Event, State, View]:
           /** The player's turn is over and we have to count the points marked if any*/
           case Phase.EndingTurn => 
             /** Player has 3 skulls and loss her turn --> SkullEnd*/
-            if isGameLost(dices) then 
+            if isTurnLost(dices) then 
               val diceView = dices.map(dice => DiceView.NonClickable(dice)).toVector
               val buttonView = Vector(ButtonView.NonClickable(Button.Roll), ButtonView.NonClickable(Button.End))
               StateView.Playing(PhaseView.SkullEnd,userId,diceView,buttonView)
