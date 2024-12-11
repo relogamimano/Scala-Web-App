@@ -98,6 +98,20 @@ class Logic extends StateMachine[Event, State, View]:
                 throw IllegalMoveException("Roll the dice first!")
               case ButtonType.Roll =>  
                 val rolledDices = dices.map(_.randomDice(seed))
+                if isTurnLost(rolledDice) then 
+                  val initDice = dices.map(_ => Dice.Empty)
+                  val endState = viewState.copy(phase = Phase.EndingTurn,selectedDices = Set())
+                  val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
+                  Seq(
+                    Action.Render(viewState),
+                    Action.Pause(VIEW_DICE_PAUSE_MS),
+                    Action.Render(endState),
+                    Action.Pause(SHOW_TURN_END_PAUSE_MS),
+                    Action.Render(newPlayerState)
+                    )
+                  else
+                    val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
+                    Seq(Action.Render(newState))
                 val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
                 Seq(Action.Render(newState))
           case Event.DiceClicked(diceId) => 
