@@ -40,29 +40,32 @@ class Logic extends StateMachine[Event, State, View]:
     )
 
   def calculateScore(dices: Vector[Dice]): Int = {
-  // Check for occurences
-  val counts = dices.groupBy(identity).view.mapValues(_.size)
+  if (isTurnLost(dices))
+    0
+  else 
+    // Check for occurences
+    val counts = dices.groupBy(identity).view.mapValues(_.size)
 
-  // Points for three similar emojis
-  val bonusPoints = counts.collect {
-    case (Dice.Skull, count) => 0
-    case (_, count) if count >= 3 => 100
-    case (_, count) if count >= 4 => 200
-    case (_, count) if count >= 5 => 500
-    case (_, count) if count >= 6 => 1000
-    case (_, count) if count >= 7 => 2000
-    case (_, count) if count >= 8 => 4000
-  }.sum
+    // Points for three similar emojis
+    val bonusPoints = counts.collect {
+      case (Dice.Skull, count) => 0
+      case (_, count) if count >= 3 => 100
+      case (_, count) if count >= 4 => 200
+      case (_, count) if count >= 5 => 500
+      case (_, count) if count >= 6 => 1000
+      case (_, count) if count >= 7 => 2000
+      case (_, count) if count >= 8 => 4000
+    }.sum
 
-  // Points for Diamond And Coins
-  val normalPoints = dices.foldLeft(0) {
-    case (acc, Dice.Coin) => acc + 100
-    case (acc, Dice.Diamond) => acc + 100
-    case (acc, _) => acc + 0
-  }
+    // Points for Diamond And Coins
+    val normalPoints = dices.foldLeft(0) {
+      case (acc, Dice.Coin) => acc + 100
+      case (acc, Dice.Diamond) => acc + 100
+      case (acc, _) => acc + 0
+    }
 
-  // Total points
-   normalPoints + bonusPoints
+    // Total points
+    normalPoints + bonusPoints
 }
 
 
