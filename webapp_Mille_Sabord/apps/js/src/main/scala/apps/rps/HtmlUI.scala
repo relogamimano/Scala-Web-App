@@ -157,6 +157,7 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
         p(u("Score sheet:")),
         div(
           cls := "cheatsheet",
+          p(s"any 📀 ......   100"),
           p(s"any 💎 ......   100"),
           p(s"3 x 🔲 ......   100"),
           p(s"4 x 🔲 ......   200"),
