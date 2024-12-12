@@ -25,13 +25,18 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
   override def render(userId: UserId, view: View): Frag =
     frag(
       h2(b("Mille Sabords: ")),
-      renderView(userId, view)
+      renderView(userId, view),
+      
     )
 
   def renderView(userId: UserId, view: View): Frag =
     frag(
       renderState(userId, view.stateView),
-      renderScores(view.scoresView)
+      renderScores(view.scoresView),
+      view.stateView match {
+        case StateView.Playing(_, _, _, _) => renderFooter()
+        case _ => frag()
+      }
     )
 
   def renderState(userId: UserId, stateView: StateView): Frag = stateView match
@@ -40,8 +45,7 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
         p(b(s"Current player: "), s"$currentPlayer"),
         renderPhase(phase),
         renderDice(diceView),
-        renderButtons(buttonView),
-        renderFooter()
+        renderButtons(buttonView)
       )
     case StateView.Finished(winnerId, currentPlayer) =>
       frag(
