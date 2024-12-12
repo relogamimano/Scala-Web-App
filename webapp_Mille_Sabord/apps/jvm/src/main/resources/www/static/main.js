@@ -15873,59 +15873,90 @@ $c_Lapps_rps_HtmlUIInstance.prototype.render__T__Lapps_rps_View__Lscalatags_gene
   return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$3, frags, ev);
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.renderView__T__Lapps_rps_View__Lscalatags_generic_Frag = (function(userId, view) {
-  var this$1 = $m_Lscalatags_JsDom$all$();
-  var frags = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([this.renderState__T__Lapps_rps_StateView__Lscalatags_generic_Frag(userId, $n(view).Lapps_rps_View__f_stateView), this.renderScores__sci_Map__Lscalatags_generic_Frag($n(view).Lapps_rps_View__f_scoresView)]));
-  var this$3 = $m_s_$less$colon$less$();
-  var ev = this$3.s_$less$colon$less$__f_singleton;
-  return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$1, frags, ev);
+  var this$9 = $m_Lscalatags_JsDom$all$();
+  var $x_4 = $m_sr_ScalaRunTime$();
+  var $x_3 = this.renderState__T__Lapps_rps_StateView__Lscalatags_generic_Frag(userId, $n(view).Lapps_rps_View__f_stateView);
+  var $x_2 = this.renderScores__sci_Map__Lscalatags_generic_Frag($n(view).Lapps_rps_View__f_scoresView);
+  matchResult1: {
+    var $x_1;
+    var x1 = $n(view).Lapps_rps_View__f_stateView;
+    if ((x1 instanceof $c_Lapps_rps_StateView$Playing)) {
+      var x$1 = $as_Lapps_rps_StateView$Playing(x1);
+      var this$2 = $n(x$1);
+      var this$3 = $n(x$1);
+      var this$4 = $n(x$1);
+      var this$5 = $n(x$1);
+      var $x_1 = this.renderFooter__Lscalatags_generic_Frag();
+      break matchResult1;
+    }
+    var this$6 = $m_Lscalatags_JsDom$all$();
+    var frags = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([]));
+    var this$8 = $m_s_$less$colon$less$();
+    var ev = this$8.s_$less$colon$less$__f_singleton;
+    var $x_1 = new $c_Lscalatags_JsDom$Cap$SeqFrag(this$6, frags, ev);
+  }
+  var frags$1 = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$x_3, $x_2, $x_1]));
+  var this$11 = $m_s_$less$colon$less$();
+  var ev$1 = this$11.s_$less$colon$less$__f_singleton;
+  return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$9, frags$1, ev$1);
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.renderState__T__Lapps_rps_StateView__Lscalatags_generic_Frag = (function(userId, stateView) {
   if ((stateView instanceof $c_Lapps_rps_StateView$Playing)) {
     var x$1 = $as_Lapps_rps_StateView$Playing(stateView);
     var this$2 = $n(x$1);
-    var x7 = this$2.Lapps_rps_StateView$Playing__f_phase;
+    var x15 = this$2.Lapps_rps_StateView$Playing__f_phase;
     var this$3 = $n(x$1);
-    var x8 = this$3.Lapps_rps_StateView$Playing__f_currentPlayer;
+    var x16 = this$3.Lapps_rps_StateView$Playing__f_currentPlayer;
     var this$4 = $n(x$1);
-    var x9 = this$4.Lapps_rps_StateView$Playing__f_diceView;
+    var x17 = this$4.Lapps_rps_StateView$Playing__f_diceView;
     var this$5 = $n(x$1);
-    var x10 = this$5.Lapps_rps_StateView$Playing__f_buttonView;
-    var this$7 = $m_Lscalatags_JsDom$all$();
-    var $x_5 = $m_sr_ScalaRunTime$();
-    var $x_4 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag());
-    var $x_3 = $m_sr_ScalaRunTime$();
-    var $x_2 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag());
-    var $x_1 = $m_sr_ScalaRunTime$();
+    var x18 = this$5.Lapps_rps_StateView$Playing__f_buttonView;
+    var this$8 = $m_Lscalatags_JsDom$all$();
+    var $x_4 = $m_sr_ScalaRunTime$();
+    var $x_3 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag());
+    var $x_2 = $m_sr_ScalaRunTime$();
+    var $x_1 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().b__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Current player: "))])));
     $m_Lscalatags_JsDom$all$();
-    var v = ("Current player: " + x8);
-    var frags = $n($x_5).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($x_4).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_3).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($x_2).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_1).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([new $c_Lscalatags_JsDom$StringFrag(v)])))]))), this.renderPhase__Lapps_rps_PhaseView__Lscalatags_generic_Frag(x7), this.renderDice__sci_Vector__Lscalatags_generic_Frag(x9), this.renderButtons__sci_Vector__Lscalatags_generic_Frag(x10)]));
-    var this$9 = $m_s_$less$colon$less$();
-    var ev = this$9.s_$less$colon$less$__f_singleton;
-    return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$7, frags, ev);
+    var v = ("" + x16);
+    var frags = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($x_3).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_1, new $c_Lscalatags_JsDom$StringFrag(v)]))), this.renderPhase__Lapps_rps_PhaseView__Lscalatags_generic_Frag(x15), this.renderDice__sci_Vector__Lscalatags_generic_Frag(x17), this.renderButtons__sci_Vector__Lscalatags_generic_Frag(x18)]));
+    var this$10 = $m_s_$less$colon$less$();
+    var ev = this$10.s_$less$colon$less$__f_singleton;
+    return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$8, frags, ev);
   }
   if ((stateView instanceof $c_Lapps_rps_StateView$Finished)) {
     var x$1$1 = $as_Lapps_rps_StateView$Finished(stateView);
-    var this$11 = $n(x$1$1);
-    var x4 = this$11.Lapps_rps_StateView$Finished__f_winnerId;
-    var this$13 = $m_Lscalatags_JsDom$all$();
+    var this$12 = $n(x$1$1);
+    var x11 = this$12.Lapps_rps_StateView$Finished__f_winnerId;
+    var this$13 = $n(x$1$1);
+    var x12 = this$13.Lapps_rps_StateView$Finished__f_currentPlayer;
+    var this$19 = $m_Lscalatags_JsDom$all$();
     var $x_10 = $m_sr_ScalaRunTime$();
-    var $x_9 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag());
-    var $x_8 = $m_sr_ScalaRunTime$();
-    var $x_7 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag());
-    var $x_6 = $m_sr_ScalaRunTime$();
+    if ((x11 === x12)) {
+      var this$15 = $n($m_Lscalatags_JsDom$all$().h1__Lscalatags_generic_TypedTag());
+      var xs = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("win-header", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), $n($m_Lscalatags_JsDom$all$().style__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("color: green;", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("You Win!!! \ud83e\udd73"))]));
+      var $x_9 = this$15.apply__sci_Seq__Lscalatags_JsDom$TypedTag(xs);
+    } else {
+      var this$17 = $n($m_Lscalatags_JsDom$all$().h1__Lscalatags_generic_TypedTag());
+      var xs$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("lose-header", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), $n($m_Lscalatags_JsDom$all$().style__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("color: red;", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("You Lose... \ud83d\ude2d "))]));
+      var $x_9 = this$17.apply__sci_Seq__Lscalatags_JsDom$TypedTag(xs$1);
+    }
+    var $x_8 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag());
+    var $x_7 = $m_sr_ScalaRunTime$();
+    var $x_6 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag());
+    var $x_5 = $m_sr_ScalaRunTime$();
     $m_Lscalatags_JsDom$all$();
-    var v$1 = ("The game is over! Winner: " + x4);
-    var frags$1 = $n($x_10).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($x_9).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_8).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($x_7).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_6).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([new $c_Lscalatags_JsDom$StringFrag(v$1)])))])))]));
-    var this$15 = $m_s_$less$colon$less$();
-    var ev$1 = this$15.s_$less$colon$less$__f_singleton;
-    return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$13, frags$1, ev$1);
+    var v$1 = ("The game is over! Winner: " + x11);
+    var frags$1 = $n($x_10).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$x_9, $n($x_8).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_7).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($x_6).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_5).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([new $c_Lscalatags_JsDom$StringFrag(v$1)])))])))]));
+    var this$21 = $m_s_$less$colon$less$();
+    var ev$1 = this$21.s_$less$colon$less$__f_singleton;
+    return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$19, frags$1, ev$1);
   }
   throw new $c_s_MatchError(stateView);
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.renderScores__sci_Map__Lscalatags_generic_Frag = (function(scores) {
   var this$7 = $m_Lscalatags_JsDom$all$();
   var $x_10 = $m_sr_ScalaRunTime$();
-  var $x_9 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Scores:"))])))])));
+  var $x_9 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().b__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Scores:"))])))])));
   var $x_8 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag());
   var $x_7 = $m_sr_ScalaRunTime$();
   var $x_6 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("scores", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
@@ -15964,7 +15995,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_1) {
     var this$3 = $m_Lscalatags_JsDom$all$();
-    var frags = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Start your turn and roll the dice!"))])))])))]));
+    var frags = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Start your turn and roll the dice!"))])))]));
     var this$5 = $m_s_$less$colon$less$();
     var ev = this$5.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$3, frags, ev);
@@ -15978,7 +16009,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_2) {
     var this$8 = $m_Lscalatags_JsDom$all$();
-    var frags$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Select the dice you want to rethrow:"))])))])))]));
+    var frags$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Select the dice you want to rethrow or end your turn:"))])))]));
     var this$10 = $m_s_$less$colon$less$();
     var ev$1 = this$10.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$8, frags$1, ev$1);
@@ -15992,7 +16023,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_3) {
     var this$13 = $m_Lscalatags_JsDom$all$();
-    var frags$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Here's what you got! Do you want to end your turn or try again?"))])))])))]));
+    var frags$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Here's what you got! How many points do you think you have?"))])))]));
     var this$15 = $m_s_$less$colon$less$();
     var ev$2 = this$15.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$13, frags$2, ev$2);
@@ -16006,7 +16037,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_4) {
     var this$18 = $m_Lscalatags_JsDom$all$();
-    var frags$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Shoot! You got 3 skulls. Game over :("))])))])))]));
+    var frags$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Shoot! You got 3 skulls. Game over :("))])))]));
     var this$20 = $m_s_$less$colon$less$();
     var ev$3 = this$20.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$18, frags$3, ev$3);
@@ -16020,7 +16051,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_5) {
     var this$23 = $m_Lscalatags_JsDom$all$();
-    var frags$4 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Here's your score for this turn!"))])))])))]));
+    var frags$4 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Here's your score for this turn!"))])))]));
     var this$25 = $m_s_$less$colon$less$();
     var ev$4 = this$25.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$23, frags$4, ev$4);
@@ -16034,7 +16065,7 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderPhase__Lapps_rps_PhaseView__Lscalata
   }
   if ($x_6) {
     var this$28 = $m_Lscalatags_JsDom$all$();
-    var frags$5 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().i__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Let's watch your opponent play..."))])))])))]));
+    var frags$5 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Let's watch your opponent play..."))])))]));
     var this$30 = $m_s_$less$colon$less$();
     var ev$5 = this$30.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$28, frags$5, ev$5);
@@ -16051,25 +16082,25 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderButtons__sci_Vector__Lscalatags_gene
     if ((button$1 instanceof $c_Lapps_rps_ButtonView$Clickable)) {
       var x$1 = $as_Lapps_rps_ButtonView$Clickable(button$1);
       var this$3 = $n(x$1);
-      var x22 = this$3.Lapps_rps_ButtonView$Clickable__f_button;
+      var x30 = this$3.Lapps_rps_ButtonView$Clickable__f_button;
       var $x_5 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag()));
       var $x_4 = $m_sr_ScalaRunTime$();
       var $x_3 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("button clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
       var $x_2 = $m_Lscalatags_JsDom$all$().onclick__Lscalatags_generic_Attr();
       var $x_1 = new $c_sjsr_AnonFunction0((() => {
-        matchResult4: {
+        matchResult5: {
           var buttonEvent;
-          if ((x22 === "Roll the dice")) {
+          if ((x30 === "Roll the dice")) {
             var buttonId = $s_Lapps_rps_ButtonType$__Roll__Lapps_rps_ButtonType();
             var buttonEvent = new $c_Lapps_rps_Event$ButtonClicked(buttonId);
-            break matchResult4;
+            break matchResult5;
           }
-          if ((x22 === "End my turn")) {
+          if ((x30 === "End my turn")) {
             var buttonId$1 = $s_Lapps_rps_ButtonType$__End__Lapps_rps_ButtonType();
             var buttonEvent = new $c_Lapps_rps_Event$ButtonClicked(buttonId$1);
-            break matchResult4;
+            break matchResult5;
           }
-          throw new $c_s_MatchError(x22);
+          throw new $c_s_MatchError(x30);
         }
         this.sendEvent__O__V(buttonEvent);
       }));
@@ -16078,13 +16109,13 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderButtons__sci_Vector__Lscalatags_gene
         var f$1 = $as_F0(f);
         return $m_sjs_js_Any$().fromFunction0__F0__sjs_js_Function0(f$1);
       }));
-      return $n($x_5).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_3, $n($x_2).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair($x_1, new $c_Lscalatags_LowPriorityImplicits$$anon$2(ev)), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x22))])));
+      return $n($x_5).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_3, $n($x_2).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair($x_1, new $c_Lscalatags_LowPriorityImplicits$$anon$2(ev)), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x30))])));
     }
     if ((button$1 instanceof $c_Lapps_rps_ButtonView$NonClickable)) {
       var x$1$1 = $as_Lapps_rps_ButtonView$NonClickable(button$1);
       var this$9 = $n(x$1$1);
-      var x19 = this$9.Lapps_rps_ButtonView$NonClickable__f_button;
-      return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("button non-clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x19))])));
+      var x27 = this$9.Lapps_rps_ButtonView$NonClickable__f_button;
+      return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("button non-clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x27))])));
     }
     throw new $c_s_MatchError(button$1);
   }))));
@@ -16093,38 +16124,76 @@ $c_Lapps_rps_HtmlUIInstance.prototype.renderButtons__sci_Vector__Lscalatags_gene
   return $n($x_8).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_7).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_6, new $c_Lscalatags_JsDom$Cap$SeqFrag(this$13, xs, ev$1)])));
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.renderDice__sci_Vector__Lscalatags_generic_Frag = (function(diceView) {
-  var $x_3 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag()));
-  var $x_2 = $m_sr_ScalaRunTime$();
-  var $x_1 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice-container", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
-  var this$12 = $m_Lscalatags_JsDom$all$();
-  var xs = $as_sci_Seq($n(diceView).map__F1__O(new $c_sjsr_AnonFunction1(((dice) => {
-    var dice$1 = $as_Lapps_rps_DiceView(dice);
-    if ((dice$1 instanceof $c_Lapps_rps_DiceView$Selected)) {
-      var x$1 = $as_Lapps_rps_DiceView$Selected(dice$1);
-      var this$2 = $n(x$1);
-      var x32 = this$2.Lapps_rps_DiceView$Selected__f_dice;
-      return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice selected", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x32))])));
+  var $x_16 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag()));
+  var $x_15 = $m_sr_ScalaRunTime$();
+  var $x_14 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice-container-wrapper", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
+  var $x_13 = $as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag());
+  var $x_12 = $m_sr_ScalaRunTime$();
+  var $x_11 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice-container", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
+  var this$18 = $m_Lscalatags_JsDom$all$();
+  var this$1 = $n(diceView);
+  var xs = $as_sci_Seq($n($as_sc_StrictOptimizedIterableOps($f_sc_StrictOptimizedIterableOps__zipWithIndex__O(this$1))).map__F1__O(new $c_sjsr_AnonFunction1(((x$1) => {
+    var x$1$1 = $as_T2(x$1);
+    if ((x$1$1 !== null)) {
+      var dice = $as_Lapps_rps_DiceView($n(x$1$1)._1__O());
+      var diceID = $uI($n(x$1$1)._2__O());
+      if ((dice instanceof $c_Lapps_rps_DiceView$Selected)) {
+        var x$1$2 = $as_Lapps_rps_DiceView$Selected(dice);
+        var this$4 = $n(x$1$2);
+        var x40 = this$4.Lapps_rps_DiceView$Selected__f_dice;
+        var $x_5 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag()));
+        var $x_4 = $m_sr_ScalaRunTime$();
+        var $x_3 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice selected", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
+        var $x_2 = $m_Lscalatags_JsDom$all$().onclick__Lscalatags_generic_Attr();
+        var $x_1 = new $c_sjsr_AnonFunction0((() => {
+          var diceEvent = new $c_Lapps_rps_Event$DiceClicked(diceID);
+          this.sendEvent__O__V(diceEvent);
+        }));
+        $m_Lscalatags_JsDom$all$();
+        var ev = new $c_sjsr_AnonFunction1(((f) => {
+          var f$1 = $as_F0(f);
+          return $m_sjs_js_Any$().fromFunction0__F0__sjs_js_Function0(f$1);
+        }));
+        return $n($x_5).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_3, $n($x_2).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair($x_1, new $c_Lscalatags_LowPriorityImplicits$$anon$2(ev)), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x40))])));
+      }
+      if ((dice instanceof $c_Lapps_rps_DiceView$Unselected)) {
+        var x$1$3 = $as_Lapps_rps_DiceView$Unselected(dice);
+        var this$9 = $n(x$1$3);
+        var x37 = this$9.Lapps_rps_DiceView$Unselected__f_dice;
+        var $x_10 = $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag()));
+        var $x_9 = $m_sr_ScalaRunTime$();
+        var $x_8 = $n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr);
+        var $x_7 = $m_Lscalatags_JsDom$all$().onclick__Lscalatags_generic_Attr();
+        var $x_6 = new $c_sjsr_AnonFunction0((() => {
+          var diceEvent$1 = new $c_Lapps_rps_Event$DiceClicked(diceID);
+          this.sendEvent__O__V(diceEvent$1);
+        }));
+        $m_Lscalatags_JsDom$all$();
+        var ev$1 = new $c_sjsr_AnonFunction1(((f$2) => {
+          var f$3 = $as_F0(f$2);
+          return $m_sjs_js_Any$().fromFunction0__F0__sjs_js_Function0(f$3);
+        }));
+        return $n($x_10).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_9).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_8, $n($x_7).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair($x_6, new $c_Lscalatags_LowPriorityImplicits$$anon$2(ev$1)), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x37))])));
+      }
+      if ((dice instanceof $c_Lapps_rps_DiceView$NonClickable)) {
+        var x$1$4 = $as_Lapps_rps_DiceView$NonClickable(dice);
+        var this$14 = $n(x$1$4);
+        var x34 = this$14.Lapps_rps_DiceView$NonClickable__f_dice;
+        return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice skull", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x34))])));
+      }
+      throw new $c_s_MatchError(dice);
     }
-    if ((dice$1 instanceof $c_Lapps_rps_DiceView$Unselected)) {
-      var x$1$1 = $as_Lapps_rps_DiceView$Unselected(dice$1);
-      var this$5 = $n(x$1$1);
-      var x29 = this$5.Lapps_rps_DiceView$Unselected__f_dice;
-      return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x29))])));
-    }
-    if ((dice$1 instanceof $c_Lapps_rps_DiceView$NonClickable)) {
-      var x$1$2 = $as_Lapps_rps_DiceView$NonClickable(dice$1);
-      var this$8 = $n(x$1$2);
-      var x26 = this$8.Lapps_rps_DiceView$NonClickable__f_dice;
-      return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("dice skull", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag(x26))])));
-    }
-    throw new $c_s_MatchError(dice$1);
+    throw new $c_s_MatchError(x$1$1);
   }))));
-  var this$11 = $m_s_$less$colon$less$();
-  var ev = this$11.s_$less$colon$less$__f_singleton;
-  return $n($x_3).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_1, new $c_Lscalatags_JsDom$Cap$SeqFrag(this$12, xs, ev)])));
+  var this$17 = $m_s_$less$colon$less$();
+  var ev$2 = this$17.s_$less$colon$less$__f_singleton;
+  return $n($x_16).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_15).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_14, $n($x_13).apply__sci_Seq__Lscalatags_JsDom$TypedTag($n($x_12).wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$x_11, new $c_Lscalatags_JsDom$Cap$SeqFrag(this$18, xs, ev$2)])))])));
+});
+$c_Lapps_rps_HtmlUIInstance.prototype.renderFooter__Lscalatags_generic_Frag = (function() {
+  return $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("footer-wrapper", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("footer", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().u__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Score sheet:"))])))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().div__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("cheatsheet", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("any \ud83d\udc8e ......   100"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("3 x \ud83d\udd32 ......   100"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("4 x \ud83d\udd32 ......   200"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("5 x \ud83d\udd32 ......   500"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("6 x \ud83d\udd32 ......   1000"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("7 x \ud83d\udd32 ......   2000"))]))), $n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("8 x \ud83d\udd32 ......   4000"))])))])))])))])));
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.css__T = (function() {
-  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("| .dice-container {\r\n      |   display: flex;\r\n      |   justify-content: center;\r\n      |   gap: 1rem;\r\n      | }\r\n      | .dice {\r\n      |   width: 50px;\r\n      |   height: 50px;\r\n      |   font-size: 2rem;\r\n      |   text-align: center;\r\n      |   border: 1px solid black;\r\n      |   border-radius: 5px;\r\n      |   display: flex;\r\n      |   justify-content: center;\r\n      |   align-items: center;\r\n      | }\r\n      | .selected {\r\n      |   border-color: green;\r\n      |   background-color: #e6ffe6;\r\n      | }\r\n      | .skull {\r\n      |   opacity: 0.5;\r\n      |   background-color: gray;\r\n      | }\r\n      | .buttons-container {\r\n      |   display: flex;\r\n      |   gap: 1rem;\r\n      |   justify-content: center;\r\n      | }\r\n      | .button {\r\n      |   padding: 0.5rem 1rem;\r\n      |   font-size: 1.2rem;\r\n      |   border-radius: 5px;\r\n      |   cursor: pointer;\r\n      |   text-align: center;\r\n      | }\r\n      | .clickable {\r\n      |   background-color: #4caf50;\r\n      |   color: white;\r\n      | }\r\n      | .non-clickable {\r\n      |   background-color: #d3d3d3;\r\n      |   color: #777;\r\n      |   cursor: not-allowed;\r\n      | }\r\n    ", 124));
+  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("| .dice-container {\r\n      |   display: grid;\r\n      |   grid-template-columns: repeat(4, 1fr);\r\n      |   grid-template-rows: repeat(2, 1fr);\r\n      |   gap: 1rem;\r\n      |   margin-bottom: 2rem; /* Add gap between dice and buttons */\r\n      | }\r\n      | .dice-container-wrapper {\r\n      |   display: flex;\r\n      |   justify-content: center;\r\n      |   align-items: center;\r\n      |   height: 100%; /* Ensure it takes up full height of parent */\r\n      | }\r\n      | .dice {\r\n      |   width: 80px; /* Increased size */\r\n      |   height: 80px; /* Increased size */\r\n      |   font-size: 2.5rem;\r\n      |   text-align: center;\r\n      |   border: 2px solid black; /* Default border thickness */\r\n      |   border-radius: 5px;\r\n      |   display: flex;\r\n      |   justify-content: center;\r\n      |   align-items: center;\r\n      | }\r\n      | .selected {\r\n      |   border-color: green;\r\n      |   border-width: 4px; /* Thicker border when selected */\r\n      |   background-color: #e6ffe6;\r\n      | }\r\n      | .skull {\r\n      |   opacity: 0.5;\r\n      |   background-color: gray;\r\n      | }\r\n      | .buttons-container {\r\n      |   display: flex;\r\n      |   gap: 1rem;\r\n      |   justify-content: center;\r\n      | }\r\n      | .button {\r\n      |   padding: 0.5rem 1rem;\r\n      |   font-size: 1.2rem;\r\n      |   border-radius: 5px;\r\n      |   cursor: pointer;\r\n      |   text-align: center;\r\n      | }\r\n      | .clickable {\r\n      |   background-color: #4caf50;\r\n      |   color: white;\r\n      | }\r\n      | .non-clickable {\r\n      |   background-color: #d3d3d3;\r\n      |   color: #777;\r\n      |   cursor: not-allowed;\r\n      | }\r\n      | .centered-text {\r\n      |   text-align: center; /* Center align text */\r\n      |   font-style: normal; /* Remove italics */\r\n      | }\r\n      | .cheatsheet {\r\n      |   background-color: #f9e3a1; \r\n      |   padding: 20px;\r\n      |   width: 300px; /* Adjust width as needed */\r\n      |   border-radius: 10px;\r\n      |   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */\r\n      |   font-family: \"Courier New\", monospace; /* Fixed-width font for alignment */\r\n      |   font-size: 18px;\r\n      |   margin-top: 1rem;\r\n      | }\r\n      | .cheatsheet p {\r\n      |   margin: 10px 0;\r\n      |   white-space: nowrap; /* Prevents wrapping and ensures alignment */\r\n      |   text-align: left; /* Aligns the text to the left */\r\n      | }\r\n      | .footer {\r\n      |   margin-top: 2rem;\r\n      |   text-align: center;\r\n      | }\r\n      | .footer-wrapper {\r\n      |   display: flex;\r\n      |   justify-content: center;\r\n      |   align-items: flex-start; /* Aligns content to the top, if needed */\r\n      |   height: 100%; /* Ensure it takes up full height of parent */\r\n      | }\r\n    ", 124));
 });
 $c_Lapps_rps_HtmlUIInstance.prototype.render__T__O__Lscalatags_generic_Frag = (function(userId, view) {
   return this.render__T__Lapps_rps_View__Lscalatags_generic_Frag(userId, $as_Lapps_rps_View(view));
@@ -20092,12 +20161,12 @@ $c_Lapps_rps_Wire$ButtonIdFormat$.prototype.decode__Lujson_Value__s_util_Try = (
       var this$3 = $n(js);
       var s = new $c_Lujson_Value$Selector$StringSelector("type");
       var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-      var x38 = $f_Lujson_Value__str__T(this$4);
-      if ((x38 === "Roll")) {
+      var x40 = $f_Lujson_Value__str__T(this$4);
+      if ((x40 === "Roll")) {
         var r1 = $s_Lapps_rps_ButtonType$__Roll__Lapps_rps_ButtonType();
         break matchResult10;
       }
-      if ((x38 === "End")) {
+      if ((x40 === "End")) {
         var r1 = $s_Lapps_rps_ButtonType$__End__Lapps_rps_ButtonType();
         break matchResult10;
       }
@@ -20143,10 +20212,10 @@ $c_Lapps_rps_Wire$ButtonViewFormat$.prototype.encode__Lapps_rps_ButtonView__Lujs
   if ((buttonView instanceof $c_Lapps_rps_ButtonView$Clickable)) {
     var x$1 = $as_Lapps_rps_ButtonView$Clickable(buttonView);
     var this$2 = $n(x$1);
-    var x34 = this$2.Lapps_rps_ButtonView$Clickable__f_button;
-    if ((x34 !== null)) {
+    var x36 = this$2.Lapps_rps_ButtonView$Clickable__f_button;
+    if ((x36 !== null)) {
       var $x_1 = $m_sr_ScalaRunTime$();
-      var this$7 = $n(x34);
+      var this$7 = $n(x36);
       var y = new $c_Lujson_Str(this$7);
       var items = $n($x_1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("button", y)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -20164,10 +20233,10 @@ $c_Lapps_rps_Wire$ButtonViewFormat$.prototype.encode__Lapps_rps_ButtonView__Lujs
   if ((buttonView instanceof $c_Lapps_rps_ButtonView$NonClickable)) {
     var x$1$1 = $as_Lapps_rps_ButtonView$NonClickable(buttonView);
     var this$17 = $n(x$1$1);
-    var x30 = this$17.Lapps_rps_ButtonView$NonClickable__f_button;
-    if ((x30 !== null)) {
+    var x32 = this$17.Lapps_rps_ButtonView$NonClickable__f_button;
+    if ((x32 !== null)) {
       var $x_2 = $m_sr_ScalaRunTime$();
-      var this$22 = $n(x30);
+      var this$22 = $n(x32);
       var y$1 = new $c_Lujson_Str(this$22);
       var items$1 = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("button", y$1)]));
       var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
@@ -20191,8 +20260,8 @@ $c_Lapps_rps_Wire$ButtonViewFormat$.prototype.decode__Lujson_Value__s_util_Try =
       var this$3 = $n(js);
       var s = new $c_Lujson_Value$Selector$StringSelector("type");
       var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-      var x36 = $f_Lujson_Value__str__T(this$4);
-      if ((x36 === "Clickable")) {
+      var x38 = $f_Lujson_Value__str__T(this$4);
+      if ((x38 === "Clickable")) {
         var this$6 = $n(js);
         var s$1 = new $c_Lujson_Value$Selector$StringSelector("button");
         var this$7 = $n(s$1.apply__Lujson_Value__Lujson_Value(this$6));
@@ -20200,7 +20269,7 @@ $c_Lapps_rps_Wire$ButtonViewFormat$.prototype.decode__Lujson_Value__s_util_Try =
         var r1 = new $c_Lapps_rps_ButtonView$Clickable(button);
         break matchResult8;
       }
-      if ((x36 === "NonClickable")) {
+      if ((x38 === "NonClickable")) {
         var this$10 = $n(js);
         var s$2 = new $c_Lujson_Value$Selector$StringSelector("button");
         var this$11 = $n(s$2.apply__Lujson_Value__Lujson_Value(this$10));
@@ -20208,7 +20277,7 @@ $c_Lapps_rps_Wire$ButtonViewFormat$.prototype.decode__Lujson_Value__s_util_Try =
         var r1 = new $c_Lapps_rps_ButtonView$NonClickable(button$1);
         break matchResult8;
       }
-      throw new $c_s_MatchError(x36);
+      throw new $c_s_MatchError(x38);
     }
     return new $c_s_util_Success(r1);
   } catch (e) {
@@ -20345,8 +20414,8 @@ $c_Lapps_rps_Wire$DiceFormat$.prototype.decode__Lujson_Value__s_util_Try = (func
     var this$3 = $n(js);
     var s = new $c_Lujson_Value$Selector$StringSelector("dice");
     var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-    var x54 = $f_Lujson_Value__str__T(this$4);
-    switch (x54) {
+    var x56 = $f_Lujson_Value__str__T(this$4);
+    switch (x56) {
       case "Skull": {
         var r1 = "\ud83d\udc80";
         break;
@@ -20419,10 +20488,10 @@ $c_Lapps_rps_Wire$DiceViewFormat$.prototype.encode__Lapps_rps_DiceView__Lujson_V
   if ((diceView instanceof $c_Lapps_rps_DiceView$Selected)) {
     var x$1 = $as_Lapps_rps_DiceView$Selected(diceView);
     var this$2 = $n(x$1);
-    var x50 = this$2.Lapps_rps_DiceView$Selected__f_dice;
-    if ((x50 !== null)) {
+    var x52 = this$2.Lapps_rps_DiceView$Selected__f_dice;
+    if ((x52 !== null)) {
       var $x_1 = $m_sr_ScalaRunTime$();
-      var y = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x50);
+      var y = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x52);
       var items = $n($x_1).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("dice", y)]));
       var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
       map.put__O__O__s_Option("type", new $c_Lujson_Str("Selected"));
@@ -20439,10 +20508,10 @@ $c_Lapps_rps_Wire$DiceViewFormat$.prototype.encode__Lapps_rps_DiceView__Lujson_V
   if ((diceView instanceof $c_Lapps_rps_DiceView$Unselected)) {
     var x$1$1 = $as_Lapps_rps_DiceView$Unselected(diceView);
     var this$14 = $n(x$1$1);
-    var x46 = this$14.Lapps_rps_DiceView$Unselected__f_dice;
-    if ((x46 !== null)) {
+    var x48 = this$14.Lapps_rps_DiceView$Unselected__f_dice;
+    if ((x48 !== null)) {
       var $x_2 = $m_sr_ScalaRunTime$();
-      var y$1 = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x46);
+      var y$1 = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x48);
       var items$1 = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("dice", y$1)]));
       var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
       map$1.put__O__O__s_Option("type", new $c_Lujson_Str("Unselected"));
@@ -20459,10 +20528,10 @@ $c_Lapps_rps_Wire$DiceViewFormat$.prototype.encode__Lapps_rps_DiceView__Lujson_V
   if ((diceView instanceof $c_Lapps_rps_DiceView$NonClickable)) {
     var x$1$2 = $as_Lapps_rps_DiceView$NonClickable(diceView);
     var this$26 = $n(x$1$2);
-    var x42 = this$26.Lapps_rps_DiceView$NonClickable__f_dice;
-    if ((x42 !== null)) {
+    var x44 = this$26.Lapps_rps_DiceView$NonClickable__f_dice;
+    if ((x44 !== null)) {
       var $x_3 = $m_sr_ScalaRunTime$();
-      var y$2 = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x42);
+      var y$2 = $m_Lapps_rps_Wire$DiceFormat$().encode__T__Lujson_Value(x44);
       var items$2 = $n($x_3).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("dice", y$2)]));
       var map$2 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
       map$2.put__O__O__s_Option("type", new $c_Lujson_Str("NonClickable"));
@@ -20484,8 +20553,8 @@ $c_Lapps_rps_Wire$DiceViewFormat$.prototype.decode__Lujson_Value__s_util_Try = (
     var this$3 = $n(js);
     var s = new $c_Lujson_Value$Selector$StringSelector("type");
     var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-    var x52 = $f_Lujson_Value__str__T(this$4);
-    switch (x52) {
+    var x54 = $f_Lujson_Value__str__T(this$4);
+    switch (x54) {
       case "Selected": {
         var $x_1 = $m_Lapps_rps_Wire$DiceFormat$();
         var this$6 = $n(js);
@@ -20511,7 +20580,7 @@ $c_Lapps_rps_Wire$DiceViewFormat$.prototype.decode__Lujson_Value__s_util_Try = (
         break;
       }
       default: {
-        throw new $c_s_MatchError(x52);
+        throw new $c_s_MatchError(x54);
       }
     }
     return new $c_s_util_Success(r1);
@@ -20678,8 +20747,8 @@ $c_Lapps_rps_Wire$PhaseViewFormat$.prototype.decode__Lujson_Value__s_util_Try = 
     var this$3 = $n(js);
     var s = new $c_Lujson_Value$Selector$StringSelector("type");
     var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-    var x26 = $f_Lujson_Value__str__T(this$4);
-    switch (x26) {
+    var x28 = $f_Lujson_Value__str__T(this$4);
+    switch (x28) {
       case "Starting": {
         var r1 = $s_Lapps_rps_PhaseView$__Starting__Lapps_rps_PhaseView();
         break;
@@ -20748,26 +20817,26 @@ $c_Lapps_rps_Wire$StateViewFormat$.prototype.encode__Lapps_rps_StateView__Lujson
   if ((stateView instanceof $c_Lapps_rps_StateView$Playing)) {
     var x$1 = $as_Lapps_rps_StateView$Playing(stateView);
     var this$2 = $n(x$1);
-    var x16 = this$2.Lapps_rps_StateView$Playing__f_phase;
+    var x18 = this$2.Lapps_rps_StateView$Playing__f_phase;
     var this$3 = $n(x$1);
-    var x17 = this$3.Lapps_rps_StateView$Playing__f_currentPlayer;
+    var x19 = this$3.Lapps_rps_StateView$Playing__f_currentPlayer;
     var this$4 = $n(x$1);
-    var x18 = this$4.Lapps_rps_StateView$Playing__f_diceView;
+    var x20 = this$4.Lapps_rps_StateView$Playing__f_diceView;
     var this$5 = $n(x$1);
-    var x19 = this$5.Lapps_rps_StateView$Playing__f_buttonView;
-    if ((x16 !== null)) {
-      if ((x17 !== null)) {
-        if ((x18 !== null)) {
-          if ((x19 !== null)) {
+    var x21 = this$5.Lapps_rps_StateView$Playing__f_buttonView;
+    if ((x18 !== null)) {
+      if ((x19 !== null)) {
+        if ((x20 !== null)) {
+          if ((x21 !== null)) {
             var $x_4 = $m_sr_ScalaRunTime$();
-            var y = $m_Lapps_rps_Wire$PhaseViewFormat$().encode__Lapps_rps_PhaseView__Lujson_Value(x16);
+            var y = $m_Lapps_rps_Wire$PhaseViewFormat$().encode__Lapps_rps_PhaseView__Lujson_Value(x18);
             var $x_3 = new $c_T2("phase", y);
-            var this$12 = $n(x17);
+            var this$12 = $n(x19);
             var y$1 = new $c_Lujson_Str(this$12);
             var $x_2 = new $c_T2("currentPlayer", y$1);
-            var y$2 = new $c_Lcs214_webapp_VectorWire($m_Lapps_rps_Wire$DiceViewFormat$()).encode__O__Lujson_Value(x18);
+            var y$2 = new $c_Lcs214_webapp_VectorWire($m_Lapps_rps_Wire$DiceViewFormat$()).encode__O__Lujson_Value(x20);
             var $x_1 = new $c_T2("diceView", y$2);
-            var y$3 = new $c_Lcs214_webapp_VectorWire($m_Lapps_rps_Wire$ButtonViewFormat$()).encode__O__Lujson_Value(x19);
+            var y$3 = new $c_Lcs214_webapp_VectorWire($m_Lapps_rps_Wire$ButtonViewFormat$()).encode__O__Lujson_Value(x21);
             var items = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_3, $x_2, $x_1, new $c_T2("buttonView", y$3)]));
             var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
             map.put__O__O__s_Option("type", new $c_Lujson_Str("Playing"));
@@ -20788,21 +20857,28 @@ $c_Lapps_rps_Wire$StateViewFormat$.prototype.encode__Lapps_rps_StateView__Lujson
     var x$1$1 = $as_Lapps_rps_StateView$Finished(stateView);
     var this$26 = $n(x$1$1);
     var x12 = this$26.Lapps_rps_StateView$Finished__f_winnerId;
+    var this$27 = $n(x$1$1);
+    var x13 = this$27.Lapps_rps_StateView$Finished__f_currentPlayer;
     if ((x12 !== null)) {
-      var $x_5 = $m_sr_ScalaRunTime$();
-      var this$31 = $n(x12);
-      var y$4 = new $c_Lujson_Str(this$31);
-      var items$1 = $n($x_5).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("winnerId", y$4)]));
-      var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
-      map$1.put__O__O__s_Option("type", new $c_Lujson_Str("Finished"));
-      var this$38 = $n(items$1);
-      var it$1 = this$38.iterator__sc_Iterator();
-      while ($n(it$1).hasNext__Z()) {
-        var arg1$1 = $n(it$1).next__O();
-        var i$1 = $as_T2(arg1$1);
-        map$1.put__O__O__s_Option($n(i$1)._1__O(), $n(i$1)._2__O());
+      if ((x13 !== null)) {
+        var $x_6 = $m_sr_ScalaRunTime$();
+        var this$32 = $n(x12);
+        var y$4 = new $c_Lujson_Str(this$32);
+        var $x_5 = new $c_T2("winnerId", y$4);
+        var this$37 = $n(x13);
+        var y$5 = new $c_Lujson_Str(this$37);
+        var items$1 = $n($x_6).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_5, new $c_T2("currentPlayer", y$5)]));
+        var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
+        map$1.put__O__O__s_Option("type", new $c_Lujson_Str("Finished"));
+        var this$44 = $n(items$1);
+        var it$1 = this$44.iterator__sc_Iterator();
+        while ($n(it$1).hasNext__Z()) {
+          var arg1$1 = $n(it$1).next__O();
+          var i$1 = $as_T2(arg1$1);
+          map$1.put__O__O__s_Option($n(i$1)._1__O(), $n(i$1)._2__O());
+        }
+        return new $c_Lujson_Obj(map$1);
       }
-      return new $c_Lujson_Obj(map$1);
     }
   }
   throw new $c_s_MatchError(stateView);
@@ -20814,8 +20890,8 @@ $c_Lapps_rps_Wire$StateViewFormat$.prototype.decode__Lujson_Value__s_util_Try = 
       var this$3 = $n(js);
       var s = new $c_Lujson_Value$Selector$StringSelector("type");
       var this$4 = $n(s.apply__Lujson_Value__Lujson_Value(this$3));
-      var x24 = $f_Lujson_Value__str__T(this$4);
-      if ((x24 === "Playing")) {
+      var x26 = $f_Lujson_Value__str__T(this$4);
+      if ((x26 === "Playing")) {
         var $x_1 = $m_Lapps_rps_Wire$PhaseViewFormat$();
         var this$6 = $n(js);
         var s$1 = new $c_Lujson_Value$Selector$StringSelector("phase");
@@ -20835,15 +20911,19 @@ $c_Lapps_rps_Wire$StateViewFormat$.prototype.decode__Lujson_Value__s_util_Try = 
         var r1 = new $c_Lapps_rps_StateView$Playing(phase, currentPlayer, diceView, buttonView);
         break matchResult4;
       }
-      if ((x24 === "Finished")) {
+      if ((x26 === "Finished")) {
         var this$16 = $n(js);
         var s$5 = new $c_Lujson_Value$Selector$StringSelector("winnerId");
         var this$17 = $n(s$5.apply__Lujson_Value__Lujson_Value(this$16));
         var winnerId = $f_Lujson_Value__str__T(this$17);
-        var r1 = new $c_Lapps_rps_StateView$Finished(winnerId);
+        var this$19 = $n(js);
+        var s$6 = new $c_Lujson_Value$Selector$StringSelector("currentPlayer");
+        var this$20 = $n(s$6.apply__Lujson_Value__Lujson_Value(this$19));
+        var currentPlayer$1 = $f_Lujson_Value__str__T(this$20);
+        var r1 = new $c_Lapps_rps_StateView$Finished(winnerId, currentPlayer$1);
         break matchResult4;
       }
-      throw new $c_s_MatchError(x24);
+      throw new $c_s_MatchError(x26);
     }
     return new $c_s_util_Success(r1);
   } catch (e) {
@@ -34021,9 +34101,11 @@ var $d_Lapps_rps_Event$DiceClicked = new $TypeData().initClass($c_Lapps_rps_Even
   s_reflect_Enum: 1
 }));
 /** @constructor */
-function $c_Lapps_rps_StateView$Finished(winnerId) {
+function $c_Lapps_rps_StateView$Finished(winnerId, currentPlayer) {
   this.Lapps_rps_StateView$Finished__f_winnerId = null;
+  this.Lapps_rps_StateView$Finished__f_currentPlayer = null;
   this.Lapps_rps_StateView$Finished__f_winnerId = winnerId;
+  this.Lapps_rps_StateView$Finished__f_currentPlayer = currentPlayer;
 }
 $c_Lapps_rps_StateView$Finished.prototype = new $h_Lapps_rps_StateView();
 $c_Lapps_rps_StateView$Finished.prototype.constructor = $c_Lapps_rps_StateView$Finished;
@@ -34040,7 +34122,7 @@ $c_Lapps_rps_StateView$Finished.prototype.equals__O__Z = (function(x$0) {
     return true;
   } else if ((x$0 instanceof $c_Lapps_rps_StateView$Finished)) {
     var x$0$2 = $as_Lapps_rps_StateView$Finished(x$0);
-    return (this.Lapps_rps_StateView$Finished__f_winnerId === $n(x$0$2).Lapps_rps_StateView$Finished__f_winnerId);
+    return ((this.Lapps_rps_StateView$Finished__f_winnerId === $n(x$0$2).Lapps_rps_StateView$Finished__f_winnerId) && (this.Lapps_rps_StateView$Finished__f_currentPlayer === $n(x$0$2).Lapps_rps_StateView$Finished__f_currentPlayer));
   } else {
     return false;
   }
@@ -34049,7 +34131,7 @@ $c_Lapps_rps_StateView$Finished.prototype.toString__T = (function() {
   return $m_sr_ScalaRunTime$()._toString__s_Product__T(this);
 });
 $c_Lapps_rps_StateView$Finished.prototype.productArity__I = (function() {
-  return 1;
+  return 2;
 });
 $c_Lapps_rps_StateView$Finished.prototype.productPrefix__T = (function() {
   return "Finished";
@@ -34057,6 +34139,9 @@ $c_Lapps_rps_StateView$Finished.prototype.productPrefix__T = (function() {
 $c_Lapps_rps_StateView$Finished.prototype.productElement__I__O = (function(n) {
   if ((n === 0)) {
     return this.Lapps_rps_StateView$Finished__f_winnerId;
+  }
+  if ((n === 1)) {
+    return this.Lapps_rps_StateView$Finished__f_currentPlayer;
   }
   throw $ct_jl_IndexOutOfBoundsException__T__(new $c_jl_IndexOutOfBoundsException(), ("" + n));
 });
@@ -46096,6 +46181,8 @@ function $c_Lscalatags_JsDom$all$() {
   this.Lscalatags_JsDom$all$__f_ibitmap$2 = false;
   this.Lscalatags_JsDom$all$__f_b$lzy2 = null;
   this.Lscalatags_JsDom$all$__f_bbitmap$2 = false;
+  this.Lscalatags_JsDom$all$__f_u$lzy2 = null;
+  this.Lscalatags_JsDom$all$__f_ubitmap$2 = false;
   this.Lscalatags_JsDom$all$__f_span$lzy2 = null;
   this.Lscalatags_JsDom$all$__f_spanbitmap$2 = false;
   this.Lscalatags_JsDom$all$__f_img$lzy2 = null;
@@ -46376,6 +46463,14 @@ $c_Lscalatags_JsDom$all$.prototype.b__Lscalatags_generic_TypedTag = (function() 
     this.Lscalatags_JsDom$all$__f_bbitmap$2 = true;
   }
   return this.Lscalatags_JsDom$all$__f_b$lzy2;
+});
+$c_Lscalatags_JsDom$all$.prototype.u__Lscalatags_generic_TypedTag = (function() {
+  if ((!this.Lscalatags_JsDom$all$__f_ubitmap$2)) {
+    var ns = $m_Lscalatags_generic_Namespace$().Lscalatags_generic_Namespace$__f_htmlNamespaceConfig;
+    this.Lscalatags_JsDom$all$__f_u$lzy2 = $f_Lscalatags_jsdom_TagFactory__typedTag__T__Z__Lscalatags_generic_Namespace__Lscalatags_generic_TypedTag(this, "u", false, ns);
+    this.Lscalatags_JsDom$all$__f_ubitmap$2 = true;
+  }
+  return this.Lscalatags_JsDom$all$__f_u$lzy2;
 });
 $c_Lscalatags_JsDom$all$.prototype.span__Lscalatags_generic_TypedTag = (function() {
   if ((!this.Lscalatags_JsDom$all$__f_spanbitmap$2)) {
