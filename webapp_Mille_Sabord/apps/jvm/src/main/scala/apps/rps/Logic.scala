@@ -68,9 +68,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   def rollDices(dices: Vector[Dice], selectedDice: Set[DiceId],rdmSeed: Random): Vector[Dice] = 
     dices.zipWithIndex.map((dice, id) => 
-      if dice == Dice.Skull then throw IllegalMoveException("Can't reroll a skull")
-      else if selectedDice.contains(id) then dice.randomDice(rdmSeed) 
-      else dice)
+      if dice == Dice.Skull && selectedDice.contains(id) then throw IllegalMoveException("Can't     reroll a skull")
   
   def isTurnLost(dices: Vector[Dice]): Boolean = 
     // rename for turn over 
