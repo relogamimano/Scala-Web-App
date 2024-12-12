@@ -70,7 +70,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
         TextSegment(s"Current player: $currentPlayer\n")
       ) ++ renderPhase(phase) ++ renderDice(diceView) ++ renderButtons(buttonView)
 
-    case StateView.Finished(winnerId) =>
+    case StateView.Finished(winnerId, userId) =>
       Vector(
         TextSegment(s"The game is over! Winner: $winnerId\n")
       )

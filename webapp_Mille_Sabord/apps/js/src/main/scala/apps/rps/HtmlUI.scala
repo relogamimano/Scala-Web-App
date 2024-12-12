@@ -37,18 +37,35 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
   def renderState(userId: UserId, stateView: StateView): Frag = stateView match
     case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
       frag (
-        p(i(s"Current player: $currentPlayer")),
+        p(b(s"Current player: "), s"$currentPlayer"),
         renderPhase(phase),
         renderDice(diceView),
-        renderButtons(buttonView)
+        renderButtons(buttonView),
+        renderFooter()
       )
-    case StateView.Finished(winnerId) =>
+    case StateView.Finished(winnerId, currentPlayer) =>
       frag(
+        // Conditionally render the header based on winnerId and currentPlayer
+        if (winnerId == currentPlayer) {
+          h1(
+            cls := "win-header",
+            style := "color: green;", // Green for win
+            "You Win!!! 🥳"
+          )
+        } else {
+          h1(
+            cls := "lose-header",
+            style := "color: red;", // Red for lose
+            "You Lose... 😭 "
+          )
+        },
+        // Display the general game over message
         p(i(s"The game is over! Winner: $winnerId"))
       )
 
+
   def renderScores(scores: Map[UserId, Int]) = frag(
-    p(i(s"Scores:")),
+    p(b(s"Scores:")),
     div(
       cls := "scores",
       for
@@ -62,17 +79,17 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   def renderPhase(phase: PhaseView): Frag = phase match
     case PhaseView.Starting => 
-      frag(p(i("Start your turn and roll the dice!")))
+      frag(p(cls := "centered-text", "Start your turn and roll the dice!"))
     case PhaseView.SelectingDice => 
-      frag(p(i("Select the dice you want to rethrow:")))
+      frag(p(cls := "centered-text", "Select the dice you want to rethrow or end your turn:"))
     case PhaseView.ViewingDice => 
-      frag(p(i("Here's what you got! Do you want to end your turn or try again?")))
+      frag(p(cls := "centered-text", "Here's what you got! How many points do you think you have?"))
     case PhaseView.SkullEnd => 
-      frag(p(i("Shoot! You got 3 skulls. Game over :(")))
+      frag(p(cls := "centered-text", "Shoot! You got 3 skulls. Game over :("))
     case PhaseView.SavingEnd => 
-      frag(p(i("Here's your score for this turn!")))
+      frag(p(cls := "centered-text", "Here's your score for this turn!"))
     case PhaseView.Waiting =>
-      frag(p(i("Let's watch your opponent play...")))
+      frag(p(cls := "centered-text", "Let's watch your opponent play..."))
 
   def renderButtons(buttonView: Vector[ButtonView]): Frag =
     div(
@@ -98,31 +115,76 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   def renderDice(diceView: Vector[DiceView]): Frag =
     div(
-      cls := "dice-container",
-      for dice <- diceView yield dice match
-        case DiceView.Selected(dice) =>
-          div(cls := "dice selected", dice)
+      cls := "dice-container-wrapper", // Wrapper for centering
+      div(
+        cls := "dice-container",
+        for (dice, diceID) <- diceView.zipWithIndex yield dice match
+          case DiceView.Selected(dice) =>
+            div(
+              cls := "dice selected",
+              onclick := { () => 
+                val diceEvent = Event.DiceClicked(diceID) 
+                sendEvent(diceEvent)
+              },
+              dice
+            )
 
-        case DiceView.Unselected(dice) =>
-          div(cls := "dice", dice)
+          case DiceView.Unselected(dice) =>
+            div(
+              cls := "dice",
+              onclick := { () =>
+                val diceEvent = Event.DiceClicked(diceID)
+                sendEvent(diceEvent)
+              },
+              dice
+            )
 
-        case DiceView.NonClickable(dice) =>
-          div(cls := "dice skull", dice)
+          case DiceView.NonClickable(dice) =>
+            div(cls := "dice skull", dice)
+      )
     )
 
+  
+  def renderFooter(): Frag =
+    div(
+      cls:= "footer-wrapper",
+      div(
+        cls := "footer",
+        p(u("Score sheet:")),
+        div(
+          cls := "cheatsheet",
+          p(s"any 💎 ......   100"),
+          p(s"3 x 🔲 ......   100"),
+          p(s"4 x 🔲 ......   200"),
+          p(s"5 x 🔲 ......   500"),
+          p(s"6 x 🔲 ......   1000"),
+          p(s"7 x 🔲 ......   2000"),
+          p(s"8 x 🔲 ......   4000")
+        )
+      )
+    )
+    
 
   override def css: String = super.css +
     """| .dice-container {
+      |   display: grid;
+      |   grid-template-columns: repeat(4, 1fr);
+      |   grid-template-rows: repeat(2, 1fr);
+      |   gap: 1rem;
+      |   margin-bottom: 2rem; /* Add gap between dice and buttons */
+      | }
+      | .dice-container-wrapper {
       |   display: flex;
       |   justify-content: center;
-      |   gap: 1rem;
+      |   align-items: center;
+      |   height: 100%; /* Ensure it takes up full height of parent */
       | }
       | .dice {
-      |   width: 50px;
-      |   height: 50px;
-      |   font-size: 2rem;
+      |   width: 80px; /* Increased size */
+      |   height: 80px; /* Increased size */
+      |   font-size: 2.5rem;
       |   text-align: center;
-      |   border: 1px solid black;
+      |   border: 2px solid black; /* Default border thickness */
       |   border-radius: 5px;
       |   display: flex;
       |   justify-content: center;
@@ -130,6 +192,7 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       | }
       | .selected {
       |   border-color: green;
+      |   border-width: 4px; /* Thicker border when selected */
       |   background-color: #e6ffe6;
       | }
       | .skull {
@@ -156,5 +219,34 @@ class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       |   background-color: #d3d3d3;
       |   color: #777;
       |   cursor: not-allowed;
+      | }
+      | .centered-text {
+      |   text-align: center; /* Center align text */
+      |   font-style: normal; /* Remove italics */
+      | }
+      | .cheatsheet {
+      |   background-color: #f9e3a1; 
+      |   padding: 20px;
+      |   width: 300px; /* Adjust width as needed */
+      |   border-radius: 10px;
+      |   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+      |   font-family: "Courier New", monospace; /* Fixed-width font for alignment */
+      |   font-size: 18px;
+      |   margin-top: 1rem;
+      | }
+      | .cheatsheet p {
+      |   margin: 10px 0;
+      |   white-space: nowrap; /* Prevents wrapping and ensures alignment */
+      |   text-align: left; /* Aligns the text to the left */
+      | }
+      | .footer {
+      |   margin-top: 2rem;
+      |   text-align: center;
+      | }
+      | .footer-wrapper {
+      |   display: flex;
+      |   justify-content: center;
+      |   align-items: flex-start; /* Aligns content to the top, if needed */
+      |   height: 100%; /* Ensure it takes up full height of parent */
       | }
     """.stripMargin
