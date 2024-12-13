@@ -49,12 +49,12 @@ class Logic extends StateMachine[Event, State, View]:
     // Points for three similar emojis
     val bonusPoints = counts.collect {
       case (Dice.Skull, count) => 0
-      case (_, count) if count >= 3 => 100
-      case (_, count) if count >= 4 => 200
-      case (_, count) if count >= 5 => 500
-      case (_, count) if count >= 6 => 1000
-      case (_, count) if count >= 7 => 2000
-      case (_, count) if count >= 8 => 4000
+      case (_, count) if count == 3 => 100
+      case (_, count) if count == 4 => 200
+      case (_, count) if count == 5 => 500
+      case (_, count) if count == 6 => 1000
+      case (_, count) if count == 7 => 2000
+      case (_, count) if count == 8 => 4000
     }.sum
 
     // Points for Diamond And Coins
