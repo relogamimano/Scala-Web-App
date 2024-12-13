@@ -77,7 +77,7 @@ class Logic extends StateMachine[Event, State, View]:
   
   def isTurnLost(dices: Vector[Dice]): Boolean = 
     // rename for turn over 
-    dices.foldLeft(0)((prev,next) => prev + (if next == Dice.Skull then 1 else 0)) == 3
+    dices.foldLeft(0)((prev,next) => prev + (if next == Dice.Skull then 1 else 0)) >= 3
   
   def isGameWon(score:Int): Boolean = 
     score >= 3000
