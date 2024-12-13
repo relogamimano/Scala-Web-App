@@ -4,6 +4,7 @@ import cs214.webapp.*
 import cs214.webapp.Action
 import cs214.webapp.utils.WebappSuite
 import os.truncate
+import scala.util.{Try, Success, Failure}
 
 class Tests extends WebappSuite[Event, State, View]:
   val sm = new Logic()
@@ -140,14 +141,25 @@ class Tests extends WebappSuite[Event, State, View]:
         else if selectedDice.contains(idx) then (diceV.isInstanceOf[DiceView.Selected])
         else (diceV.isInstanceOf[DiceView.Unselected]))))
 
-  test("MS: Playing state should forbid the player from choosing one skull dice"):
+  test("MS: Playing state should forbid the player from choosing one skull dice") {
     val initialState = rollDice(initState)
-    //This id was determined after visual tests and represents a dice with a skull symbol
-    val selectedDiceIdx = 4
-    val newState = selectDices(initialState, Set(selectedDiceIdx))
+    // This id was determined after visual tests and represents a dice with a skull symbol
+    val selectedDiceIdx = 0
 
-    assertFailure[IllegalMoveException]:
+    val attempt = Try {
+      val newState = selectDices(initialState, Set(selectedDiceIdx))
       sm.transition(newState)(UID0, Event.DiceClicked(selectedDiceIdx))
+    }
+
+    assert(attempt.isFailure, "The action should fail when trying to select a skull dice.")
+    attempt match {
+      case Failure(exception: IllegalMoveException) =>
+        assert(exception.getMessage.contains("Can't select a skull"), "Expected 'Can't select a skull' message.")
+      case _ =>
+        fail("Expected an IllegalMoveException but got something else.")
+    }
+  }
+
 
   test("MS: Playing state should forbid the player from rerolling dice if non are selected"):
     val initialState = rollDice(initState)

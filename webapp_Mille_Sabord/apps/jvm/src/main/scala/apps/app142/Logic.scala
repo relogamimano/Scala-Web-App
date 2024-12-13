@@ -27,7 +27,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   /** Creates a new application state. */
   override def init(clients: Seq[UserId]): State =
-    initSeed(clients)
+    initSeed(clients, Some(42))
   
   def initSeed(clients: Seq[UserId], initSeed: Option[Int] = None): State =
     State(
@@ -165,13 +165,14 @@ class Logic extends StateMachine[Event, State, View]:
                     )
 
           case Event.DiceClicked(diceId) => 
-                      val newSelectedDice = 
-                        if selectedDice.contains(diceId) then 
-                          selectedDice.filterNot(_ == diceId)
-                        else 
-                          selectedDice + diceId
-                      val newState = state.copy(selectedDices = newSelectedDice)
-                      Seq(Action.Render(newState))  
+            if dices(diceId) == Dice.Skull then throw IllegalMoveException("Can't select a skull!")
+            val newSelectedDice = 
+              if selectedDice.contains(diceId) then
+                selectedDice.filterNot(_ == diceId)
+              else
+                selectedDice + diceId
+            val newState = state.copy(selectedDices = newSelectedDice)
+            Seq(Action.Render(newState))
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
