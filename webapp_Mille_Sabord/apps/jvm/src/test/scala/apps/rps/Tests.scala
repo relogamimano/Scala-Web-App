@@ -261,8 +261,8 @@ class Tests extends WebappSuite[Event, State, View]:
 /// ## Encoding and decoding
   
   test("MS: Different views are not equal"):
-    val v1 = View(StateView.Finished(UID0), Map())
-    val v2 = View(StateView.Finished(UID1), Map())
+    val v1 = View(StateView.Finished(UID0, UID0), Map())
+    val v2 = View(StateView.Finished(UID1, UID0), Map())
     assertNotEquals(v1, v2)
   
   test("MS: Different events of dice clicked are not equal"):

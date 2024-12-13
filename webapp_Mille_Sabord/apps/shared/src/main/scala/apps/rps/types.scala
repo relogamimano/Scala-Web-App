@@ -64,7 +64,7 @@ enum StateView:
   case Playing(phase: PhaseView, currentPlayer: UserId, diceView: Vector[DiceView], buttonView: Vector[ButtonView])
 
   /** The game is over (only one winner of the game possible) */
-  case Finished(winnerId: UserId) //This isn't a Set of UserId as, in this game, it can only be one winner
+  case Finished(winnerId: UserId, currentPlayer: UserId) //This isn't a Set of UserId as, in this game, it can only be one winner
 
 //??
 enum PhaseView:

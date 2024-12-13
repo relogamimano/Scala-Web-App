@@ -61,9 +61,10 @@ object Wire extends AppWire[Event, View]:
           "diceView" -> VectorWire(DiceViewFormat).encode(diceView),
           "buttonView" -> VectorWire(ButtonViewFormat).encode(buttonView)
           )
-        case StateView.Finished(winnerId:UserId) =>
+        case StateView.Finished(winnerId: UserId, currentPlayer: UserId) =>
           Obj("type" -> "Finished",
-          "winnerId" -> winnerId)
+          "winnerId" -> winnerId,
+          "currentPlayer" -> currentPlayer)
 
     override def decode(js: Value): Try[StateView] = Try:
       js("type").str match
@@ -75,7 +76,7 @@ object Wire extends AppWire[Event, View]:
             VectorWire(ButtonViewFormat).decode(js("buttonView")).get
           )
         case "Finished" =>
-          StateView.Finished(js("winnerId").str)
+          StateView.Finished(js("winnerId").str, js("currentPlayer").str)
 //================================ PHASE VIEW WIRE ==============================
   object PhaseViewFormat extends WireFormat[PhaseView]:
     override def encode(phaseView: PhaseView): Value =

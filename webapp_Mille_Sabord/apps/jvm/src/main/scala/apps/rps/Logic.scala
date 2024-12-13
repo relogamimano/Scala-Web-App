@@ -165,13 +165,13 @@ class Logic extends StateMachine[Event, State, View]:
                     )
 
           case Event.DiceClicked(diceId) => 
-                      val newSelectedDice = 
-                        if selectedDice.contains(diceId) then 
-                          selectedDice.filterNot(_ == diceId)
-                        else 
-                          selectedDice + diceId
-                      val newState = state.copy(selectedDices = newSelectedDice)
-                      Seq(Action.Render(newState))  
+            val newSelectedDice = 
+              if selectedDice.contains(diceId) then 
+                selectedDice.filterNot(_ == diceId)
+              else 
+                selectedDice + diceId
+              val newState = state.copy(selectedDices = newSelectedDice)
+              Seq(Action.Render(newState))  
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
@@ -181,7 +181,7 @@ class Logic extends StateMachine[Event, State, View]:
       /** The game is done and we show who win*/
       if phase == Phase.EndingGame then 
         val winnerId: UserId = score.maxBy(_._2)._1
-        StateView.Finished(winnerId)
+        StateView.Finished(winnerId, userId)
       else 
         /** It's not the player turn and she should wait*/
         if userId != players.head then

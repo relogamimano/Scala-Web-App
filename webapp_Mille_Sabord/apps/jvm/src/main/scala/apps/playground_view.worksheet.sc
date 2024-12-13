@@ -149,8 +149,8 @@ StateView.Playing(PhaseView.SelectingDice,currentPlayer, viewDices, buttonView)
 
 val UID0: UserId = "0"
 val UID1: UserId = "1"
-val v1 = View(StateView.Finished(UID0), Map())
-val v2 = View(StateView.Finished(UID1), Map())    
+val v1 = View(StateView.Finished(UID0, UID0), Map())
+val v2 = View(StateView.Finished(UID1, UID0), Map())    
 v1 == v2
 
 val e1 = Event.ButtonClicked(ButtonId.Roll)
