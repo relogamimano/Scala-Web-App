@@ -112,14 +112,36 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       Vector(TextSegment("Let's watch your opponent play...\n"))
 
   def renderDice(diceView: Vector[DiceView]): Vector[TextSegment] =
-    diceView.map {
-      case DiceView.Selected(dice) => 
-        TextSegment(s"[Selected: $dice] ")
-      case DiceView.Unselected(dice) => 
-        TextSegment(s"[$dice] ")
-      case DiceView.NonClickable(dice) => 
-        TextSegment(s"[Skull: $dice] ", modifiers = cls := "skull")
+    for (dice, diceID) <- diceView.zipWithIndex yield dice match {
+      case DiceView.Selected(dice) =>
+        TextSegment(
+          s"[Selected: $dice] ",
+          onMouseEvent = Some({
+            case MouseEvent.Click(_) =>
+              sendEvent(Event.DiceClicked(diceID))  // Trigger an event for selected dice
+            case _ => ()
+          }),
+          modifiers = cls := "clickable"
+        )
+      case DiceView.Unselected(dice) =>
+        TextSegment(
+          s"[$dice] ",
+          onMouseEvent = Some({
+            case MouseEvent.Click(_) =>
+              sendEvent(Event.DiceClicked(diceID))  // Trigger an event for unselected dice
+            case _ => ()
+          }),
+          modifiers = cls := "clickable"
+        )
+      case DiceView.NonClickable(dice) =>
+        val diceString = dice match {
+          case Dice.Skull => "Skull"
+          case Dice.Empty => "Empty"
+          case _ => dice  // Default case for any other dice
+        }
+        TextSegment(s"[$diceString: $dice]", modifiers = cls := "skull")
     }
+
 
 
   def renderButtons(buttonView: Vector[ButtonView]): Vector[TextSegment] =
