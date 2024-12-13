@@ -79,7 +79,12 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     ) ++ renderScores(view.scoresView) ++
     Vector(
       TextSegment("\n", modifiers = cls := "gap")  // Add a gap between the state and scores
-    ) ++ renderFooter()
+    ) ++ {
+      view.stateView match {
+        case StateView.Playing(_, _, _, _) => renderFooter()
+        case _ => Vector.empty
+      }
+    }
 
   def renderState(userId: UserId, stateView: StateView): Vector[TextSegment] = stateView match
     case StateView.Playing(phase, currentPlayer, diceView, buttonView) =>
@@ -97,10 +102,29 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
         TextSegment("\n", modifiers = cls := "gap")  // Add a gap before the scores
       )
 
-    case StateView.Finished(winnerId, userId) =>
-      Vector(
-        TextSegment(s"The game is over! Winner: $winnerId\n")
+    case StateView.Finished(winnerId, currentPlayer) =>
+      val headerSegments = if (winnerId == currentPlayer) {
+        Vector(
+          TextSegment(
+            "You Win!!! 🥳\n",
+            modifiers = cls := "win-header",
+          )
+        )
+      } else {
+        Vector(
+          TextSegment(
+            "You Lose... 😭\n",
+            modifiers = cls := "lose-header",
+          )
+        )
+      }
+
+      val messageSegments = Vector(
+        TextSegment(s"The game is over! Winner: $winnerId\n", modifiers = cls := "italic")
       )
+
+      headerSegments ++ Vector(TextSegment("\n", modifiers = cls := "gap")) ++ messageSegments
+
 
   def renderPhase(phase: PhaseView): Vector[TextSegment] = phase match
     case PhaseView.Starting =>
@@ -145,11 +169,11 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
             )
           case DiceView.NonClickable(dice) =>
             val diceString = dice match {
-              case Dice.Skull => "Skull"
-              case Dice.Empty => "Empty"
-              case _          => dice
+              case Dice.Skull => "Skull:"
+              case Dice.Empty => "Empty:"
+              case _          => ""
             }
-            TextSegment(s"[$diceString: $dice] ", modifiers = cls := "skull")
+            TextSegment(s"[$diceString $dice] ", modifiers = cls := "skull")
         }
       } ++ Vector(TextSegment("\n"))
 
@@ -227,5 +251,20 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       | }
       | .score {
       |   margin-bottom: 0.5em; /* Vertical spacing for scores */
+      | }
+      | .win-header {
+      |   color: green;
+      |   font-size: 150%;
+      |   font-weight: bold;
+      | }
+      |
+      | .lose-header {
+      |   color: red;
+      |   font-size: 150%;
+      |   font-weight: bold;
+      | }
+      |
+      | .italic {
+      |   font-style: italic;
       | }
     """.stripMargin
