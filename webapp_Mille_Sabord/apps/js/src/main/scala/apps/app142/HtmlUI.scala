@@ -1,5 +1,5 @@
 package apps
-package rps
+package app142
 
 import PhaseView.*
 import cs214.webapp.*
@@ -9,9 +9,9 @@ import scalatags.JsDom.all.*
 
 import scala.scalajs.js.annotation.{JSExportAll, JSExportTopLevel}
 
-@JSExportTopLevel("rps_html")
+@JSExportTopLevel("app142_html")
 object HtmlUI extends WSClientApp:
-  def appId: String = "rps"
+  def appId: String = "app142"
   def uiId: String = "html"
 
   def init(userId: UserId, sendMessage: ujson.Value => Unit, target: Target): ClientAppInstance =
@@ -20,7 +20,7 @@ object HtmlUI extends WSClientApp:
 class HtmlUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: Target)
     extends StateMachineClientAppInstance[Event, View](userId, sendMessage, target):
 
-  override val wire = rps.Wire
+  override val wire = app142.Wire
 
   override def render(userId: UserId, view: View): Frag =
     frag(

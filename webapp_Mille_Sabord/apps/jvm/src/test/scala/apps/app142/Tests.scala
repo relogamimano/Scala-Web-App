@@ -1,4 +1,4 @@
-package apps.rps
+package apps.app142
 
 import cs214.webapp.*
 import cs214.webapp.Action
@@ -188,7 +188,7 @@ class Tests extends WebappSuite[Event, State, View]:
 // }
 
   /**
-  test("RPS: When all players have chosen their hand, hands are shown, there is a pause and next round starts (2pts)"):
+  test("APP142: When all players have chosen their hand, hands are shown, there is a pause and next round starts (2pts)"):
     val roundRes = playOneRound(initState, USER_IDS)
 
     // Three actions: reveal hands, wait, start next round
@@ -212,7 +212,7 @@ class Tests extends WebappSuite[Event, State, View]:
     do
       view.assertInstanceOf[PhaseView.SelectingHand]
 
-  test("RPS: At the end of a round, the state should contain the correct hands"):
+  test("APP142: At the end of a round, the state should contain the correct hands"):
     val lastState = playOneRound(initState, USER_IDS).viewingHandsState
     for
       uid <- USER_IDS
@@ -220,7 +220,7 @@ class Tests extends WebappSuite[Event, State, View]:
     do
       assertEquals(view, PhaseView.ViewingHands(hands = gameHands))
 
-  test("RPS: At the beginning of next round, the users should be non-ready"):
+  test("APP142: At the beginning of next round, the users should be non-ready"):
     val lastState = playOneRound(initState, USER_IDS).nextRoundStartState
     for
       uid <- USER_IDS
@@ -228,7 +228,7 @@ class Tests extends WebappSuite[Event, State, View]:
     do
       assertEquals(view, PhaseView.SelectingHand(ready = USER_IDS.map(_ -> false).toMap))
 
-  test("RPS: At the beginning of next round, the state should contain the correct scores"):
+  test("APP142: At the beginning of next round, the state should contain the correct scores"):
     val lastState = playOneRound(initState, USER_IDS).nextRoundStartState
     val scores = gameHands.map((uid, hand) =>
       uid -> gameHands.foldLeft(0)((score, userHand) =>

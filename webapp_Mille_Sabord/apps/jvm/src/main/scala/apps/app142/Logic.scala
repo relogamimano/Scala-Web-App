@@ -1,5 +1,5 @@
 package apps
-package rps
+package app142
 
 import cs214.webapp.*
 import cs214.webapp.server.{StateMachine}
@@ -13,14 +13,14 @@ import scala.util.Random
 class Logic extends StateMachine[Event, State, View]:
 
   val appInfo: AppInfo = AppInfo(
-    id = "rps",
+    id = "app142",
     name = "Mille Sabords",
     description = "Mille Sabords is a pirate theme dice game " +
       "where you gain points by getting the same symbols on your dice.",
     year = 2024
   )
 
-  override val wire = rps.Wire
+  override val wire = app142.Wire
   // Feel free to tweak this value!
   private val VIEW_DICE_PAUSE_MS = 2500
   private val SHOW_TURN_END_PAUSE_MS = 2500

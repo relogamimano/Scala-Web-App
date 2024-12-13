@@ -1,5 +1,5 @@
 package apps
-package rps
+package app142
 
 import cs214.webapp.*
 import cs214.webapp.client.*
@@ -8,9 +8,9 @@ import scalatags.JsDom.all.*
 
 import scala.scalajs.js.annotation.JSExportTopLevel
 
-@JSExportTopLevel("rps_text")
+@JSExportTopLevel("app142_text")
 object TextUI extends WSClientApp:
-  def appId: String = "rps"
+  def appId: String = "app142"
   def uiId: String = "text"
 
   def init(userId: UserId, sendMessage: ujson.Value => Unit, target: Target): ClientAppInstance =
@@ -19,7 +19,7 @@ object TextUI extends WSClientApp:
 class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: Target)
     extends graphics.TextClientAppInstance[Event, View](userId, sendMessage, target):
 
-  override val wire = rps.Wire
+  override val wire = app142.Wire
 
   val diceNames = Map(
     "skull" -> Dice.Skull,

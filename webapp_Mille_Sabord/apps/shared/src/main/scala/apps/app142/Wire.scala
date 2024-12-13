@@ -1,5 +1,5 @@
 package apps
-package rps
+package app142
 
 import cs214.webapp.*
 import cs214.webapp.DecodingException
