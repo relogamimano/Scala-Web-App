@@ -24,14 +24,10 @@ class Logic extends StateMachine[Event, State, View]:
   // Feel free to tweak this value!
   private val VIEW_DICE_PAUSE_MS = 2500
   private val SHOW_TURN_END_PAUSE_MS = 2500
-  protected val UID0: String = "yak"
-  protected val UID1: String = "hut"
-  protected val UID2: String = "kik"
-  protected val USER_IDS = Seq(UID0, UID1, UID2)
 
   /** Creates a new application state. */
   override def init(clients: Seq[UserId]): State =
-    initSeed(USER_IDS) 
+    initSeed(clients) 
   
   def initSeed(clients: Seq[UserId], initSeed: Option[Int] = None): State =
     State(
