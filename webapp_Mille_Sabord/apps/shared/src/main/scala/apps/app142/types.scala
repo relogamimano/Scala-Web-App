@@ -24,6 +24,7 @@ object Dice:
   val Monkey = "🐵" //"🐒"
   val Parrot = "🐦"
   val Empty = "❓"
+  val All = Set(Skull, Diamond, Coin, Sword, Monkey, Parrot)
 
 extension (dice: Dice)
   def randomDice(randomSeed: Random): Dice=

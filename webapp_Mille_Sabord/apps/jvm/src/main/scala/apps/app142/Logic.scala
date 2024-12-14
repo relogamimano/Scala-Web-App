@@ -27,7 +27,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   /** Creates a new application state. */
   override def init(clients: Seq[UserId]): State =
-    initSeed(clients, Some(42))
+    initSeed(clients) 
   
   def initSeed(clients: Seq[UserId], initSeed: Option[Int] = None): State =
     State(
@@ -101,28 +101,31 @@ class Logic extends StateMachine[Event, State, View]:
                 throw IllegalMoveException("Roll the dice first!")
               case ButtonType.Roll =>  
                 val rolledDices = dices.map(_.randomDice(seed))
+                val viewState = state.copy(phase = Phase.ViewingDice,dices = rolledDices)
+
                 if isTurnLost(rolledDices) then 
                   val initDice = dices.map(_ => Dice.Empty)
                   val endState = state.copy(phase = Phase.EndingTurn,selectedDices = Set())
                   val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
                   Seq(
-                    Action.Render(state),
+                    Action.Render(viewState),
                     Action.Pause(VIEW_DICE_PAUSE_MS),
                     Action.Render(endState),
                     Action.Pause(SHOW_TURN_END_PAUSE_MS),
                     Action.Render(newPlayerState)
                     )
-                  else
-                    val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
-                    Seq(Action.Render(newState))
-                val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
-                Seq(Action.Render(newState))
+                else
+                  val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
+                  Seq(Action.Render(viewState),
+                    Action.Pause(VIEW_DICE_PAUSE_MS),
+                    Action.Render(newState))
           case Event.DiceClicked(diceId) => 
             throw IllegalMoveException("Roll the dice first!")
       case Phase.SelectingDice => 
         event match 
           case Event.ButtonClicked(buttonId) => 
             buttonId match
+              /** Saving End */
               case ButtonType.End =>   
                 val initDice = dices.map(_ => Dice.Empty)
                 val turnScore = calculateScore(dices)
@@ -165,14 +168,18 @@ class Logic extends StateMachine[Event, State, View]:
                     )
 
           case Event.DiceClicked(diceId) => 
-            if dices(diceId) == Dice.Skull then throw IllegalMoveException("Can't select a skull!")
-            val newSelectedDice = 
-              if selectedDice.contains(diceId) then
-                selectedDice.filterNot(_ == diceId)
-              else
-                selectedDice + diceId
-            val newState = state.copy(selectedDices = newSelectedDice)
-            Seq(Action.Render(newState))
+            if dices(diceId) == Dice.Skull then
+              throw IllegalMoveException("Can't select a skull")
+            else
+              val newSelectedDice = 
+                if selectedDice.contains(diceId) then 
+                  selectedDice.filterNot(_ == diceId)
+                else 
+                  selectedDice + diceId
+              val newState = state.copy(selectedDices = newSelectedDice)
+              Seq(Action.Render(newState))  
+
+
 
   /** How does the game should act with the current action */
   override def project(state: State)(userId: UserId): View =
