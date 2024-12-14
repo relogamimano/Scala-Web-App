@@ -4,6 +4,7 @@ import cs214.webapp.*
 import cs214.webapp.Action
 import cs214.webapp.utils.WebappSuite
 import os.truncate
+import scala.util.{Try, Success, Failure}
 
 class Tests extends WebappSuite[Event, State, View]:
   val sm: Logic = new Logic()
