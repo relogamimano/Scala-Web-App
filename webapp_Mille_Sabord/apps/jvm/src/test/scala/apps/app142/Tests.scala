@@ -6,7 +6,7 @@ import cs214.webapp.utils.WebappSuite
 import os.truncate
 
 class Tests extends WebappSuite[Event, State, View]:
-  val sm = new Logic()
+  val sm: Logic = new Logic()
 
   def dicesSize(state: State): Int =
     sm.project(state)(UID0).stateView.assertInstanceOf[StateView.Playing].diceView.size
@@ -65,8 +65,8 @@ class Tests extends WebappSuite[Event, State, View]:
   //To do so we are going to fix the seed of the game to always have the same result
   //After some visual tests, we were able to determine the different case to allow us to test the different option of the game
   val seed = 42 //Let's fix the seed of the game to 42
-  //lazy val initState = sm.initSeed(USER_IDS, seed)
-  lazy val initState = sm.init(USER_IDS)  
+  lazy val initState = sm.initSeed(USER_IDS, Some(seed))
+  //lazy val initState = sm.init(USER_IDS)  
 
   test("MS: Initial state has all dices empty"):
     val views = projectPlayingViews(USER_IDS)(initState)
@@ -145,9 +145,11 @@ class Tests extends WebappSuite[Event, State, View]:
     //This id was determined after visual tests and represents a dice with a skull symbol
     val selectedDiceIdx = 4
     val newState = selectDices(initialState, Set(selectedDiceIdx))
+    println(newState.dices(selectedDiceIdx))
+    assert(newState.dices(selectedDiceIdx) == Dice.Skull)
 
     assertFailure[IllegalMoveException]:
-      sm.transition(newState)(UID0, Event.DiceClicked(selectedDiceIdx))
+      sm.transition(initialState)(UID0, Event.DiceClicked(selectedDiceIdx))
 
   test("MS: Playing state should forbid the player from rerolling dice if non are selected"):
     val initialState = rollDice(initState)
