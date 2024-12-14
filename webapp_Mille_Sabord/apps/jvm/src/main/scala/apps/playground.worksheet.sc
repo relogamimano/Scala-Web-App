@@ -111,3 +111,4 @@ def testSet(set: Set[Int]) =
 testSet((0 to 7).toSet)
 Set(4)
 
+Seq(2) 

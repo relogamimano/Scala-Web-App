@@ -1136,6 +1136,43 @@ var $d_I = new $TypeData().initPrim(0, "I", "int", $ac_I, Int32Array);
 var $d_J = new $TypeData().initPrim(null, "J", "long", $ac_J, (void 0));
 var $d_F = new $TypeData().initPrim(0.0, "F", "float", $ac_F, Float32Array);
 var $d_D = new $TypeData().initPrim(0.0, "D", "double", $ac_D, Float64Array);
+/** @constructor */
+function $c_Lapps_app142_types$package$Dice$() {
+  this.Lapps_app142_types$package$Dice$__f_Skull = null;
+  this.Lapps_app142_types$package$Dice$__f_Diamond = null;
+  this.Lapps_app142_types$package$Dice$__f_Coin = null;
+  this.Lapps_app142_types$package$Dice$__f_Sword = null;
+  this.Lapps_app142_types$package$Dice$__f_Monkey = null;
+  this.Lapps_app142_types$package$Dice$__f_Parrot = null;
+  this.Lapps_app142_types$package$Dice$__f_Empty = null;
+  $n_Lapps_app142_types$package$Dice$ = this;
+  this.Lapps_app142_types$package$Dice$__f_Skull = "\ud83d\udc80";
+  this.Lapps_app142_types$package$Dice$__f_Diamond = "\ud83d\udc8e";
+  this.Lapps_app142_types$package$Dice$__f_Coin = "\ud83d\udcc0";
+  this.Lapps_app142_types$package$Dice$__f_Sword = "\ud83d\udd2a";
+  this.Lapps_app142_types$package$Dice$__f_Monkey = "\ud83d\udc35";
+  this.Lapps_app142_types$package$Dice$__f_Parrot = "\ud83d\udc26";
+  this.Lapps_app142_types$package$Dice$__f_Empty = "\u2753";
+  var this$1 = $m_sci_Set$();
+  var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T.getArrayOf().constr)([this.Lapps_app142_types$package$Dice$__f_Skull, this.Lapps_app142_types$package$Dice$__f_Diamond, this.Lapps_app142_types$package$Dice$__f_Coin, this.Lapps_app142_types$package$Dice$__f_Sword, this.Lapps_app142_types$package$Dice$__f_Monkey, this.Lapps_app142_types$package$Dice$__f_Parrot]));
+  this$1.from__sc_IterableOnce__sci_Set(elems);
+}
+$c_Lapps_app142_types$package$Dice$.prototype = new $h_O();
+$c_Lapps_app142_types$package$Dice$.prototype.constructor = $c_Lapps_app142_types$package$Dice$;
+/** @constructor */
+function $h_Lapps_app142_types$package$Dice$() {
+}
+$h_Lapps_app142_types$package$Dice$.prototype = $c_Lapps_app142_types$package$Dice$.prototype;
+var $d_Lapps_app142_types$package$Dice$ = new $TypeData().initClass($c_Lapps_app142_types$package$Dice$, "apps.app142.types$package$Dice$", ({
+  Lapps_app142_types$package$Dice$: 1
+}));
+var $n_Lapps_app142_types$package$Dice$;
+function $m_Lapps_app142_types$package$Dice$() {
+  if ((!$n_Lapps_app142_types$package$Dice$)) {
+    $n_Lapps_app142_types$package$Dice$ = new $c_Lapps_app142_types$package$Dice$();
+  }
+  return $n_Lapps_app142_types$package$Dice$;
+}
 function $s_Lapps_main__main__AT__V(args) {
   try {
     $m_Lcs214_webapp_client_WebClient$().start__V();
@@ -17582,8 +17619,10 @@ $h_s_$less$colon$less.prototype = $c_s_$less$colon$less.prototype;
 /** @constructor */
 function $c_s_Predef$() {
   this.s_Predef$__f_Map = null;
+  this.s_Predef$__f_Set = null;
   $n_s_Predef$ = this;
   this.s_Predef$__f_Map = $m_sci_Map$();
+  this.s_Predef$__f_Set = $m_sci_Set$();
 }
 $c_s_Predef$.prototype = new $h_s_LowPriorityImplicits();
 $c_s_Predef$.prototype.constructor = $c_s_Predef$;
@@ -20549,18 +20588,46 @@ function $c_Lapps_app142_TextUIInstance(userId, sendMessage, target) {
   $ct_Lcs214_webapp_client_graphics_TextClientAppInstance__T__F1__Lorg_scalajs_dom_Element__(this, userId, sendMessage, target);
   this.Lapps_app142_TextUIInstance__f_wire = $m_Lapps_app142_Wire$();
   var this$29 = $m_sci_Map$();
-  var elems = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([new $c_T2("skull", "\ud83d\udc80"), new $c_T2("\ud83d\udc80", "\ud83d\udc80"), new $c_T2("diamond", "\ud83d\udc8e"), new $c_T2("\ud83d\udc8e", "\ud83d\udc8e"), new $c_T2("coin", "\ud83d\udcc0"), new $c_T2("\ud83d\udcc0", "\ud83d\udcc0"), new $c_T2("sword", "\ud83d\udd2a"), new $c_T2("\ud83d\udd2a", "\ud83d\udd2a"), new $c_T2("monkey", "\ud83d\udc35"), new $c_T2("\ud83d\udc35", "\ud83d\udc35"), new $c_T2("parrot", "\ud83d\udc26"), new $c_T2("\ud83d\udc26", "\ud83d\udc26"), new $c_T2("empty", "\u2753"), new $c_T2("\u2753", "\u2753")]));
+  var $x_14 = $m_sr_ScalaRunTime$();
+  var y = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull;
+  var $x_13 = new $c_T2("skull", y);
+  var y$1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull;
+  var $x_12 = new $c_T2("\ud83d\udc80", y$1);
+  var y$2 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
+  var $x_11 = new $c_T2("diamond", y$2);
+  var y$3 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
+  var $x_10 = new $c_T2("\ud83d\udc8e", y$3);
+  var y$4 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
+  var $x_9 = new $c_T2("coin", y$4);
+  var y$5 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
+  var $x_8 = new $c_T2("\ud83d\udcc0", y$5);
+  var y$6 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
+  var $x_7 = new $c_T2("sword", y$6);
+  var y$7 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
+  var $x_6 = new $c_T2("\ud83d\udd2a", y$7);
+  var y$8 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
+  var $x_5 = new $c_T2("monkey", y$8);
+  var y$9 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
+  var $x_4 = new $c_T2("\ud83d\udc35", y$9);
+  var y$10 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
+  var $x_3 = new $c_T2("parrot", y$10);
+  var y$11 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
+  var $x_2 = new $c_T2("\ud83d\udc26", y$11);
+  var y$12 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
+  var $x_1 = new $c_T2("empty", y$12);
+  var y$13 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
+  var elems = $n($x_14).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_13, $x_12, $x_11, $x_10, $x_9, $x_8, $x_7, $x_6, $x_5, $x_4, $x_3, $x_2, $x_1, new $c_T2("\u2753", y$13)]));
   this.Lapps_app142_TextUIInstance__f_diceNames = this$29.from__sc_IterableOnce__sci_Map(elems);
   var this$38 = $m_sci_Map$();
-  var $x_4 = $m_sr_ScalaRunTime$();
-  var y = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
-  var $x_3 = new $c_T2("roll", y);
-  var y$1 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
-  var $x_2 = new $c_T2("roll the dice", y$1);
-  var y$2 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
-  var $x_1 = new $c_T2("end", y$2);
-  var y$3 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
-  var elems$1 = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_3, $x_2, $x_1, new $c_T2("end my turn", y$3)]));
+  var $x_18 = $m_sr_ScalaRunTime$();
+  var y$14 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
+  var $x_17 = new $c_T2("roll", y$14);
+  var y$15 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
+  var $x_16 = new $c_T2("roll the dice", y$15);
+  var y$16 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
+  var $x_15 = new $c_T2("end", y$16);
+  var y$17 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
+  var elems$1 = $n($x_18).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_17, $x_16, $x_15, new $c_T2("end my turn", y$17)]));
   this.Lapps_app142_TextUIInstance__f_buttonNames = this$38.from__sc_IterableOnce__sci_Map(elems$1);
 }
 $c_Lapps_app142_TextUIInstance.prototype = new $h_Lcs214_webapp_client_graphics_TextClientAppInstance();
@@ -20943,7 +21010,7 @@ $c_Lapps_app142_TextUIInstance.prototype.renderDice__sci_Vector__sci_Vector = (f
           var x$1$8 = $as_Lapps_app142_DiceView$NonClickable(dice);
           var this$21 = $n(x$1$8);
           var x70 = this$21.Lapps_app142_DiceView$NonClickable__f_dice;
-          var diceString = ((x70 === "\ud83d\udc80") ? "Skull:" : ((x70 === "\u2753") ? "Empty:" : ""));
+          var diceString = (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull === x70) ? "Skull:" : (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty === x70) ? "Empty:" : ""));
           var text$5 = (((("[" + diceString) + " ") + x70) + "] ");
           var modifiers$15 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("skull", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
           var onMouseEvent$15 = $m_s_None$();
@@ -21413,7 +21480,7 @@ function $h_Lapps_app142_Wire$DiceFormat$() {
 }
 $h_Lapps_app142_Wire$DiceFormat$.prototype = $c_Lapps_app142_Wire$DiceFormat$.prototype;
 $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(dice) {
-  if ((dice === "\ud83d\udc80")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull === dice)) {
     var items = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map.put__O__O__s_Option("dice", new $c_Lujson_Str("Skull"));
@@ -21426,7 +21493,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map);
   }
-  if ((dice === "\ud83d\udc8e")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond === dice)) {
     var items$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$1 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$1.put__O__O__s_Option("dice", new $c_Lujson_Str("Diamond"));
@@ -21439,7 +21506,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map$1);
   }
-  if ((dice === "\ud83d\udcc0")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin === dice)) {
     var items$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$2 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$2.put__O__O__s_Option("dice", new $c_Lujson_Str("Coin"));
@@ -21452,7 +21519,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map$2);
   }
-  if ((dice === "\ud83d\udd2a")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword === dice)) {
     var items$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$3 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$3.put__O__O__s_Option("dice", new $c_Lujson_Str("Sword"));
@@ -21465,7 +21532,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map$3);
   }
-  if ((dice === "\ud83d\udc35")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey === dice)) {
     var items$4 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$4 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$4.put__O__O__s_Option("dice", new $c_Lujson_Str("Monkey"));
@@ -21478,7 +21545,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map$4);
   }
-  if ((dice === "\ud83d\udc26")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot === dice)) {
     var items$5 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$5 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$5.put__O__O__s_Option("dice", new $c_Lujson_Str("Parrot"));
@@ -21491,7 +21558,7 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.encode__T__Lujson_Value = (function(d
     }
     return new $c_Lujson_Obj(map$5);
   }
-  if ((dice === "\u2753")) {
+  if (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty === dice)) {
     var items$6 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([]));
     var map$6 = new $c_Lupickle_core_LinkedHashMap($ct_ju_LinkedHashMap__(new $c_ju_LinkedHashMap()));
     map$6.put__O__O__s_Option("dice", new $c_Lujson_Str("Empty"));
@@ -21515,31 +21582,31 @@ $c_Lapps_app142_Wire$DiceFormat$.prototype.decode__Lujson_Value__s_util_Try = (f
     var x56 = $f_Lujson_Value__str__T(this$4);
     switch (x56) {
       case "Skull": {
-        var r1 = "\ud83d\udc80";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull;
         break;
       }
       case "Diamond": {
-        var r1 = "\ud83d\udc8e";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
         break;
       }
       case "Coin": {
-        var r1 = "\ud83d\udcc0";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
         break;
       }
       case "Sword": {
-        var r1 = "\ud83d\udd2a";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
         break;
       }
       case "Monkey": {
-        var r1 = "\ud83d\udc35";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
         break;
       }
       case "Parrot": {
-        var r1 = "\ud83d\udc26";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
         break;
       }
       case "Empty": {
-        var r1 = "\u2753";
+        var r1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
         break;
       }
       default: {
