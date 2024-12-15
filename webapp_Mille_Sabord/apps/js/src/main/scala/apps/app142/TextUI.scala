@@ -27,7 +27,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     "diamond" -> Dice.Diamond,
     "💎" -> Dice.Diamond,
     "coin" -> Dice.Coin,
-    "📀" -> Dice.Coin,
+    "🪙" -> Dice.Coin,
     "sword" -> Dice.Sword,
     "🔪" -> Dice.Sword,
     "monkey" -> Dice.Monkey,
@@ -130,11 +130,11 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     case PhaseView.Starting =>
       Vector(TextSegment("Start your turn and roll the dice!\n"))
     case PhaseView.SelectingDice =>
-      Vector(TextSegment("Select the dice you want to rethrow or end your turn:\n"))
+      Vector(TextSegment("Tadaa!! Select the dice you want to rethrow or end your turn:\n"))
     case PhaseView.ViewingDice =>
-      Vector(TextSegment("Here's what you got! How many points do you think you have?\n"))
+      Vector(TextSegment("Drumroll please... 🥁\n"))
     case PhaseView.SkullEnd =>
-      Vector(TextSegment("Shoot! You got 3 skulls. Game over :(\n"))
+      Vector(TextSegment("Shoot! You have at least 3 skulls. You lose this round :(\n"))
     case PhaseView.SavingEnd =>
       Vector(TextSegment("Here's your score for this turn!\n"))
     case PhaseView.Waiting =>

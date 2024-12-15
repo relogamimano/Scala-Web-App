@@ -19,7 +19,7 @@ enum ButtonType:
 object Dice:
   val Skull = "💀"
   val Diamond = "💎"
-  val Coin = "📀"
+  val Coin = "🪙"
   val Sword = "🔪"
   val Monkey = "🐵" //"🐒"
   val Parrot = "🐦"
