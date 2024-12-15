@@ -82,6 +82,30 @@ class Logic extends StateMachine[Event, State, View]:
   def isGameWon(score:Int): Boolean = 
     score >= 3000
 
+  def rollAnimation(state: State): Seq[Action[State]] = {
+    val State(players, phase, dices, selectedDice, score, seed) = state
+    (10 to 2 by -1).foldLeft(Seq[Action[State]]()) { (animationSeq, i) =>
+      
+      val tempRollBefore = dices.zipWithIndex.map { case (dice, id) =>
+        if (selectedDice.contains(id)) dice.randomDice(seed)
+        else dice
+      }
+
+      val tempRollAfter = dices.zipWithIndex.map { case (dice, id) =>
+        if (selectedDice.contains(id)) dice.randomDice(seed)
+        else dice
+      }
+      
+      val tempStateBefore = state.copy(dices = tempRollBefore)
+      val tempStateAfter = state.copy(dices = tempRollAfter)
+      
+      animationSeq ++ Seq(
+        Action.Render(tempStateBefore),
+        Action.Pause(VIEW_DICE_PAUSE_MS / i),
+        Action.Render(tempStateAfter)
+      )
+    }
+  }
 
     //How does the state changes upon action
   override def transition(state: State)(userId: UserId, event: Event): Try[Seq[Action[State]]] = Try : 
@@ -101,24 +125,26 @@ class Logic extends StateMachine[Event, State, View]:
                 throw IllegalMoveException("Roll the dice first!")
               case ButtonType.Roll =>  
                 val rolledDices = dices.map(_.randomDice(seed))
-                val viewState = state.copy(phase = Phase.ViewingDice,dices = rolledDices)
-
-                if isTurnLost(rolledDices) then 
-                  val initDice = dices.map(_ => Dice.Empty)
-                  val endState = state.copy(phase = Phase.EndingTurn,selectedDices = Set())
-                  val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
-                  Seq(
-                    Action.Render(viewState),
-                    Action.Pause(VIEW_DICE_PAUSE_MS),
-                    Action.Render(endState),
-                    Action.Pause(SHOW_TURN_END_PAUSE_MS),
-                    Action.Render(newPlayerState)
-                    )
-                else
-                  val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
-                  Seq(Action.Render(viewState),
-                    Action.Pause(VIEW_DICE_PAUSE_MS),
-                    Action.Render(newState))
+                val mainActions = {
+                  if isTurnLost(rolledDices) then 
+                    val initDice = dices.map(_ => Dice.Empty)
+                    val endState = state.copy(phase = Phase.EndingTurn,selectedDices = Set())
+                    val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
+                    Seq(
+                      Action.Render(state),
+                      Action.Pause(VIEW_DICE_PAUSE_MS),
+                      Action.Render(endState),
+                      Action.Pause(SHOW_TURN_END_PAUSE_MS),
+                      Action.Render(newPlayerState)
+                      )
+                    else
+                      val newState = state.copy(phase = Phase.SelectingDice,dices = rolledDices)
+                      Seq(Action.Render(newState))
+                }
+                val allDiceIds: Seq[DiceId] = Seq(0,1,2,3,4,5,6,7)
+                val allDice: Set[DiceId] = allDiceIds.toSet
+                val animationActions = rollAnimation(state.copy(phase = Phase.ViewingDice, selectedDices = allDice))
+                animationActions ++ mainActions
           case Event.DiceClicked(diceId) => 
             throw IllegalMoveException("Roll the dice first!")
       case Phase.SelectingDice => 
@@ -147,25 +173,29 @@ class Logic extends StateMachine[Event, State, View]:
                 else
                   val rolledDice = rollDices(dices,selectedDice,seed)
                   val viewState = state.copy(phase = Phase.ViewingDice,dices = rolledDice)
+                  val mainActions = {
 
-                  if isTurnLost(rolledDice) then 
-                    val initDice = dices.map(_ => Dice.Empty)
-                    val endState = viewState.copy(phase = Phase.EndingTurn,selectedDices = Set())
-                    val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
-                    Seq(
-                      Action.Render(viewState),
-                      Action.Pause(VIEW_DICE_PAUSE_MS),
-                      Action.Render(endState),
-                      Action.Pause(SHOW_TURN_END_PAUSE_MS),
-                      Action.Render(newPlayerState)
-                    )
-                  else
-                    val newTurnState = State(players,Phase.SelectingDice,rolledDice,Set(),score,seed)
-                    Seq(
-                      Action.Render(viewState),
-                      Action.Pause(VIEW_DICE_PAUSE_MS),
-                      Action.Render(newTurnState)
-                    )
+                    if isTurnLost(rolledDice) then 
+                      val initDice = dices.map(_ => Dice.Empty)
+                      val endState = viewState.copy(phase = Phase.EndingTurn,selectedDices = Set())
+                      val newPlayerState = State(players.tail :+ players.head,Phase.StartingTurn,initDice,Set(),score,seed)
+                      Seq(
+                        Action.Render(viewState),
+                        Action.Pause(VIEW_DICE_PAUSE_MS),
+                        Action.Render(endState),
+                        Action.Pause(SHOW_TURN_END_PAUSE_MS),
+                        Action.Render(newPlayerState)
+                      )
+                    else
+                      val newTurnState = State(players,Phase.SelectingDice,rolledDice,Set(),score,seed)
+                      Seq(
+                        Action.Render(viewState),
+                        Action.Pause(VIEW_DICE_PAUSE_MS),
+                        Action.Render(newTurnState)
+                      )
+                  }
+                  val animationActions = rollAnimation(state.copy(phase = Phase.ViewingDice, selectedDices = selectedDice))
+                  animationActions ++ mainActions
 
           case Event.DiceClicked(diceId) => 
             if dices(diceId) == Dice.Skull then
