@@ -22,7 +22,7 @@ class Logic extends StateMachine[Event, State, View]:
 
   override val wire = app142.Wire
   // Feel free to tweak this value!
-  private val VIEW_DICE_PAUSE_MS = 2500
+  private val VIEW_DICE_PAUSE_MS = 1000
   private val SHOW_TURN_END_PAUSE_MS = 2500
 
   /** Creates a new application state. */

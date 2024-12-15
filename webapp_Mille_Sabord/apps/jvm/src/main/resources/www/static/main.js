@@ -1148,7 +1148,7 @@ function $c_Lapps_app142_types$package$Dice$() {
   $n_Lapps_app142_types$package$Dice$ = this;
   this.Lapps_app142_types$package$Dice$__f_Skull = "\ud83d\udc80";
   this.Lapps_app142_types$package$Dice$__f_Diamond = "\ud83d\udc8e";
-  this.Lapps_app142_types$package$Dice$__f_Coin = "\ud83d\udcc0";
+  this.Lapps_app142_types$package$Dice$__f_Coin = "\ud83e\ude99";
   this.Lapps_app142_types$package$Dice$__f_Sword = "\ud83d\udd2a";
   this.Lapps_app142_types$package$Dice$__f_Monkey = "\ud83d\udc35";
   this.Lapps_app142_types$package$Dice$__f_Parrot = "\ud83d\udc26";
@@ -16598,7 +16598,7 @@ $c_Lapps_app142_HtmlUIInstance.prototype.renderPhase__Lapps_app142_PhaseView__Ls
   }
   if ($x_2) {
     var this$8 = $m_Lscalatags_JsDom$all$();
-    var frags$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Select the dice you want to rethrow or end your turn:"))])))]));
+    var frags$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Tadaa!! Select the dice you want to rethrow or end your turn:"))])))]));
     var this$10 = $m_s_$less$colon$less$();
     var ev$1 = this$10.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$8, frags$1, ev$1);
@@ -16612,7 +16612,7 @@ $c_Lapps_app142_HtmlUIInstance.prototype.renderPhase__Lapps_app142_PhaseView__Ls
   }
   if ($x_3) {
     var this$13 = $m_Lscalatags_JsDom$all$();
-    var frags$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Here's what you got! How many points do you think you have?"))])))]));
+    var frags$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Drumroll please... \ud83e\udd41"))])))]));
     var this$15 = $m_s_$less$colon$less$();
     var ev$2 = this$15.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$13, frags$2, ev$2);
@@ -16626,7 +16626,7 @@ $c_Lapps_app142_HtmlUIInstance.prototype.renderPhase__Lapps_app142_PhaseView__Ls
   }
   if ($x_4) {
     var this$18 = $m_Lscalatags_JsDom$all$();
-    var frags$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Shoot! You got 3 skulls. Game over :("))])))]));
+    var frags$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Frag.getArrayOf().constr)([$n($as_Lscalatags_JsDom$TypedTag($m_Lscalatags_JsDom$all$().p__Lscalatags_generic_TypedTag())).apply__sci_Seq__Lscalatags_JsDom$TypedTag($m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("centered-text", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr), ($m_Lscalatags_JsDom$all$(), new $c_Lscalatags_JsDom$StringFrag("Shoot! You have at least 3 skulls. You lose this round :("))])))]));
     var this$20 = $m_s_$less$colon$less$();
     var ev$3 = this$20.s_$less$colon$less$__f_singleton;
     return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$18, frags$3, ev$3);
@@ -17208,7 +17208,7 @@ $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.render__T__O__L
   return new $c_Lscalatags_JsDom$Cap$SeqFrag(this$24, frags, ev$8);
 });
 $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.css__T = (function() {
-  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("\r\n    | .textapp {\r\n    |   font-size: 1rem;\r\n    | }\r\n    |\r\n    | .textapp input {\r\n    |   height: 1em;\r\n    |   width: 100%;\r\n    |   border: solid 1px black;\r\n    |   box-sizing: border-box;\r\n    | }\r\n    |  \r\n    |  .textapp .console {\r\n    |      overflow: hidden;\r\n    |      padding: 0.5em;\r\n    |      font-size: 1em;\r\n    |      display: flex;\r\n    |      flex-direction: column;\r\n    |      justify-content: center;\r\n    |      align-items: start;\r\n    |      border: solid 1px black;\r\n    |  }\r\n    |  \r\n    |  .textapp .console span {\r\n    |      box-sizing: border-box;\r\n    |  }\r\n    ", 124));
+  return ("" + $m_sc_StringOps$().stripMargin$extension__T__C__T("\n    | .textapp {\n    |   font-size: 1rem;\n    | }\n    |\n    | .textapp input {\n    |   height: 1em;\n    |   width: 100%;\n    |   border: solid 1px black;\n    |   box-sizing: border-box;\n    | }\n    |  \n    |  .textapp .console {\n    |      overflow: hidden;\n    |      padding: 0.5em;\n    |      font-size: 1em;\n    |      display: flex;\n    |      flex-direction: column;\n    |      justify-content: center;\n    |      align-items: start;\n    |      border: solid 1px black;\n    |  }\n    |  \n    |  .textapp .console span {\n    |      box-sizing: border-box;\n    |  }\n    ", 124));
 });
 /** @constructor */
 function $c_Lcs214_webapp_client_graphics_TextSegment$() {
@@ -20587,48 +20587,34 @@ function $c_Lapps_app142_TextUIInstance(userId, sendMessage, target) {
   this.Lapps_app142_TextUIInstance__f_buttonNames = null;
   $ct_Lcs214_webapp_client_graphics_TextClientAppInstance__T__F1__Lorg_scalajs_dom_Element__(this, userId, sendMessage, target);
   this.Lapps_app142_TextUIInstance__f_wire = $m_Lapps_app142_Wire$();
-  var this$29 = $m_sci_Map$();
-  var $x_14 = $m_sr_ScalaRunTime$();
+  var this$15 = $m_sci_Map$();
+  var $x_7 = $m_sr_ScalaRunTime$();
   var y = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull;
-  var $x_13 = new $c_T2("skull", y);
-  var y$1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull;
-  var $x_12 = new $c_T2("\ud83d\udc80", y$1);
-  var y$2 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
-  var $x_11 = new $c_T2("diamond", y$2);
-  var y$3 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
-  var $x_10 = new $c_T2("\ud83d\udc8e", y$3);
-  var y$4 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
-  var $x_9 = new $c_T2("coin", y$4);
-  var y$5 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
-  var $x_8 = new $c_T2("\ud83d\udcc0", y$5);
-  var y$6 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
-  var $x_7 = new $c_T2("sword", y$6);
-  var y$7 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
-  var $x_6 = new $c_T2("\ud83d\udd2a", y$7);
-  var y$8 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
-  var $x_5 = new $c_T2("monkey", y$8);
-  var y$9 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
-  var $x_4 = new $c_T2("\ud83d\udc35", y$9);
-  var y$10 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
-  var $x_3 = new $c_T2("parrot", y$10);
-  var y$11 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
-  var $x_2 = new $c_T2("\ud83d\udc26", y$11);
-  var y$12 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
-  var $x_1 = new $c_T2("empty", y$12);
-  var y$13 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
-  var elems = $n($x_14).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_13, $x_12, $x_11, $x_10, $x_9, $x_8, $x_7, $x_6, $x_5, $x_4, $x_3, $x_2, $x_1, new $c_T2("\u2753", y$13)]));
-  this.Lapps_app142_TextUIInstance__f_diceNames = this$29.from__sc_IterableOnce__sci_Map(elems);
-  var this$38 = $m_sci_Map$();
-  var $x_18 = $m_sr_ScalaRunTime$();
-  var y$14 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
-  var $x_17 = new $c_T2("roll", y$14);
-  var y$15 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
-  var $x_16 = new $c_T2("roll the dice", y$15);
-  var y$16 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
-  var $x_15 = new $c_T2("end", y$16);
-  var y$17 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
-  var elems$1 = $n($x_18).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_17, $x_16, $x_15, new $c_T2("end my turn", y$17)]));
-  this.Lapps_app142_TextUIInstance__f_buttonNames = this$38.from__sc_IterableOnce__sci_Map(elems$1);
+  var $x_6 = new $c_T2("skull", y);
+  var y$1 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Diamond;
+  var $x_5 = new $c_T2("diamond", y$1);
+  var y$2 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Coin;
+  var $x_4 = new $c_T2("coin", y$2);
+  var y$3 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Sword;
+  var $x_3 = new $c_T2("sword", y$3);
+  var y$4 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Monkey;
+  var $x_2 = new $c_T2("monkey", y$4);
+  var y$5 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Parrot;
+  var $x_1 = new $c_T2("parrot", y$5);
+  var y$6 = $m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty;
+  var elems = $n($x_7).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_6, $x_5, $x_4, $x_3, $x_2, $x_1, new $c_T2("empty", y$6)]));
+  this.Lapps_app142_TextUIInstance__f_diceNames = this$15.from__sc_IterableOnce__sci_Map(elems);
+  var this$24 = $m_sci_Map$();
+  var $x_11 = $m_sr_ScalaRunTime$();
+  var y$7 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
+  var $x_10 = new $c_T2("roll", y$7);
+  var y$8 = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
+  var $x_9 = new $c_T2("roll the dice", y$8);
+  var y$9 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
+  var $x_8 = new $c_T2("end", y$9);
+  var y$10 = $s_Lapps_app142_ButtonType$__End__Lapps_app142_ButtonType();
+  var elems$1 = $n($x_11).wrapRefArray__AO__sci_ArraySeq(new ($d_T2.getArrayOf().constr)([$x_10, $x_9, $x_8, new $c_T2("end my turn", y$10)]));
+  this.Lapps_app142_TextUIInstance__f_buttonNames = this$24.from__sc_IterableOnce__sci_Map(elems$1);
 }
 $c_Lapps_app142_TextUIInstance.prototype = new $h_Lcs214_webapp_client_graphics_TextClientAppInstance();
 $c_Lapps_app142_TextUIInstance.prototype.constructor = $c_Lapps_app142_TextUIInstance;
@@ -20642,39 +20628,52 @@ $c_Lapps_app142_TextUIInstance.prototype.wire__Lcs214_webapp_AppWire = (function
 $c_Lapps_app142_TextUIInstance.prototype.handleTextInput__Lapps_app142_View__T__s_Option = (function(view, text) {
   var $x_1 = $n(this.Lapps_app142_TextUIInstance__f_diceNames);
   var this$1 = $n(text);
-  var x33 = $n($x_1).get__O__s_Option($as_T(this$1.toLowerCase()));
-  if ((x33 instanceof $c_s_Some)) {
-    var dice = $as_T($n($as_s_Some(x33)).s_Some__f_value);
-    var x23 = $n(view).Lapps_app142_View__f_stateView;
-    if ((x23 instanceof $c_Lapps_app142_StateView$Playing)) {
-      var x$1 = $as_Lapps_app142_StateView$Playing(x23);
-      var this$3 = $n(x$1);
+  var x36 = $n($x_1).get__O__s_Option($as_T(this$1.toLowerCase()));
+  if ((x36 instanceof $c_s_Some)) {
+    var dice = $as_T($n($as_s_Some(x36)).s_Some__f_value);
+    var this$2 = $n(text);
+    if ((text === $as_T(this$2.toLowerCase()))) {
+      var action = "deselect";
+    } else {
+      var action = "select";
+    }
+    var x26 = $n(view).Lapps_app142_View__f_stateView;
+    if ((x26 instanceof $c_Lapps_app142_StateView$Playing)) {
+      var x$1 = $as_Lapps_app142_StateView$Playing(x26);
       var this$4 = $n(x$1);
       var this$5 = $n(x$1);
-      var x28 = this$5.Lapps_app142_StateView$Playing__f_diceView;
       var this$6 = $n(x$1);
-      var this$7 = $n(x28);
-      return $n($as_sc_IterableOnceOps($f_sc_StrictOptimizedIterableOps__zipWithIndex__O(this$7))).collectFirst__s_PartialFunction__s_Option(new $c_Lapps_app142_TextUIInstance$$anon$1(dice));
+      var x31 = this$6.Lapps_app142_StateView$Playing__f_diceView;
+      var this$7 = $n(x$1);
+      if ((action === "select")) {
+        var this$8 = $n(x31);
+        return $n($as_sc_IterableOnceOps($f_sc_StrictOptimizedIterableOps__zipWithIndex__O(this$8))).collectFirst__s_PartialFunction__s_Option(new $c_Lapps_app142_TextUIInstance$$anon$1(dice));
+      }
+      if ((action === "deselect")) {
+        var this$9 = $n(x31);
+        return $n($as_sc_IterableOnceOps($f_sc_StrictOptimizedIterableOps__zipWithIndex__O(this$9))).collectFirst__s_PartialFunction__s_Option(new $c_Lapps_app142_TextUIInstance$$anon$2(dice));
+      }
+      throw new $c_s_MatchError(action);
     }
     return $m_s_None$();
   }
   var x = $m_s_None$();
-  if ((x === x33)) {
+  if ((x === x36)) {
     var $x_2 = $n(this.Lapps_app142_TextUIInstance__f_buttonNames);
-    var this$8 = $n(text);
-    var x30 = $n($x_2).get__O__s_Option($as_T(this$8.toLowerCase()));
-    if ((x30 instanceof $c_s_Some)) {
-      var buttonId = $as_Lapps_app142_ButtonType($n($as_s_Some(x30)).s_Some__f_value);
+    var this$10 = $n(text);
+    var x33 = $n($x_2).get__O__s_Option($as_T(this$10.toLowerCase()));
+    if ((x33 instanceof $c_s_Some)) {
+      var buttonId = $as_Lapps_app142_ButtonType($n($as_s_Some(x33)).s_Some__f_value);
       var value = new $c_Lapps_app142_Event$ButtonClicked(buttonId);
       return new $c_s_Some(value);
     }
     var x$3 = $m_s_None$();
-    if ((x$3 === x30)) {
+    if ((x$3 === x33)) {
       return $m_s_None$();
     }
-    throw new $c_s_MatchError(x30);
+    throw new $c_s_MatchError(x33);
   }
-  throw new $c_s_MatchError(x33);
+  throw new $c_s_MatchError(x36);
 });
 $c_Lapps_app142_TextUIInstance.prototype.renderView__T__Lapps_app142_View__sci_Vector = (function(userId, view) {
   var this$3 = $m_sci_Vector$();
@@ -20710,17 +20709,17 @@ $c_Lapps_app142_TextUIInstance.prototype.renderPage__T__Lapps_app142_View__sci_V
   var elems$1 = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$3, cssProperties$3, htmlAttributes$3, modifiers$3)]));
   var suffix$2 = this$8.from__sc_IterableOnce__sci_Vector(elems$1);
   var this$16 = $n(this$9.appendedAll__sc_IterableOnce__sci_Vector(suffix$2));
-  matchResult6: {
+  matchResult9: {
     var suffix$3;
-    var x36 = $n(view).Lapps_app142_View__f_stateView;
-    if ((x36 instanceof $c_Lapps_app142_StateView$Playing)) {
-      var x$1 = $as_Lapps_app142_StateView$Playing(x36);
+    var x39 = $n(view).Lapps_app142_View__f_stateView;
+    if ((x39 instanceof $c_Lapps_app142_StateView$Playing)) {
+      var x$1 = $as_Lapps_app142_StateView$Playing(x39);
       var this$11 = $n(x$1);
       var this$12 = $n(x$1);
       var this$13 = $n(x$1);
       var this$14 = $n(x$1);
       var suffix$3 = this.renderFooter__sci_Vector();
-      break matchResult6;
+      break matchResult9;
     }
     $m_sci_Vector$();
     var suffix$3 = $m_sci_Vector0$();
@@ -20731,16 +20730,16 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
   if ((stateView instanceof $c_Lapps_app142_StateView$Playing)) {
     var x$1 = $as_Lapps_app142_StateView$Playing(stateView);
     var this$2 = $n(x$1);
-    var x50 = this$2.Lapps_app142_StateView$Playing__f_phase;
+    var x53 = this$2.Lapps_app142_StateView$Playing__f_phase;
     var this$3 = $n(x$1);
-    var x51 = this$3.Lapps_app142_StateView$Playing__f_currentPlayer;
+    var x54 = this$3.Lapps_app142_StateView$Playing__f_currentPlayer;
     var this$4 = $n(x$1);
-    var x52 = this$4.Lapps_app142_StateView$Playing__f_diceView;
+    var x55 = this$4.Lapps_app142_StateView$Playing__f_diceView;
     var this$5 = $n(x$1);
-    var x53 = this$5.Lapps_app142_StateView$Playing__f_buttonView;
+    var x56 = this$5.Lapps_app142_StateView$Playing__f_buttonView;
     var this$10 = $m_sci_Vector$();
     var $x_2 = $m_sr_ScalaRunTime$();
-    var text$1 = (("Current player: " + x51) + "\n");
+    var text$1 = (("Current player: " + x54) + "\n");
     var modifiers$4 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("bold", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
     var onMouseEvent$4 = $m_s_None$();
     var cssProperties$4 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
@@ -20752,7 +20751,7 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
     var htmlAttributes$5 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var elems = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([$x_1, new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$5, cssProperties$5, htmlAttributes$5, modifiers$5)]));
     var this$11 = $n(this$10.from__sc_IterableOnce__sci_Vector(elems));
-    var suffix = this.renderPhase__Lapps_app142_PhaseView__sci_Vector(x50);
+    var suffix = this.renderPhase__Lapps_app142_PhaseView__sci_Vector(x53);
     var this$15 = $n(this$11.appendedAll__sc_IterableOnce__sci_Vector(suffix));
     var this$14 = $m_sci_Vector$();
     var $x_3 = $m_sr_ScalaRunTime$();
@@ -20763,7 +20762,7 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
     var elems$1 = $n($x_3).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$6, cssProperties$6, htmlAttributes$6, modifiers$6)]));
     var suffix$1 = this$14.from__sc_IterableOnce__sci_Vector(elems$1);
     var this$16 = $n(this$15.appendedAll__sc_IterableOnce__sci_Vector(suffix$1));
-    var suffix$2 = this.renderDice__sci_Vector__sci_Vector(x52);
+    var suffix$2 = this.renderDice__sci_Vector__sci_Vector(x55);
     var this$20 = $n(this$16.appendedAll__sc_IterableOnce__sci_Vector(suffix$2));
     var this$19 = $m_sci_Vector$();
     var $x_4 = $m_sr_ScalaRunTime$();
@@ -20774,7 +20773,7 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
     var elems$2 = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$7, cssProperties$7, htmlAttributes$7, modifiers$7)]));
     var suffix$3 = this$19.from__sc_IterableOnce__sci_Vector(elems$2);
     var this$21 = $n(this$20.appendedAll__sc_IterableOnce__sci_Vector(suffix$3));
-    var suffix$4 = this.renderButtons__sci_Vector__sci_Vector(x53);
+    var suffix$4 = this.renderButtons__sci_Vector__sci_Vector(x56);
     var this$25 = $n(this$21.appendedAll__sc_IterableOnce__sci_Vector(suffix$4));
     var this$24 = $m_sci_Vector$();
     var $x_5 = $m_sr_ScalaRunTime$();
@@ -20789,10 +20788,10 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
   if ((stateView instanceof $c_Lapps_app142_StateView$Finished)) {
     var x$1$1 = $as_Lapps_app142_StateView$Finished(stateView);
     var this$27 = $n(x$1$1);
-    var x46 = this$27.Lapps_app142_StateView$Finished__f_winnerId;
+    var x49 = this$27.Lapps_app142_StateView$Finished__f_winnerId;
     var this$28 = $n(x$1$1);
-    var x47 = this$28.Lapps_app142_StateView$Finished__f_currentPlayer;
-    if ((x46 === x47)) {
+    var x50 = this$28.Lapps_app142_StateView$Finished__f_currentPlayer;
+    if ((x49 === x50)) {
       var this$31 = $m_sci_Vector$();
       var $x_6 = $m_sr_ScalaRunTime$();
       var modifiers$9 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("win-header", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
@@ -20813,7 +20812,7 @@ $c_Lapps_app142_TextUIInstance.prototype.renderState__T__Lapps_app142_StateView_
     }
     var this$37 = $m_sci_Vector$();
     var $x_8 = $m_sr_ScalaRunTime$();
-    var text$2 = (("The game is over! Winner: " + x46) + "\n");
+    var text$2 = (("The game is over! Winner: " + x49) + "\n");
     var modifiers$11 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("italic", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
     var onMouseEvent$11 = $m_s_None$();
     var cssProperties$11 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
@@ -20860,101 +20859,106 @@ $c_Lapps_app142_TextUIInstance.prototype.renderPhase__Lapps_app142_PhaseView__sc
     var $x_3 = (this$5 === phase);
   }
   if ($x_3) {
-    var this$8 = $m_sci_Vector$();
-    var $x_4 = $m_sr_ScalaRunTime$();
+    var this$10 = $m_sci_Vector$();
+    var $x_5 = $m_sr_ScalaRunTime$();
     var onMouseEvent$1 = $m_s_None$();
     var cssProperties$1 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
     var htmlAttributes$1 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var modifiers$1 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
-    var elems$1 = $n($x_4).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Select the dice you want to rethrow or end your turn:\n", onMouseEvent$1, cssProperties$1, htmlAttributes$1, modifiers$1)]));
-    return this$8.from__sc_IterableOnce__sci_Vector(elems$1);
+    var $x_4 = new $c_Lcs214_webapp_client_graphics_TextSegment("Select the dice you want to rethrow or end your turn:\n", onMouseEvent$1, cssProperties$1, htmlAttributes$1, modifiers$1);
+    var modifiers$13 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("small", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+    var onMouseEvent$13 = $m_s_None$();
+    var cssProperties$13 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+    var htmlAttributes$13 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+    var elems$1 = $n($x_5).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([$x_4, new $c_Lcs214_webapp_client_graphics_TextSegment("(SELECT/deselect skull:\ud83d\udc80, diamond:\ud83d\udc8e, coin:\ud83e\ude99, sword:\ud83d\udd2a, monkey:\ud83d\udc35, parrot:\ud83d\udc26)\n", onMouseEvent$13, cssProperties$13, htmlAttributes$13, modifiers$13)]));
+    return this$10.from__sc_IterableOnce__sci_Vector(elems$1);
   }
   var x$5 = $s_Lapps_app142_PhaseView$__ViewingDice__Lapps_app142_PhaseView();
   if ((x$5 === null)) {
-    var $x_5 = (phase === null);
+    var $x_6 = (phase === null);
   } else {
-    var this$9 = $n(x$5);
-    var $x_5 = (this$9 === phase);
+    var this$11 = $n(x$5);
+    var $x_6 = (this$11 === phase);
   }
-  if ($x_5) {
-    var this$12 = $m_sci_Vector$();
-    var $x_6 = $m_sr_ScalaRunTime$();
+  if ($x_6) {
+    var this$14 = $m_sci_Vector$();
+    var $x_7 = $m_sr_ScalaRunTime$();
     var onMouseEvent$2 = $m_s_None$();
     var cssProperties$2 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
     var htmlAttributes$2 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var modifiers$2 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
-    var elems$2 = $n($x_6).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Here's what you got! How many points do you think you have?\n", onMouseEvent$2, cssProperties$2, htmlAttributes$2, modifiers$2)]));
-    return this$12.from__sc_IterableOnce__sci_Vector(elems$2);
+    var elems$2 = $n($x_7).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Drumroll please... \ud83e\udd41\n", onMouseEvent$2, cssProperties$2, htmlAttributes$2, modifiers$2)]));
+    return this$14.from__sc_IterableOnce__sci_Vector(elems$2);
   }
   var x$7 = $s_Lapps_app142_PhaseView$__SkullEnd__Lapps_app142_PhaseView();
   if ((x$7 === null)) {
-    var $x_7 = (phase === null);
+    var $x_8 = (phase === null);
   } else {
-    var this$13 = $n(x$7);
-    var $x_7 = (this$13 === phase);
+    var this$15 = $n(x$7);
+    var $x_8 = (this$15 === phase);
   }
-  if ($x_7) {
-    var this$16 = $m_sci_Vector$();
-    var $x_8 = $m_sr_ScalaRunTime$();
+  if ($x_8) {
+    var this$18 = $m_sci_Vector$();
+    var $x_9 = $m_sr_ScalaRunTime$();
     var onMouseEvent$3 = $m_s_None$();
     var cssProperties$3 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
     var htmlAttributes$3 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var modifiers$3 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
-    var elems$3 = $n($x_8).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Shoot! You got 3 skulls. Game over :(\n", onMouseEvent$3, cssProperties$3, htmlAttributes$3, modifiers$3)]));
-    return this$16.from__sc_IterableOnce__sci_Vector(elems$3);
+    var elems$3 = $n($x_9).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Shoot! You have at least 3 skulls. You lose this round :(\n", onMouseEvent$3, cssProperties$3, htmlAttributes$3, modifiers$3)]));
+    return this$18.from__sc_IterableOnce__sci_Vector(elems$3);
   }
   var x$9 = $s_Lapps_app142_PhaseView$__SavingEnd__Lapps_app142_PhaseView();
   if ((x$9 === null)) {
-    var $x_9 = (phase === null);
+    var $x_10 = (phase === null);
   } else {
-    var this$17 = $n(x$9);
-    var $x_9 = (this$17 === phase);
+    var this$19 = $n(x$9);
+    var $x_10 = (this$19 === phase);
   }
-  if ($x_9) {
-    var this$20 = $m_sci_Vector$();
-    var $x_10 = $m_sr_ScalaRunTime$();
+  if ($x_10) {
+    var this$22 = $m_sci_Vector$();
+    var $x_11 = $m_sr_ScalaRunTime$();
     var onMouseEvent$4 = $m_s_None$();
     var cssProperties$4 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
     var htmlAttributes$4 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var modifiers$4 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
-    var elems$4 = $n($x_10).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Here's your score for this turn!\n", onMouseEvent$4, cssProperties$4, htmlAttributes$4, modifiers$4)]));
-    return this$20.from__sc_IterableOnce__sci_Vector(elems$4);
+    var elems$4 = $n($x_11).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Here's your score for this turn!\n", onMouseEvent$4, cssProperties$4, htmlAttributes$4, modifiers$4)]));
+    return this$22.from__sc_IterableOnce__sci_Vector(elems$4);
   }
   var x$11 = $s_Lapps_app142_PhaseView$__Waiting__Lapps_app142_PhaseView();
   if ((x$11 === null)) {
-    var $x_11 = (phase === null);
+    var $x_12 = (phase === null);
   } else {
-    var this$21 = $n(x$11);
-    var $x_11 = (this$21 === phase);
+    var this$23 = $n(x$11);
+    var $x_12 = (this$23 === phase);
   }
-  if ($x_11) {
-    var this$24 = $m_sci_Vector$();
-    var $x_12 = $m_sr_ScalaRunTime$();
+  if ($x_12) {
+    var this$26 = $m_sci_Vector$();
+    var $x_13 = $m_sr_ScalaRunTime$();
     var onMouseEvent$5 = $m_s_None$();
     var cssProperties$5 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
     var htmlAttributes$5 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
     var modifiers$5 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
-    var elems$5 = $n($x_12).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Let's watch your opponent play...\n", onMouseEvent$5, cssProperties$5, htmlAttributes$5, modifiers$5)]));
-    return this$24.from__sc_IterableOnce__sci_Vector(elems$5);
+    var elems$5 = $n($x_13).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Let's watch your opponent play...\n", onMouseEvent$5, cssProperties$5, htmlAttributes$5, modifiers$5)]));
+    return this$26.from__sc_IterableOnce__sci_Vector(elems$5);
   }
   throw new $c_s_MatchError(phase);
 });
 $c_Lapps_app142_TextUIInstance.prototype.renderDice__sci_Vector__sci_Vector = (function(diceView) {
-  matchResult9: {
+  matchResult12: {
     var \u03b41$___1;
     var \u03b41$___2;
     var this$2 = $n(diceView);
     var this$1 = $n(diceView);
     var n = ((this$1.length__I() / 2) | 0);
-    var x55 = $f_sc_IterableOps__splitAt__I__T2(this$2, n);
-    if ((x55 !== null)) {
-      var firstRow = $as_sci_Vector($n(x55)._1__O());
-      var secondRow = $as_sci_Vector($n(x55)._2__O());
+    var x58 = $f_sc_IterableOps__splitAt__I__T2(this$2, n);
+    if ((x58 !== null)) {
+      var firstRow = $as_sci_Vector($n(x58)._1__O());
+      var secondRow = $as_sci_Vector($n(x58)._2__O());
       var \u03b41$___1 = firstRow;
       var \u03b41$___2 = secondRow;
-      break matchResult9;
+      break matchResult12;
     }
-    throw new $c_s_MatchError(x55);
+    throw new $c_s_MatchError(x58);
   }
   var firstRow$2 = $as_sci_Vector(\u03b41$___1);
   var secondRow$2 = $as_sci_Vector(\u03b41$___2);
@@ -20971,8 +20975,8 @@ $c_Lapps_app142_TextUIInstance.prototype.renderDice__sci_Vector__sci_Vector = (f
         if ((dice instanceof $c_Lapps_app142_DiceView$Selected)) {
           var x$1$2 = $as_Lapps_app142_DiceView$Selected(dice);
           var this$7 = $n(x$1$2);
-          var x76 = this$7.Lapps_app142_DiceView$Selected__f_dice;
-          var text$3 = (("[Selected: " + x76) + "] ");
+          var x79 = this$7.Lapps_app142_DiceView$Selected__f_dice;
+          var text$3 = (("[Selected: " + x79) + "] ");
           var value = new $c_sjsr_AnonFunction1(((x$1$2$1) => {
             var x$1$3 = $as_Lcs214_webapp_client_graphics_MouseEvent(x$1$2$1);
             if ((x$1$3 instanceof $c_Lcs214_webapp_client_graphics_MouseEvent$Click)) {
@@ -20981,17 +20985,17 @@ $c_Lapps_app142_TextUIInstance.prototype.renderDice__sci_Vector__sci_Vector = (f
               this.sendEvent__O__V(new $c_Lapps_app142_Event$DiceClicked(diceID));
             }
           }));
-          var onMouseEvent$13 = new $c_s_Some(value);
-          var modifiers$13 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-          var cssProperties$13 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-          var htmlAttributes$13 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$3, onMouseEvent$13, cssProperties$13, htmlAttributes$13, modifiers$13);
+          var onMouseEvent$14 = new $c_s_Some(value);
+          var modifiers$14 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+          var cssProperties$14 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+          var htmlAttributes$14 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$3, onMouseEvent$14, cssProperties$14, htmlAttributes$14, modifiers$14);
         }
         if ((dice instanceof $c_Lapps_app142_DiceView$Unselected)) {
           var x$1$5 = $as_Lapps_app142_DiceView$Unselected(dice);
           var this$14 = $n(x$1$5);
-          var x73 = this$14.Lapps_app142_DiceView$Unselected__f_dice;
-          var text$4 = (("[" + x73) + "] ");
+          var x76 = this$14.Lapps_app142_DiceView$Unselected__f_dice;
+          var text$4 = (("[" + x76) + "] ");
           var value$1 = new $c_sjsr_AnonFunction1(((x$1$3$1) => {
             var x$1$6 = $as_Lcs214_webapp_client_graphics_MouseEvent(x$1$3$1);
             if ((x$1$6 instanceof $c_Lcs214_webapp_client_graphics_MouseEvent$Click)) {
@@ -21000,23 +21004,23 @@ $c_Lapps_app142_TextUIInstance.prototype.renderDice__sci_Vector__sci_Vector = (f
               this.sendEvent__O__V(new $c_Lapps_app142_Event$DiceClicked(diceID));
             }
           }));
-          var onMouseEvent$14 = new $c_s_Some(value$1);
-          var modifiers$14 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-          var cssProperties$14 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-          var htmlAttributes$14 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$4, onMouseEvent$14, cssProperties$14, htmlAttributes$14, modifiers$14);
+          var onMouseEvent$15 = new $c_s_Some(value$1);
+          var modifiers$15 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+          var cssProperties$15 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+          var htmlAttributes$15 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$4, onMouseEvent$15, cssProperties$15, htmlAttributes$15, modifiers$15);
         }
         if ((dice instanceof $c_Lapps_app142_DiceView$NonClickable)) {
           var x$1$8 = $as_Lapps_app142_DiceView$NonClickable(dice);
           var this$21 = $n(x$1$8);
-          var x70 = this$21.Lapps_app142_DiceView$NonClickable__f_dice;
-          var diceString = (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull === x70) ? "Skull:" : (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty === x70) ? "Empty:" : ""));
-          var text$5 = (((("[" + diceString) + " ") + x70) + "] ");
-          var modifiers$15 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("skull", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-          var onMouseEvent$15 = $m_s_None$();
-          var cssProperties$15 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-          var htmlAttributes$15 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$5, onMouseEvent$15, cssProperties$15, htmlAttributes$15, modifiers$15);
+          var x73 = this$21.Lapps_app142_DiceView$NonClickable__f_dice;
+          var diceString = (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Skull === x73) ? "Skull:" : (($m_Lapps_app142_types$package$Dice$().Lapps_app142_types$package$Dice$__f_Empty === x73) ? "Empty:" : ""));
+          var text$5 = (((("[" + diceString) + " ") + x73) + "] ");
+          var modifiers$16 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("skull", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+          var onMouseEvent$16 = $m_s_None$();
+          var cssProperties$16 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+          var htmlAttributes$16 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+          return new $c_Lcs214_webapp_client_graphics_TextSegment(text$5, onMouseEvent$16, cssProperties$16, htmlAttributes$16, modifiers$16);
         }
         throw new $c_s_MatchError(dice);
       }
@@ -21044,14 +21048,14 @@ $c_Lapps_app142_TextUIInstance.prototype.renderButtons__sci_Vector__sci_Vector =
     if ((x$1$1 instanceof $c_Lapps_app142_ButtonView$Clickable)) {
       var x$1$2 = $as_Lapps_app142_ButtonView$Clickable(x$1$1);
       var this$3 = $n(x$1$2);
-      var x90 = this$3.Lapps_app142_ButtonView$Clickable__f_button;
-      var text$6 = (("[" + x90) + "] ");
+      var x93 = this$3.Lapps_app142_ButtonView$Clickable__f_button;
+      var text$6 = (("[" + x93) + "] ");
       var value = new $c_sjsr_AnonFunction1(((x$1$2$1) => {
         var x$1$3 = $as_Lcs214_webapp_client_graphics_MouseEvent(x$1$2$1);
         if ((x$1$3 instanceof $c_Lcs214_webapp_client_graphics_MouseEvent$Click)) {
           var x$1$4 = $as_Lcs214_webapp_client_graphics_MouseEvent$Click(x$1$3);
           var this$5 = $n(x$1$4);
-          if ((x90 === "Roll the dice")) {
+          if ((x93 === "Roll the dice")) {
             var buttonId = $s_Lapps_app142_ButtonType$__Roll__Lapps_app142_ButtonType();
             var $x_1 = new $c_Lapps_app142_Event$ButtonClicked(buttonId);
           } else {
@@ -21061,44 +21065,44 @@ $c_Lapps_app142_TextUIInstance.prototype.renderButtons__sci_Vector__sci_Vector =
           this.sendEvent__O__V($x_1);
         }
       }));
-      var onMouseEvent$16 = new $c_s_Some(value);
-      var modifiers$16 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-      var cssProperties$16 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-      var htmlAttributes$16 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$6, onMouseEvent$16, cssProperties$16, htmlAttributes$16, modifiers$16);
+      var onMouseEvent$17 = new $c_s_Some(value);
+      var modifiers$17 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+      var cssProperties$17 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+      var htmlAttributes$17 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$6, onMouseEvent$17, cssProperties$17, htmlAttributes$17, modifiers$17);
     }
     if ((x$1$1 instanceof $c_Lapps_app142_ButtonView$NonClickable)) {
       var x$1$5 = $as_Lapps_app142_ButtonView$NonClickable(x$1$1);
       var this$11 = $n(x$1$5);
-      var x87 = this$11.Lapps_app142_ButtonView$NonClickable__f_button;
-      var text$7 = (("[" + x87) + "] ");
-      var modifiers$17 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("non-clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-      var onMouseEvent$17 = $m_s_None$();
-      var cssProperties$17 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-      var htmlAttributes$17 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$7, onMouseEvent$17, cssProperties$17, htmlAttributes$17, modifiers$17);
+      var x90 = this$11.Lapps_app142_ButtonView$NonClickable__f_button;
+      var text$7 = (("[" + x90) + "] ");
+      var modifiers$18 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("non-clickable", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+      var onMouseEvent$18 = $m_s_None$();
+      var cssProperties$18 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+      var htmlAttributes$18 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$7, onMouseEvent$18, cssProperties$18, htmlAttributes$18, modifiers$18);
     }
     throw new $c_s_MatchError(x$1$1);
   }))));
   var this$17 = $n(buttonRow);
   var this$16 = $m_sci_Vector$();
   var $x_2 = $m_sr_ScalaRunTime$();
-  var modifiers$18 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-  var onMouseEvent$18 = $m_s_None$();
-  var cssProperties$18 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-  var htmlAttributes$18 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-  var elems = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$18, cssProperties$18, htmlAttributes$18, modifiers$18)]));
+  var modifiers$19 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+  var onMouseEvent$19 = $m_s_None$();
+  var cssProperties$19 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+  var htmlAttributes$19 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+  var elems = $n($x_2).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$19, cssProperties$19, htmlAttributes$19, modifiers$19)]));
   var suffix = this$16.from__sc_IterableOnce__sci_Vector(elems);
   return this$17.appendedAll__sc_IterableOnce__sci_Vector(suffix);
 });
 $c_Lapps_app142_TextUIInstance.prototype.renderScores__sci_Map__sci_Vector = (function(scoresView) {
   var this$3 = $m_sci_Vector$();
   var $x_1 = $m_sr_ScalaRunTime$();
-  var modifiers$19 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("bold", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-  var onMouseEvent$19 = $m_s_None$();
-  var cssProperties$19 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-  var htmlAttributes$19 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-  var elems = $n($x_1).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Scores:\n", onMouseEvent$19, cssProperties$19, htmlAttributes$19, modifiers$19)]));
+  var modifiers$20 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("bold", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+  var onMouseEvent$20 = $m_s_None$();
+  var cssProperties$20 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+  var htmlAttributes$20 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+  var elems = $n($x_1).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([new $c_Lcs214_webapp_client_graphics_TextSegment("Scores:\n", onMouseEvent$20, cssProperties$20, htmlAttributes$20, modifiers$20)]));
   var this$6 = $n(this$3.from__sc_IterableOnce__sci_Vector(elems));
   var suffix = $as_sc_IterableOnce($n(scoresView).map__F1__O(new $c_sjsr_AnonFunction1(((x$1) => {
     var x$1$1 = $as_T2(x$1);
@@ -21106,11 +21110,11 @@ $c_Lapps_app142_TextUIInstance.prototype.renderScores__sci_Map__sci_Vector = (fu
       var userId = $as_T($n(x$1$1)._1__O());
       var score = $uI($n(x$1$1)._2__O());
       var text$8 = (((userId + ": ") + score) + "\n");
-      var modifiers$20 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("score", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-      var onMouseEvent$20 = $m_s_None$();
-      var cssProperties$20 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-      var htmlAttributes$20 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$8, onMouseEvent$20, cssProperties$20, htmlAttributes$20, modifiers$20);
+      var modifiers$21 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("score", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+      var onMouseEvent$21 = $m_s_None$();
+      var cssProperties$21 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+      var htmlAttributes$21 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+      return new $c_Lcs214_webapp_client_graphics_TextSegment(text$8, onMouseEvent$21, cssProperties$21, htmlAttributes$21, modifiers$21);
     }
     throw new $c_s_MatchError(x$1$1);
   }))));
@@ -21119,16 +21123,16 @@ $c_Lapps_app142_TextUIInstance.prototype.renderScores__sci_Map__sci_Vector = (fu
 $c_Lapps_app142_TextUIInstance.prototype.renderFooter__sci_Vector = (function() {
   var this$25 = $m_sci_Vector$();
   var $x_12 = $m_sr_ScalaRunTime$();
-  var modifiers$21 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-  var onMouseEvent$21 = $m_s_None$();
-  var cssProperties$21 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-  var htmlAttributes$21 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-  var $x_11 = new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$21, cssProperties$21, htmlAttributes$21, modifiers$21);
-  var modifiers$22 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("bold underline", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+  var modifiers$22 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
   var onMouseEvent$22 = $m_s_None$();
   var cssProperties$22 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
   var htmlAttributes$22 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-  var $x_10 = new $c_Lcs214_webapp_client_graphics_TextSegment("Score sheet:\n", onMouseEvent$22, cssProperties$22, htmlAttributes$22, modifiers$22);
+  var $x_11 = new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$22, cssProperties$22, htmlAttributes$22, modifiers$22);
+  var modifiers$23 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("bold underline", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+  var onMouseEvent$23 = $m_s_None$();
+  var cssProperties$23 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+  var htmlAttributes$23 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+  var $x_10 = new $c_Lcs214_webapp_client_graphics_TextSegment("Score sheet:\n", onMouseEvent$23, cssProperties$23, htmlAttributes$23, modifiers$23);
   var onMouseEvent = $m_s_None$();
   var cssProperties = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
   var htmlAttributes = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
@@ -21174,15 +21178,15 @@ $c_Lapps_app142_TextUIInstance.prototype.renderFooter__sci_Vector = (function() 
   var htmlAttributes$8 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
   var modifiers$8 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([]));
   var $x_1 = new $c_Lcs214_webapp_client_graphics_TextSegment("8 x \ud83d\udd32 ......   4000\n", onMouseEvent$8, cssProperties$8, htmlAttributes$8, modifiers$8);
-  var modifiers$23 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
-  var onMouseEvent$23 = $m_s_None$();
-  var cssProperties$23 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
-  var htmlAttributes$23 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
-  var elems = $n($x_12).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([$x_11, $x_10, $x_9, $x_8, $x_7, $x_6, $x_5, $x_4, $x_3, $x_2, $x_1, new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$23, cssProperties$23, htmlAttributes$23, modifiers$23)]));
+  var modifiers$24 = $m_sr_ScalaRunTime$().wrapRefArray__AO__sci_ArraySeq(new ($d_Lscalatags_generic_Modifier.getArrayOf().constr)([$n($m_Lscalatags_JsDom$all$().cls__Lscalatags_generic_Attr()).$colon$eq__O__Lscalatags_generic_AttrValue__Lscalatags_generic_AttrPair("gap", $m_Lscalatags_JsDom$all$().Lscalatags_JsDom$all$__f_stringAttr)]));
+  var onMouseEvent$24 = $m_s_None$();
+  var cssProperties$24 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$3__sci_Map();
+  var htmlAttributes$24 = $m_Lcs214_webapp_client_graphics_TextSegment$().$lessinit$greater$default$4__sci_Map();
+  var elems = $n($x_12).wrapRefArray__AO__sci_ArraySeq(new ($d_Lcs214_webapp_client_graphics_TextSegment.getArrayOf().constr)([$x_11, $x_10, $x_9, $x_8, $x_7, $x_6, $x_5, $x_4, $x_3, $x_2, $x_1, new $c_Lcs214_webapp_client_graphics_TextSegment("\n", onMouseEvent$24, cssProperties$24, htmlAttributes$24, modifiers$24)]));
   return this$25.from__sc_IterableOnce__sci_Vector(elems);
 });
 $c_Lapps_app142_TextUIInstance.prototype.css__T = (function() {
-  return (("" + $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.css__T.call(this)) + $m_sc_StringOps$().stripMargin$extension__T__C__T("\r\n      | .title {\r\n      |   font-size: 120%;\r\n      |   font-weight: bold;\r\n      | }\r\n      | .bold {\r\n      |   font-weight: bold;\r\n      | }\r\n      | .clickable {\r\n      |   cursor: pointer;\r\n      |   color: green;\r\n      | }\r\n      | .non-clickable {\r\n      |   color: gray;\r\n      | }\r\n      | .skull {\r\n      |   color: red;\r\n      | }\r\n      | .gap {\r\n      |   margin-top: 10px 0;  /* Vertical spacing */\r\n      | }\r\n      | .score {\r\n      |   margin-bottom: 0.5em; /* Vertical spacing for scores */\r\n      | }\r\n      | .win-header {\r\n      |   color: green;\r\n      |   font-size: 150%;\r\n      |   font-weight: bold;\r\n      | }\r\n      |\r\n      | .lose-header {\r\n      |   color: red;\r\n      |   font-size: 150%;\r\n      |   font-weight: bold;\r\n      | }\r\n      |\r\n      | .italic {\r\n      |   font-style: italic;\r\n      | }\r\n    ", 124));
+  return (("" + $c_Lcs214_webapp_client_graphics_TextClientAppInstance.prototype.css__T.call(this)) + $m_sc_StringOps$().stripMargin$extension__T__C__T("\r\n      | .title {\r\n      |   font-size: 120%;\r\n      |   font-weight: bold;\r\n      | }\r\n      | .bold {\r\n      |   font-weight: bold;\r\n      | }\r\n      | .clickable {\r\n      |   cursor: pointer;\r\n      |   color: green;\r\n      | }\r\n      | .non-clickable {\r\n      |   color: gray;\r\n      | }\r\n      | .skull {\r\n      |   color: red;\r\n      | }\r\n      | .gap {\r\n      |   margin-top: 10px 0;  /* Vertical spacing */\r\n      | }\r\n      | .score {\r\n      |   margin-bottom: 0.5em; /* Vertical spacing for scores */\r\n      | }\r\n      | .win-header {\r\n      |   color: green;\r\n      |   font-size: 150%;\r\n      |   font-weight: bold;\r\n      | }\r\n      |\r\n      | .lose-header {\r\n      |   color: red;\r\n      |   font-size: 150%;\r\n      |   font-weight: bold;\r\n      | }\r\n      |\r\n      | .italic {\r\n      |   font-style: italic;\r\n      | }\r\n      | .small {\r\n      |   font-size: 0.7em; \r\n      | }\r\n    ", 124));
 });
 var $d_Lapps_app142_TextUIInstance = new $TypeData().initClass($c_Lapps_app142_TextUIInstance, "apps.app142.TextUIInstance", ({
   Lapps_app142_TextUIInstance: 1,
@@ -26913,9 +26917,9 @@ function $asArrayOf_Lapps_app142_StateView(obj, depth) {
   return (($isArrayOf_Lapps_app142_StateView(obj, depth) || (obj === null)) ? obj : $throwArrayCastException(obj, "Lapps.app142.StateView;", depth));
 }
 /** @constructor */
-function $c_Lapps_app142_TextUIInstance$$anon$1(dice$2) {
+function $c_Lapps_app142_TextUIInstance$$anon$1(dice$3) {
   this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 = null;
-  this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 = dice$2;
+  this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 = dice$3;
 }
 $c_Lapps_app142_TextUIInstance$$anon$1.prototype = new $h_sr_AbstractPartialFunction();
 $c_Lapps_app142_TextUIInstance$$anon$1.prototype.constructor = $c_Lapps_app142_TextUIInstance$$anon$1;
@@ -26925,21 +26929,13 @@ function $h_Lapps_app142_TextUIInstance$$anon$1() {
 $h_Lapps_app142_TextUIInstance$$anon$1.prototype = $c_Lapps_app142_TextUIInstance$$anon$1.prototype;
 $c_Lapps_app142_TextUIInstance$$anon$1.prototype.isDefinedAt__T2__Z = (function(x) {
   if ((x !== null)) {
-    var x7 = $as_Lapps_app142_DiceView($n(x)._1__O());
-    $uI($n(x)._2__O());
-    if ((x7 instanceof $c_Lapps_app142_DiceView$Unselected)) {
-      var x$1 = $as_Lapps_app142_DiceView$Unselected(x7);
+    var x2 = $as_Lapps_app142_DiceView($n(x)._1__O());
+    if ((x2 instanceof $c_Lapps_app142_DiceView$Unselected)) {
+      var x$1 = $as_Lapps_app142_DiceView$Unselected(x2);
       var this$2 = $n(x$1);
-      var x11 = this$2.Lapps_app142_DiceView$Unselected__f_dice;
-      if ((this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 === x11)) {
-        return true;
-      }
-    }
-    if ((x7 instanceof $c_Lapps_app142_DiceView$Selected)) {
-      var x$1$1 = $as_Lapps_app142_DiceView$Selected(x7);
-      var this$4 = $n(x$1$1);
-      var x6 = this$4.Lapps_app142_DiceView$Selected__f_dice;
+      var x6 = this$2.Lapps_app142_DiceView$Unselected__f_dice;
       if ((this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 === x6)) {
+        $uI($n(x)._2__O());
         return true;
       }
     }
@@ -26948,22 +26944,14 @@ $c_Lapps_app142_TextUIInstance$$anon$1.prototype.isDefinedAt__T2__Z = (function(
 });
 $c_Lapps_app142_TextUIInstance$$anon$1.prototype.applyOrElse__T2__F1__O = (function(x, default$1) {
   if ((x !== null)) {
-    var x18 = $as_Lapps_app142_DiceView($n(x)._1__O());
-    var x19 = $uI($n(x)._2__O());
-    if ((x18 instanceof $c_Lapps_app142_DiceView$Unselected)) {
-      var x$1 = $as_Lapps_app142_DiceView$Unselected(x18);
+    var x8 = $as_Lapps_app142_DiceView($n(x)._1__O());
+    if ((x8 instanceof $c_Lapps_app142_DiceView$Unselected)) {
+      var x$1 = $as_Lapps_app142_DiceView$Unselected(x8);
       var this$2 = $n(x$1);
-      var x22 = this$2.Lapps_app142_DiceView$Unselected__f_dice;
-      if ((this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 === x22)) {
-        return new $c_Lapps_app142_Event$DiceClicked(x19);
-      }
-    }
-    if ((x18 instanceof $c_Lapps_app142_DiceView$Selected)) {
-      var x$1$1 = $as_Lapps_app142_DiceView$Selected(x18);
-      var this$5 = $n(x$1$1);
-      var x17 = this$5.Lapps_app142_DiceView$Selected__f_dice;
-      if ((this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 === x17)) {
-        return new $c_Lapps_app142_Event$DiceClicked(x19);
+      var x12 = this$2.Lapps_app142_DiceView$Unselected__f_dice;
+      if ((this.Lapps_app142_TextUIInstance$$anon$1__f_dice$1 === x12)) {
+        var diceID = $uI($n(x)._2__O());
+        return new $c_Lapps_app142_Event$DiceClicked(diceID);
       }
     }
   }
@@ -26977,6 +26965,60 @@ $c_Lapps_app142_TextUIInstance$$anon$1.prototype.applyOrElse__O__F1__O = (functi
 });
 var $d_Lapps_app142_TextUIInstance$$anon$1 = new $TypeData().initClass($c_Lapps_app142_TextUIInstance$$anon$1, "apps.app142.TextUIInstance$$anon$1", ({
   Lapps_app142_TextUIInstance$$anon$1: 1,
+  sr_AbstractPartialFunction: 1,
+  F1: 1,
+  s_PartialFunction: 1,
+  Ljava_io_Serializable: 1
+}));
+/** @constructor */
+function $c_Lapps_app142_TextUIInstance$$anon$2(dice$4) {
+  this.Lapps_app142_TextUIInstance$$anon$2__f_dice$2 = null;
+  this.Lapps_app142_TextUIInstance$$anon$2__f_dice$2 = dice$4;
+}
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype = new $h_sr_AbstractPartialFunction();
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype.constructor = $c_Lapps_app142_TextUIInstance$$anon$2;
+/** @constructor */
+function $h_Lapps_app142_TextUIInstance$$anon$2() {
+}
+$h_Lapps_app142_TextUIInstance$$anon$2.prototype = $c_Lapps_app142_TextUIInstance$$anon$2.prototype;
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype.isDefinedAt__T2__Z = (function(x) {
+  if ((x !== null)) {
+    var x14 = $as_Lapps_app142_DiceView($n(x)._1__O());
+    if ((x14 instanceof $c_Lapps_app142_DiceView$Selected)) {
+      var x$1 = $as_Lapps_app142_DiceView$Selected(x14);
+      var this$2 = $n(x$1);
+      var x18 = this$2.Lapps_app142_DiceView$Selected__f_dice;
+      if ((this.Lapps_app142_TextUIInstance$$anon$2__f_dice$2 === x18)) {
+        $uI($n(x)._2__O());
+        return true;
+      }
+    }
+  }
+  return false;
+});
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype.applyOrElse__T2__F1__O = (function(x, default$1) {
+  if ((x !== null)) {
+    var x20 = $as_Lapps_app142_DiceView($n(x)._1__O());
+    if ((x20 instanceof $c_Lapps_app142_DiceView$Selected)) {
+      var x$1 = $as_Lapps_app142_DiceView$Selected(x20);
+      var this$2 = $n(x$1);
+      var x24 = this$2.Lapps_app142_DiceView$Selected__f_dice;
+      if ((this.Lapps_app142_TextUIInstance$$anon$2__f_dice$2 === x24)) {
+        var diceID = $uI($n(x)._2__O());
+        return new $c_Lapps_app142_Event$DiceClicked(diceID);
+      }
+    }
+  }
+  return $n(default$1).apply__O__O(x);
+});
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype.isDefinedAt__O__Z = (function(x) {
+  return this.isDefinedAt__T2__Z($as_T2(x));
+});
+$c_Lapps_app142_TextUIInstance$$anon$2.prototype.applyOrElse__O__F1__O = (function(x, default$1) {
+  return this.applyOrElse__T2__F1__O($as_T2(x), default$1);
+});
+var $d_Lapps_app142_TextUIInstance$$anon$2 = new $TypeData().initClass($c_Lapps_app142_TextUIInstance$$anon$2, "apps.app142.TextUIInstance$$anon$2", ({
+  Lapps_app142_TextUIInstance$$anon$2: 1,
   sr_AbstractPartialFunction: 1,
   F1: 1,
   s_PartialFunction: 1,

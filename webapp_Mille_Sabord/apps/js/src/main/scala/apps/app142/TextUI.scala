@@ -23,19 +23,12 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   val diceNames = Map(
     "skull" -> Dice.Skull,
-    "💀" -> Dice.Skull,
     "diamond" -> Dice.Diamond,
-    "💎" -> Dice.Diamond,
     "coin" -> Dice.Coin,
-    "📀" -> Dice.Coin,
     "sword" -> Dice.Sword,
-    "🔪" -> Dice.Sword,
     "monkey" -> Dice.Monkey,
-    "🐵" -> Dice.Monkey,
     "parrot" -> Dice.Parrot,
-    "🐦" -> Dice.Parrot,
     "empty" -> Dice.Empty,
-    "❓" -> Dice.Empty
   )
 
   val buttonNames = Map(
@@ -45,26 +38,35 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     "end my turn" -> ButtonType.End
   )
 
-  override def handleTextInput(view: View, text: String): Option[Event] = 
+  override def handleTextInput(view: View, text: String): Option[Event] =
     diceNames.get(text.toLowerCase()) match {
-      case Some(dice) => view.stateView match {
-        case StateView.Playing(_, _, diceView, _) =>
-          diceView.zipWithIndex.collectFirst {
-            case (DiceView.Unselected(`dice`), diceID) =>
-              Event.DiceClicked(diceID)
-            case (DiceView.Selected(`dice`), diceID) =>
-              Event.DiceClicked(diceID)
-          }
-        case _ => None
-      }
-      case None => 
-        buttonNames.get(text.toLowerCase()) match {
-          case Some(buttonId) => 
-            Some(Event.ButtonClicked(buttonId))
-          case None => 
-            None
+      case Some(dice) =>
+        // Check if text casing implies select or deselect
+        val action = if (text == text.toLowerCase()) "deselect" else "select"
+        view.stateView match {
+          case StateView.Playing(_, _, diceView, _) =>
+            action match {
+              case "select" =>
+                diceView.zipWithIndex.collectFirst {
+                  case (DiceView.Unselected(`dice`), diceID) =>
+                    Event.DiceClicked(diceID) // Select the first unselected dice
+                }
+              case "deselect" =>
+                diceView.zipWithIndex.collectFirst {
+                  case (DiceView.Selected(`dice`), diceID) =>
+                    Event.DiceClicked(diceID) // Deselect the first selected dice
+                }
+            }
+          case _ => None
         }
-    }
+
+    case None =>
+      buttonNames.get(text.toLowerCase()) match {
+        case Some(buttonId) => Some(Event.ButtonClicked(buttonId))
+        case None => None
+      }
+  }
+
 
 
   override def renderView(userId: UserId, view: View): Vector[TextSegment] =
@@ -130,11 +132,12 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     case PhaseView.Starting =>
       Vector(TextSegment("Start your turn and roll the dice!\n"))
     case PhaseView.SelectingDice =>
-      Vector(TextSegment("Select the dice you want to rethrow or end your turn:\n"))
+      Vector(TextSegment("Select the dice you want to rethrow or end your turn:\n"),
+      TextSegment("(SELECT/deselect skull:💀, diamond:💎, coin:🪙, sword:🔪, monkey:🐵, parrot:🐦)\n", modifiers = cls := "small"))
     case PhaseView.ViewingDice =>
-      Vector(TextSegment("Here's what you got! How many points do you think you have?\n"))
+      Vector(TextSegment("Drumroll please... 🥁\n"))
     case PhaseView.SkullEnd =>
-      Vector(TextSegment("Shoot! You got 3 skulls. Game over :(\n"))
+      Vector(TextSegment("Shoot! You have at least 3 skulls. You lose this round :(\n"))
     case PhaseView.SavingEnd =>
       Vector(TextSegment("Here's your score for this turn!\n"))
     case PhaseView.Waiting =>
@@ -266,5 +269,8 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       |
       | .italic {
       |   font-style: italic;
+      | }
+      | .small {
+      |   font-size: 0.7em; 
       | }
     """.stripMargin
