@@ -22,21 +22,49 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
   override val wire = app142.Wire
 
   val diceNames = Map(
-    "skull" -> Dice.Skull,
-    "💀" -> Dice.Skull,
-    "diamond" -> Dice.Diamond,
-    "💎" -> Dice.Diamond,
-    "coin" -> Dice.Coin,
-    "🪙" -> Dice.Coin,
-    "sword" -> Dice.Sword,
-    "🔪" -> Dice.Sword,
-    "monkey" -> Dice.Monkey,
-    "🐵" -> Dice.Monkey,
-    "parrot" -> Dice.Parrot,
-    "🐦" -> Dice.Parrot,
-    "empty" -> Dice.Empty,
-    "❓" -> Dice.Empty
+    // Skull
+    "select skull" -> ("select", Dice.Skull),
+    "deselect skull" -> ("deselect", Dice.Skull),
+    "select 💀" -> ("select", Dice.Skull),
+    "deselect 💀" -> ("deselect", Dice.Skull),
+    
+    // Diamond
+    "select diamond" -> ("select", Dice.Diamond),
+    "deselect diamond" -> ("deselect", Dice.Diamond),
+    "select 💎" -> ("select", Dice.Diamond),
+    "deselect 💎" -> ("deselect", Dice.Diamond),
+    
+    // Coin
+    "select coin" -> ("select", Dice.Coin),
+    "deselect coin" -> ("deselect", Dice.Coin),
+    "select 🪙" -> ("select", Dice.Coin),
+    "deselect 🪙" -> ("deselect", Dice.Coin),
+    
+    // Sword
+    "select sword" -> ("select", Dice.Sword),
+    "deselect sword" -> ("deselect", Dice.Sword),
+    "select 🔪" -> ("select", Dice.Sword),
+    "deselect 🔪" -> ("deselect", Dice.Sword),
+    
+    // Monkey
+    "select monkey" -> ("select", Dice.Monkey),
+    "deselect monkey" -> ("deselect", Dice.Monkey),
+    "select 🐵" -> ("select", Dice.Monkey),
+    "deselect 🐵" -> ("deselect", Dice.Monkey),
+    
+    // Parrot
+    "select parrot" -> ("select", Dice.Parrot),
+    "deselect parrot" -> ("deselect", Dice.Parrot),
+    "select 🐦" -> ("select", Dice.Parrot),
+    "deselect 🐦" -> ("deselect", Dice.Parrot),
+    
+    // Empty
+    "select empty" -> ("select", Dice.Empty),
+    "deselect empty" -> ("deselect", Dice.Empty),
+    "select ❓" -> ("select", Dice.Empty),
+    "deselect ❓" -> ("deselect", Dice.Empty)
   )
+
 
   val buttonNames = Map(
     "roll" -> ButtonType.Roll,
@@ -47,24 +75,31 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
 
   override def handleTextInput(view: View, text: String): Option[Event] = 
     diceNames.get(text.toLowerCase()) match {
-      case Some(dice) => view.stateView match {
+      case Some(("select", dice)) => view.stateView match {
         case StateView.Playing(_, _, diceView, _) =>
           diceView.zipWithIndex.collectFirst {
             case (DiceView.Unselected(`dice`), diceID) =>
-              Event.DiceClicked(diceID)
-            case (DiceView.Selected(`dice`), diceID) =>
-              Event.DiceClicked(diceID)
+              Event.DiceClicked(diceID) // Select the first unselected dice
           }
         case _ => None
       }
+
+      case Some(("deselect", dice)) => view.stateView match {
+        case StateView.Playing(_, _, diceView, _) =>
+          diceView.zipWithIndex.collectFirst {
+            case (DiceView.Selected(`dice`), diceID) =>
+              Event.DiceClicked(diceID) // Deselect the first selected dice
+          }
+        case _ => None
+      }
+      case Some(_,_) => None
       case None => 
         buttonNames.get(text.toLowerCase()) match {
-          case Some(buttonId) => 
-            Some(Event.ButtonClicked(buttonId))
-          case None => 
-            None
+          case Some(buttonId) => Some(Event.ButtonClicked(buttonId))
+          case None => None
         }
     }
+
 
 
   override def renderView(userId: UserId, view: View): Vector[TextSegment] =
@@ -130,7 +165,8 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
     case PhaseView.Starting =>
       Vector(TextSegment("Start your turn and roll the dice!\n"))
     case PhaseView.SelectingDice =>
-      Vector(TextSegment("Tadaa!! Select the dice you want to rethrow or end your turn:\n"))
+      Vector(TextSegment("Select the dice you want to rethrow or end your turn:\n"),
+      TextSegment("(Select/deselect skull/💀, diamond/💎, coin/🪙, sword/🔪, monkey/🐵, parrot/🐦)\n", modifiers = cls := "small"))
     case PhaseView.ViewingDice =>
       Vector(TextSegment("Drumroll please... 🥁\n"))
     case PhaseView.SkullEnd =>
@@ -223,7 +259,7 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       TextSegment("6 x 🔲 ......   1000\n"),
       TextSegment("7 x 🔲 ......   2000\n"),
       TextSegment("8 x 🔲 ......   4000\n"),
-      TextSegment("\n", modifiers = cls := "gap")
+      TextSegment("\n", modifiers = cls := "gap"),
     )
 
 
@@ -266,5 +302,8 @@ class TextUIInstance(userId: UserId, sendMessage: ujson.Value => Unit, target: T
       |
       | .italic {
       |   font-style: italic;
+      | }
+      | .small {
+      |   font-size: 0.7em; 
       | }
     """.stripMargin
