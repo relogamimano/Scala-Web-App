@@ -47,7 +47,7 @@ class Tests extends WebappSuite[Event, State, View]:
       sm.transition(state)(state.players.head, Event.ButtonClicked(ButtonType.Roll))
     val newState = result.last.asInstanceOf[Action.Render[State]].st
     if newState.phase == Phase.SelectingDice then
-      assert(result.length >= 28)
+      assert(result.length == 30)
     //* Skull end */
     else 
       assert(result.length == 32)
