@@ -9,9 +9,13 @@ Mille Sabords is a multiplayer web game application written in Scala. The rules 
 
 ### Launching
 - Open your terminal and enter
+```
     sbt --client
+```
   If nothing appears when you type commands into SBT, try
-      sbt -Djline.terminal=none --client
+```
+sbt -Djline.terminal=none --client
+```
   instead.
 
 
