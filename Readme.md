@@ -1,7 +1,8 @@
 # Mille Sabords !
 Mille Sabords is a multiplayer web game application written in Scala. The rules and the operation of the game are explained below.
+---
 ![Screencastfrom2024-12-1815-29-44-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/2a5a7fc4-3661-4fed-bdf4-d93d8b001bef)
-
+---
 ## Installation
 
 ### Requirements 
@@ -18,9 +19,9 @@ sbt -Djline.terminal=none --client
 ```
 
 
-
+---
 ![Mille Sabords!](Project_proposal_figures/Mille_sabords_cover.jpeg)
-
+---
 ### Rules of the game 
 The game is highly inspired by the pirate theme dice game “Mille Sabord” (in french) or “1000 Bomben and Grenade” (in english). We will explain below the rules of our simplified version of the game.
 The game contains 8 6-face-dice with different symbols on each of their faces (so 6 different symbols). The symbols are coins, diamonds, swords, parrots, monkeys and skulls. The players must play one after the other, until one of them reaches a total cumulative score of 3000 points. Scores can be obtained during each player round by maximizing the number of similar symbols while avoiding skulls.
@@ -34,13 +35,13 @@ Other additional rules are also available and could possibly be implemented if w
 
 ![Dice in Mille Sabords!](Project_proposal_figures/Mille_sabords_score_sheet.jpg)
 
-
+---
 ### User stories
 - As a player, I want to enter my name and friend’s name, so that I can play with them online to Mille Sabords.
 - As a user I want to be able to rethrow each dice that aren’t skulls by clicking on them, so that I can try to score more points.
 - As a player on a multiplayer game, I want to see the actions of the active player when it’s not my turn, so that I know how are playing my opponents.
 - As a player ending my turn, I want to see my score being updated depending on the points I score (if any) during my turn, so that I can keep track of my score.
-
+---
 ### Game Requirements
 
 - The dice must be initially displayed as a row of empty squares
@@ -58,19 +59,19 @@ Other additional rules are also available and could possibly be implemented if w
 - The displayed dice will be the dice of the current player’s turn, allowing both players to follow the game even if it isn’t their turn
 - If a player reaches a score of 3000, the game ends for both players, and their scores are displayed.
 
-
+---
 ### Roles
 
 Selma will work on the user interface and adapt the lab Rock-Paper-Scissors to our game.
 Flavia will work on the logic of the game and state machine implementation (Logic.scala file).
 Océane will work on the types of the game (Types.scala file) and the tests. She will also help with the logic of the game.
 Roméo will work on the serialization and deserialization process (Wire.scala).
-
+---
 ### Mock-ups
 
 ![Mockup](Project_proposal_figures/Mockups.png)
 
-
+---
 ## Team members
 
 ```
