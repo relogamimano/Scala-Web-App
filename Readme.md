@@ -1,6 +1,4 @@
-# Team 142
-
-## Mille Sabords !
+# Mille Sabords !
 
 ![Mille Sabords!](Project_proposal_figures/Mille_sabords_cover.jpeg)
 
