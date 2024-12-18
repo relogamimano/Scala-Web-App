@@ -8,15 +8,15 @@ Mille Sabords is a multiplayer web game application written in Scala. The rules 
 - Scala 3 : Follow the “Install Scala on your computer” section of the instructions on the Scala website (https://docs.scala-lang.org/getting-started/index.html) At some point, the Coursier setup program will ask: “No JVM found, should we try to install one? [Y/n]”. Respond “y” (for “yes”) and press Enter / ⏎. Similarly, when it asks about updating the PATH environment variable, respond “y”.
 
 ### Launching
-- Open your terminal and enter
+Open your terminal and enter
 ```
-    sbt --client
+sbt --client
 ```
-  If nothing appears when you type commands into SBT, try
+If nothing appears when you type commands into SBT, try
 ```
 sbt -Djline.terminal=none --client
 ```
-  instead.
+
 
 
 ![Mille Sabords!](Project_proposal_figures/Mille_sabords_cover.jpeg)
