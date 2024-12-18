@@ -1,5 +1,19 @@
 # Mille Sabords !
 ![Screencastfrom2024-12-1815-29-44-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/2a5a7fc4-3661-4fed-bdf4-d93d8b001bef)
+Mille Sabords is a multiplayer web game application written in Scala. The rules and the operation of the game are explained below.
+
+## Installation
+
+### Requirements 
+- Scala 3 : Follow the “Install Scala on your computer” section of the instructions on the Scala website (https://docs.scala-lang.org/getting-started/index.html) At some point, the Coursier setup program will ask: “No JVM found, should we try to install one? [Y/n]”. Respond “y” (for “yes”) and press Enter / ⏎. Similarly, when it asks about updating the PATH environment variable, respond “y”.
+
+### Launching
+- Open your terminal and enter
+    sbt --client
+  If nothing appears when you type commands into SBT, try
+      sbt -Djline.terminal=none --client
+  instead.
+
 
 ![Mille Sabords!](Project_proposal_figures/Mille_sabords_cover.jpeg)
 
@@ -23,7 +37,7 @@ Other additional rules are also available and could possibly be implemented if w
 - As a player on a multiplayer game, I want to see the actions of the active player when it’s not my turn, so that I know how are playing my opponents.
 - As a player ending my turn, I want to see my score being updated depending on the points I score (if any) during my turn, so that I can keep track of my score.
 
-### Requirements
+### Game Requirements
 
 - The dice must be initially displayed as a row of empty squares
 - The dice after being thrown should be displayed as an array of 8 squares with randomly chosen symbols.
