@@ -1,6 +1,6 @@
 # Mille Sabords !
-![Screencastfrom2024-12-1815-29-44-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/2a5a7fc4-3661-4fed-bdf4-d93d8b001bef)
 Mille Sabords is a multiplayer web game application written in Scala. The rules and the operation of the game are explained below.
+![Screencastfrom2024-12-1815-29-44-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/2a5a7fc4-3661-4fed-bdf4-d93d8b001bef)
 
 ## Installation
 
