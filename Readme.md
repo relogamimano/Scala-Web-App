@@ -12,7 +12,7 @@ You can give it a try by following this link : https://cs214-apps.epfl.ch/app/ap
 ### Requirements 
 - Scala 3 : Follow the “Install Scala on your computer” section of the instructions on the Scala website (https://docs.scala-lang.org/getting-started/index.html) At some point, the Coursier setup program will ask: “No JVM found, should we try to install one? [Y/n]”. Respond “y” (for “yes”) and press Enter / ⏎. Similarly, when it asks about updating the PATH environment variable, respond “y”.
 
-### Launching
+## Launching
 Open your terminal and enter
 ```
 sbt --client
@@ -21,10 +21,11 @@ If nothing appears when you type commands into SBT, try
 ```
 sbt -Djline.terminal=none --client
 ```
-
-
 ---
+## Game operation
+
 ![Mille Sabords!](Project_proposal_figures/Mille_sabords_cover.jpeg)
+
 ---
 ### Rules of the game 
 The game is highly inspired by the pirate theme dice game “Mille Sabord” (in french) or “1000 Bomben and Grenade” (in english). We will explain below the rules of our simplified version of the game.
