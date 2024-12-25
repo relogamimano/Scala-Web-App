@@ -6,9 +6,10 @@ Mille Sabords is a multiplayer web game application written in Scala. The rules 
 ---
 ## Online demo
 You can give it a try by following this link : https://cs214-apps.epfl.ch/app/app142 .
----
-## Installation
 
+---
+
+## Installation
 ### Requirements 
 - Scala 3 : Follow the “Install Scala on your computer” section of the instructions on the Scala website (https://docs.scala-lang.org/getting-started/index.html) At some point, the Coursier setup program will ask: “No JVM found, should we try to install one? [Y/n]”. Respond “y” (for “yes”) and press Enter / ⏎. Similarly, when it asks about updating the PATH environment variable, respond “y”.
 
